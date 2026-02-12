@@ -81,12 +81,36 @@ export const Skills: React.FC = () => {
                             </motion.div>
                         ))}
 
-                        {/* Technical Skills Cloud (Styled) */}
+                        {/* Technical Ecosystem */}
                         <div className="mt-12 pt-12 border-t border-white/10">
-                            <h4 className="text-sm font-mono text-neutral-500 uppercase tracking-widest mb-6">Capabilities</h4>
-                            <div className="flex flex-wrap gap-x-8 gap-y-4 text-2xl font-heading font-bold text-neutral-600">
-                                {skills.map(skill => (
-                                    <span key={skill} className="hover:text-white transition-colors cursor-default">{skill}</span>
+                            <h4 className="text-sm font-mono text-neutral-500 uppercase tracking-widest mb-8">Technical Ecosystem</h4>
+
+                            <div className="space-y-8">
+                                {[
+                                    { category: "Frontend", tools: ["React / Next.js", "TypeScript", "Tailwind CSS", "Framer Motion", "Three.js"], color: "bg-blue-500" },
+                                    { category: "Backend", tools: ["Node.js", "PostgreSQL", "GraphQL", "Python", "Redis"], color: "bg-purple-500" },
+                                    { category: "DevOps & Tools", tools: ["Docker", "AWS", "Git", "Sentry", "Figma"], color: "bg-orange-500" }
+                                ].map((group, idx) => (
+                                    <div key={group.category}>
+                                        <h5 className="text-white font-bold mb-4 flex items-center gap-2">
+                                            <span className={`w-1.5 h-1.5 rounded-full ${group.color}`} />
+                                            {group.category}
+                                        </h5>
+                                        <div className="flex flex-wrap gap-2">
+                                            {group.tools.map((tool, i) => (
+                                                <motion.span
+                                                    key={tool}
+                                                    initial={{ opacity: 0, scale: 0.9 }}
+                                                    whileInView={{ opacity: 1, scale: 1 }}
+                                                    transition={{ delay: (idx * 0.2) + (i * 0.05), duration: 0.4 }}
+                                                    whileHover={{ scale: 1.05, backgroundColor: "rgba(255,255,255,0.1)" }}
+                                                    className="px-3 py-1.5 bg-white/5 border border-white/10 rounded text-sm text-neutral-300 cursor-default hover:text-white transition-colors"
+                                                >
+                                                    {tool}
+                                                </motion.span>
+                                            ))}
+                                        </div>
+                                    </div>
                                 ))}
                             </div>
                         </div>
