@@ -9,6 +9,10 @@ type ModeContextType = {
         medium: number;
         fast: number;
     };
+    cursorText: string;
+    setCursorText: (text: string) => void;
+    cursorVariant: "default" | "text" | "button" | "project";
+    setCursorVariant: (variant: "default" | "text" | "button" | "project") => void;
 };
 
 const ModeContext = createContext<ModeContextType | undefined>(undefined);
@@ -31,6 +35,10 @@ export const ModeProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const toggleRecruiterMode = () => setIsRecruiterMode(prev => !prev);
     const setRecruiterMode = (value: boolean) => setIsRecruiterMode(value);
 
+    // Cursor State
+    const [cursorText, setCursorText] = useState("");
+    const [cursorVariant, setCursorVariant] = useState<"default" | "text" | "button" | "project">("default");
+
     // Animation constants based on mode
     const animationDuration = {
         slow: isRecruiterMode ? 0.3 : 0.8,
@@ -39,7 +47,16 @@ export const ModeProvider: React.FC<{ children: React.ReactNode }> = ({ children
     };
 
     return (
-        <ModeContext.Provider value={{ isRecruiterMode, toggleRecruiterMode, setRecruiterMode, animationDuration }}>
+        <ModeContext.Provider value={{
+            isRecruiterMode,
+            toggleRecruiterMode,
+            setRecruiterMode,
+            animationDuration,
+            cursorText,
+            setCursorText,
+            cursorVariant,
+            setCursorVariant
+        }}>
             {children}
         </ModeContext.Provider>
     );

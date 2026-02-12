@@ -1,39 +1,74 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform, useSpring, useVelocity, type Variants } from 'framer-motion';
 import { useMode } from '../../context/ModeContext';
 import { ArrowRight, Download, ArrowDown } from 'lucide-react';
 import { MagneticButton } from '../ui/MagneticButton';
 
+const StaggeredText = ({ children, className = "", delay = 0, skew = false }: { children: string, className?: string, delay?: number, skew?: any }) => {
+    return (
+        <motion.span
+            style={skew ? { skewX: skew } : undefined}
+            className={`inline-block overflow-hidden ${className}`}
+        >
+            <span className="sr-only">{children}</span>
+            <motion.span
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                transition={{ staggerChildren: 0.04, delayChildren: delay }}
+                className="inline-block whitespace-nowrap"
+            >
+                {children.split('').map((char, i) => (
+                    <motion.span
+                        key={i}
+                        variants={{
+                            hidden: { y: "100%" },
+                            visible: { y: 0, transition: { duration: 1, ease: [0.22, 1, 0.36, 1] } }
+                        }}
+                        className="inline-block"
+                    >
+                        {char === ' ' ? '\u00A0' : char}
+                    </motion.span>
+                ))}
+            </motion.span>
+        </motion.span>
+    );
+};
+
 export const Hero: React.FC = () => {
     const { isRecruiterMode, animationDuration } = useMode();
     const containerRef = useRef<HTMLDivElement>(null);
+    const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
     // Scroll Physics for Normal Mode
     const { scrollY } = useScroll();
     const scrollVelocity = useVelocity(scrollY);
     const smoothVelocity = useSpring(scrollVelocity, { damping: 50, stiffness: 400 });
-    const skewX = useTransform(smoothVelocity, [-1000, 1000], [-15, 15]); // Velocity skew effect
+    const skewX = useTransform(smoothVelocity, [-1000, 1000], [-15, 15]);
 
+    // Parallax & Opacity
     const y1 = useTransform(scrollY, [0, 500], [0, 200]);
     const scale = useTransform(scrollY, [0, 300], [1, 1.1]);
     const opacity = useTransform(scrollY, [0, 400], [1, 0]);
 
+    // Mouse Spotlight Effect
+    useEffect(() => {
+        const handleMouseMove = (e: MouseEvent) => {
+            setMousePosition({ x: e.clientX, y: e.clientY });
+        };
+        window.addEventListener('mousemove', handleMouseMove);
+        return () => window.removeEventListener('mousemove', handleMouseMove);
+    }, []);
+
     // Recruiter Mode Variants
     const containerVariants: Variants = {
         hidden: { opacity: 0 },
-        visible: {
-            opacity: 1,
-            transition: { staggerChildren: 0.05 }
-        }
+        visible: { opacity: 1, transition: { staggerChildren: 0.05 } }
     };
 
     const itemVariants: Variants = {
         hidden: { y: 20, opacity: 0 },
-        visible: {
-            y: 0,
-            opacity: 1,
-            transition: { duration: animationDuration.fast, ease: "easeInOut" }
-        }
+        visible: { y: 0, opacity: 1, transition: { duration: animationDuration.fast, ease: "easeInOut" } }
     };
 
     // --- RECRUITER MODE LAYOUT ---
@@ -80,33 +115,40 @@ export const Hero: React.FC = () => {
     return (
         <section ref={containerRef} className="relative min-h-screen flex flex-col justify-center overflow-hidden">
 
-            {/* Background Visuals */}
+            {/* Spotlight Background */}
+            <div
+                className="absolute inset-0 z-0 opacity-40 transition-opacity duration-500"
+                style={{
+                    background: `radial-gradient(600px circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(79, 70, 229, 0.15), transparent 40%)`
+                }}
+            />
+
+            {/* Existing Background Visuals */}
             <div className="absolute inset-0 z-0 select-none pointer-events-none">
                 <motion.div style={{ y: y1, scale, opacity }} className="absolute top-0 left-0 w-full h-full">
                     <div className="absolute top-[20%] right-[10%] w-[30vw] h-[30vw] bg-indigo-600/20 rounded-full blur-[100px]" />
                     <div className="absolute bottom-[20%] left-[10%] w-[40vw] h-[40vw] bg-blue-600/10 rounded-full blur-[120px]" />
                 </motion.div>
-                {/* Grid Texture */}
                 <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20" />
             </div>
 
             <div className="container mx-auto px-6 relative z-10 pt-32">
-                {/* Massive Typography */}
-                <div className="flex flex-col gap-0 uppercase font-heading font-bold text-[12vw] leading-[0.85] tracking-tighter text-white mix-blend-difference">
-                    <motion.div style={{ x: -50 }} initial={{ opacity: 0, y: 100 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}>
+                {/* Massive Typography with Staggered Reveal */}
+                <div className="flex flex-col gap-0 uppercase font-heading font-bold text-[12vw] leading-[0.8] tracking-tighter text-white mix-blend-difference">
+                    <StaggeredText delay={0.2} className="ml-[-1vw]">
                         Creative
-                    </motion.div>
-                    <motion.div style={{ skewX, x: 50 }} initial={{ opacity: 0, y: 100 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.1, ease: [0.16, 1, 0.3, 1] }} className="text-transparent bg-clip-text bg-gradient-to-r from-neutral-500 to-white">
+                    </StaggeredText>
+                    <StaggeredText delay={0.4} skew={skewX} className="text-transparent bg-clip-text bg-gradient-to-r from-neutral-500 to-white self-end mr-[5vw]">
                         Developer
-                    </motion.div>
+                    </StaggeredText>
                 </div>
 
                 {/* Floating Intro Card */}
                 <motion.div
                     initial={{ opacity: 0, x: -50 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.5, duration: 1 }}
-                    className="mt-12 max-w-lg"
+                    transition={{ delay: 1, duration: 1 }}
+                    className="mt-16 max-w-lg backdrop-blur-sm p-4 rounded-xl border border-white/5 bg-black/10"
                 >
                     <p className="text-xl md:text-2xl text-neutral-400 font-light leading-relaxed">
                         Crafting <span className="text-white font-medium">digital experiences</span> with specific focus on motion, interactivity, and accessibility.
@@ -131,7 +173,7 @@ export const Hero: React.FC = () => {
             <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 1, duration: 1 }}
+                transition={{ delay: 1.5, duration: 1 }}
                 className="absolute bottom-8 right-8 mix-blend-difference z-20 hidden md:block"
             >
                 <MagneticButton strength={0.2}>

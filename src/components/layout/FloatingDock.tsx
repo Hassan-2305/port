@@ -10,7 +10,7 @@ export const FloatingDock: React.FC = () => {
     if (isRecruiterMode) return null; // Hide in Recruiter Mode (use standard nav or strip)
 
     return (
-        <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 flex h-16 items-end gap-4 rounded-2xl border border-white/10 bg-neutral-900/50 backdrop-blur-xl px-4 pb-3">
+        <div className="hidden md:flex fixed bottom-8 left-1/2 -translate-x-1/2 z-50 h-16 items-end gap-4 rounded-2xl border border-white/10 bg-neutral-900/50 backdrop-blur-xl px-4 pb-3">
             <DockIcon mouseX={mouseX} icon={<Home size={20} />} label="Home" onClick={() => window.scrollTo(0, 0)} />
             <DockIcon mouseX={mouseX} icon={<User size={20} />} label="About" href="#skills" />
             <DockIcon mouseX={mouseX} icon={<Briefcase size={20} />} label="Work" href="#projects" />

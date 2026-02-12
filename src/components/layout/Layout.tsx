@@ -6,7 +6,7 @@ import { Noise } from '../effects/Noise';
 import { CustomCursor } from '../effects/CustomCursor';
 import { Preloader } from '../effects/Preloader';
 import { AnimatePresence } from 'framer-motion';
-// import { Footer } from './Footer'; // To be implemented
+import { Footer } from './Footer';
 
 import { useLenis } from '../../hooks/useLenis';
 
@@ -42,7 +42,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
             <main className="relative z-0">
                 {children}
             </main>
-            {/* <Footer /> */}
+            <Footer />
         </div>
     );
 };

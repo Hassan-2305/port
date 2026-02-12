@@ -31,7 +31,7 @@ const projects = [
 ];
 
 export const Projects: React.FC = () => {
-    const { isRecruiterMode } = useMode();
+    const { isRecruiterMode, setCursorText, setCursorVariant } = useMode();
     const targetRef = useRef<HTMLDivElement>(null);
     const { scrollYProgress } = useScroll({
         target: targetRef,
@@ -84,12 +84,24 @@ export const Projects: React.FC = () => {
 
                     {/* Project Cards */}
                     {projects.map((project) => (
-                        <div key={project.title} className="relative flex-shrink-0 w-[60vh] h-[70vh] group">
+                        <motion.div
+                            key={project.title}
+                            className="relative flex-shrink-0 w-[60vh] h-[70vh] group cursor-none"
+                            onMouseEnter={() => {
+                                setCursorText("View");
+                                setCursorVariant("project");
+                            }}
+                            onMouseLeave={() => {
+                                setCursorText("");
+                                setCursorVariant("default");
+                            }}
+                        >
                             <div className="w-full h-full overflow-hidden rounded-md grayscale group-hover:grayscale-0 transition-all duration-700 ease-[0.16,1,0.3,1] relative">
-                                <img
+                                <motion.img
                                     src={project.image}
                                     alt={project.title}
-                                    className="w-full h-full object-cover transform scale-125 group-hover:scale-100 transition-transform duration-700"
+                                    className="w-full h-full object-cover transform transition-transform duration-1000"
+                                    whileHover={{ scale: 1.1 }}
                                 />
                                 <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors" />
                             </div>
@@ -101,7 +113,7 @@ export const Projects: React.FC = () => {
                                 </div>
                                 <span className="text-6xl font-heading font-bold text-neutral-800 pointer-events-none select-none">{project.year}</span>
                             </div>
-                        </div>
+                        </motion.div>
                     ))}
                 </motion.div>
             </div>
