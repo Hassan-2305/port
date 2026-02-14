@@ -106,14 +106,14 @@ export const Experience = () => {
                     </p>
 
                     {/* Human Touch Annotation */}
-                    <div className="hidden md:block absolute top-0 right-20 pointer-events-none opacity-60">
+                    <div className="hidden md:block absolute top-0 right-20 pointer-events-none">
                         <div className="relative">
-                            <span className="absolute -top-8 -right-12 w-max text-white/60 font-handwriting text-2xl -rotate-6">
+                            <span className="absolute -top-8 -right-12 w-max text-white/90 font-handwriting text-2xl -rotate-6">
                                 The journey so far...
                             </span>
                             <svg width="100" height="50" viewBox="0 0 100 50" fill="none" xmlns="http://www.w3.org/2000/svg" className="translate-y-2">
-                                <path d="M80 10 C 60 10, 40 20, 10 40" stroke="white" strokeWidth="1.5" strokeOpacity="0.6" strokeLinecap="round" strokeDasharray="4 4" />
-                                <path d="M10 40 L 18 35 M 10 40 L 16 46" stroke="white" strokeWidth="1.5" strokeOpacity="0.6" strokeLinecap="round" />
+                                <path d="M80 10 C 60 10, 40 20, 10 40" stroke="white" strokeWidth="2" strokeLinecap="round" strokeDasharray="4 4" />
+                                <path d="M10 40 L 18 35 M 10 40 L 16 46" stroke="white" strokeWidth="2" strokeLinecap="round" />
                             </svg>
                         </div>
                     </div>

@@ -122,14 +122,14 @@ export const Contact = () => {
                     </p>
 
                     {/* Human Touch Annotation */}
-                    <div className="hidden md:block absolute -bottom-12 right-[20%] pointer-events-none opacity-60">
+                    <div className="hidden md:block absolute -bottom-12 right-[20%] pointer-events-none">
                         <div className="relative">
-                            <span className="absolute -top-8 left-12 w-max text-white/60 font-handwriting text-2xl rotate-6">
+                            <span className="absolute -top-8 left-12 w-max text-white/90 font-handwriting text-2xl rotate-6">
                                 Say hello! 👋
                             </span>
                             <svg width="60" height="50" viewBox="0 0 60 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M50 10 C 40 30, 20 30, 10 40" stroke="white" strokeWidth="1.5" strokeOpacity="0.6" strokeLinecap="round" strokeDasharray="3 3" />
-                                <path d="M10 40 L 15 32 M 10 40 L 18 42" stroke="white" strokeWidth="1.5" strokeOpacity="0.6" strokeLinecap="round" />
+                                <path d="M50 10 C 40 30, 20 30, 10 40" stroke="white" strokeWidth="2" strokeLinecap="round" strokeDasharray="4 4" />
+                                <path d="M10 40 L 15 32 M 10 40 L 18 42" stroke="white" strokeWidth="2" strokeLinecap="round" />
                             </svg>
                         </div>
                     </div>

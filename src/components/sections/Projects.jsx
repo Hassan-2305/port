@@ -13,14 +13,9 @@ const projects = [
     {
         title: "Open Source Connect",
         category: "UI/UX & Web Design",
-        image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=1000",
-        year: "2024"
-    },
-    {
-        title: "Tic-Tac-Toe Game",
-        category: "Python / Pygame",
-        image: "https://images.unsplash.com/photo-1614680376593-902f74cf0d41?auto=format&fit=crop&q=80&w=1000",
-        year: "2025"
+        image: "/open-source-connect.png",
+        year: "2024",
+        objectPosition: "top"
     },
     {
         title: "3D & UI Designs",
@@ -81,14 +76,14 @@ export const Projects = () => {
                             A collection of projects defined by high-performance code and immersive design.
                         </p>
 
-                        <div className="mt-12 hidden md:block opacity-60 pointer-events-none">
+                        <div className="mt-12 hidden md:block pointer-events-none">
                             <div className="relative">
-                                <span className="absolute -top-6 left-0 w-max text-white/60 font-handwriting text-xl -rotate-2">
-                                    Drag to explore
+                                <span className="absolute -top-6 left-0 w-max text-white/90 font-handwriting text-xl -rotate-2">
+                                    Scroll to explore
                                 </span>
                                 <svg width="100" height="30" viewBox="0 0 100 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M0 15 H 80" stroke="white" strokeWidth="1.5" strokeOpacity="0.6" strokeLinecap="round" strokeDasharray="4 4" />
-                                    <path d="M80 15 L 70 10 M 80 15 L 70 20" stroke="white" strokeWidth="1.5" strokeOpacity="0.6" strokeLinecap="round" />
+                                    <path d="M0 15 H 80" stroke="white" strokeWidth="2" strokeLinecap="round" strokeDasharray="4 4" />
+                                    <path d="M80 15 L 70 10 M 80 15 L 70 20" stroke="white" strokeWidth="2" strokeLinecap="round" />
                                 </svg>
                             </div>
                         </div>
@@ -108,19 +103,20 @@ export const Projects = () => {
                                 setCursorVariant("default");
                             }}
                         >
-                            <div className="w-full h-full overflow-hidden rounded-md grayscale group-hover:grayscale-0 transition-all duration-700 ease-[0.16,1,0.3,1] relative">
+                            <div className="w-full h-[calc(100%-4rem)] overflow-hidden rounded-md grayscale group-hover:grayscale-0 transition-all duration-700 ease-[0.16,1,0.3,1] relative">
                                 <motion.img
                                     src={project.image}
                                     alt={project.title}
                                     loading="lazy"
                                     decoding="async"
                                     className="w-full h-full object-cover transform transition-transform duration-1000"
+                                    style={project.objectPosition ? { objectPosition: project.objectPosition } : undefined}
                                     whileHover={{ scale: 1.1 }}
                                 />
                                 <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors" />
                             </div>
 
-                            <div className="absolute -bottom-12 left-0 w-full flex justify-between items-end opacity-50 group-hover:opacity-100 transition-opacity">
+                            <div className="mt-3 w-full flex justify-between items-end opacity-50 group-hover:opacity-100 transition-opacity">
                                 <div>
                                     <h3 className="text-3xl font-heading font-bold text-white">{project.title}</h3>
                                     <span className="text-indigo-400 font-mono text-sm uppercase tracking-wider">{project.category}</span>

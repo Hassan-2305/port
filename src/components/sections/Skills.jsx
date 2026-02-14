@@ -86,14 +86,14 @@ export const Skills = () => {
                             <h4 className="text-sm font-mono text-neutral-500 uppercase tracking-widest mb-8">Technical Ecosystem</h4>
 
                             {/* Human Touch Annotation */}
-                            <div className="hidden md:block absolute -top-8 right-24 pointer-events-none opacity-60">
+                            <div className="hidden md:block absolute -top-8 right-24 pointer-events-none">
                                 <div className="relative">
-                                    <span className="absolute -top-6 -right-2 w-max text-white/60 font-handwriting text-xl -rotate-6">
+                                    <span className="absolute -top-6 -right-2 w-max text-white/90 font-handwriting text-xl -rotate-6">
                                         My Arsenal ⚡
                                     </span>
                                     <svg width="60" height="40" viewBox="0 0 60 40" fill="none" xmlns="http://www.w3.org/2000/svg" className="-translate-y-2">
-                                        <path d="M50 0 C 50 15, 30 20, 10 30" stroke="white" strokeWidth="1.5" strokeOpacity="0.6" strokeLinecap="round" strokeDasharray="3 3" />
-                                        <path d="M10 30 L 18 26 M 10 30 L 16 36" stroke="white" strokeWidth="1.5" strokeOpacity="0.6" strokeLinecap="round" />
+                                        <path d="M50 0 C 50 15, 30 20, 10 30" stroke="white" strokeWidth="2" strokeLinecap="round" strokeDasharray="4 4" />
+                                        <path d="M10 30 L 18 26 M 10 30 L 16 36" stroke="white" strokeWidth="2" strokeLinecap="round" />
                                     </svg>
                                 </div>
                             </div>

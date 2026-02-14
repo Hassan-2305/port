@@ -104,6 +104,7 @@ export const Education = () => {
                             Academic <br /> <span className="text-neutral-600">Foundation.</span>
                         </motion.h2>
 
+
                         {/* University Card */}
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
@@ -162,6 +163,20 @@ export const Education = () => {
                                         <div className="text-sm text-neutral-600 font-mono">{cert.date}</div>
                                     </motion.div>
                                 ))}
+                            </div>
+                        </div>
+
+                        {/* Human Touch Annotation — Big loopy arrow pointing to contributions */}
+                        <div className="hidden lg:block mt-16 pl-8 pointer-events-none">
+                            <div className="relative">
+                                <span className="text-white/90 font-handwriting text-4xl -rotate-3 block mb-4">
+                                    Always learning! 📚
+                                </span>
+                                <svg width="250" height="180" viewBox="0 0 250 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    {/* Big loopy S-curve arrow pointing right toward contributions */}
+                                    <path d="M20 10 C 60 10, 80 60, 50 90 C 20 120, 60 160, 120 140 C 180 120, 200 80, 230 60" stroke="white" strokeWidth="2" strokeLinecap="round" strokeDasharray="4 4" />
+                                    <path d="M230 60 L 222 68 M 230 60 L 224 52" stroke="white" strokeWidth="2" strokeLinecap="round" />
+                                </svg>
                             </div>
                         </div>
                     </div>
