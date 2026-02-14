@@ -1,11 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 
-interface PreloaderProps {
-    onComplete: () => void;
-}
-
-export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
+export const Preloader = ({ onComplete }) => {
     const [count, setCount] = useState(0);
 
     useEffect(() => {

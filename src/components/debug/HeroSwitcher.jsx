@@ -6,7 +6,7 @@ import { ChevronLeft, ChevronRight, List, X } from 'lucide-react';
 // HERO SWITCHER: Dynamic Loader for 100+ Versions
 // ═══════════════════════════════════════════════════════
 
-export const HeroSwitcher: React.FC = () => {
+export const HeroSwitcher = () => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -36,7 +36,7 @@ export const HeroSwitcher: React.FC = () => {
                     name,
                     number,
                     path,
-                    loader: modules[path] as () => Promise<any>
+                    loader: modules[path]
                 };
             })
             // Filter out internal/debug files if any
@@ -59,14 +59,14 @@ export const HeroSwitcher: React.FC = () => {
     // HANDLERS
     const nextHero = () => setCurrentIndex(prev => (prev + 1) % heroes.length);
     const prevHero = () => setCurrentIndex(prev => (prev - 1 + heroes.length) % heroes.length);
-    const goToHero = (index: number) => {
+    const goToHero = (index) => {
         setCurrentIndex(index);
         setIsMenuOpen(false);
     };
 
     // Keyboard navigation
     useEffect(() => {
-        const handleKeyDown = (e: KeyboardEvent) => {
+        const handleKeyDown = (e) => {
             if (e.key === 'ArrowRight') nextHero();
             if (e.key === 'ArrowLeft') prevHero();
         };
@@ -103,8 +103,8 @@ export const HeroSwitcher: React.FC = () => {
                                     key={h.name}
                                     onClick={() => goToHero(idx)}
                                     className={`text-left text-[10px] uppercase tracking-widest px-3 py-2 rounded-md transition-colors ${idx === currentIndex
-                                            ? 'bg-white text-black font-bold'
-                                            : 'text-white/50 hover:bg-white/10 hover:text-white'
+                                        ? 'bg-white text-black font-bold'
+                                        : 'text-white/50 hover:bg-white/10 hover:text-white'
                                         }`}
                                 >
                                     {h.number === 0 ? 'Legacy' : `V${h.number}`} - {h.name}

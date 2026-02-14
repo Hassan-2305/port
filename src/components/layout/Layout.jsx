@@ -10,7 +10,7 @@ import { Footer } from './Footer';
 
 import { useLenis } from '../../hooks/useLenis';
 
-export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const Layout = ({ children }) => {
     const [isLoading, setIsLoading] = useState(true);
     const lenis = useLenis();
 

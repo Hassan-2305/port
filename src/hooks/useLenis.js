@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import Lenis from 'lenis';
 
 export const useLenis = () => {
-    const [lenis, setLenis] = useState<Lenis | null>(null);
+    const [lenis, setLenis] = useState(null);
 
     useEffect(() => {
         const lenisInstance = new Lenis({
@@ -13,7 +13,7 @@ export const useLenis = () => {
 
         setLenis(lenisInstance);
 
-        function raf(time: number) {
+        function raf(time) {
             lenisInstance.raf(time);
             requestAnimationFrame(raf);
         }

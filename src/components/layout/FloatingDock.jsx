@@ -3,7 +3,7 @@ import { motion, useMotionValue, useTransform, useSpring } from 'framer-motion';
 import { useMode } from '../../context/ModeContext';
 import { Home, User, Briefcase, Mail, Zap } from 'lucide-react';
 
-export const FloatingDock: React.FC = () => {
+export const FloatingDock = () => {
     const { isRecruiterMode, setRecruiterMode } = useMode();
     const mouseX = useMotionValue(Infinity);
 
@@ -43,10 +43,11 @@ export const FloatingDock: React.FC = () => {
     );
 };
 
-const DockIcon = ({ mouseX, icon, label, href, onClick }: any) => {
-    const ref = useRef<HTMLDivElement>(null);
 
-    const distance = useTransform(mouseX, (val: number) => {
+const DockIcon = ({ mouseX, icon, label, href, onClick }) => {
+    const ref = useRef(null);
+
+    const distance = useTransform(mouseX, (val) => {
         const bounds = ref.current?.getBoundingClientRect() ?? { x: 0, width: 0 };
         return val - bounds.x - bounds.width / 2;
     });

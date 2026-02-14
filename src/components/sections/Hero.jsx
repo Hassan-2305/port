@@ -10,9 +10,10 @@ import { MagneticButton } from '../ui/MagneticButton';
 // HERO: THE OBSIDIAN MONOLITH (V4 / V44)
 // ═══════════════════════════════════════════════════════
 
-const MonolithScene: React.FC = () => {
-    const sphereRef = useRef<THREE.Mesh>(null);
-    const ringRef = useRef<THREE.Mesh>(null);
+
+const MonolithScene = () => {
+    const sphereRef = useRef(null);
+    const ringRef = useRef(null);
 
     useFrame((state) => {
         const t = state.clock.elapsedTime;
@@ -80,7 +81,8 @@ const MonolithScene: React.FC = () => {
     );
 };
 
-const Scene: React.FC = () => {
+
+const Scene = () => {
     return (
         <>
             <MonolithScene />
@@ -100,7 +102,7 @@ const Scene: React.FC = () => {
     );
 };
 
-export const Hero: React.FC = () => {
+export const Hero = () => {
     const { isRecruiterMode } = useMode();
 
     if (isRecruiterMode) {

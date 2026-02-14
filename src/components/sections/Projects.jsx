@@ -30,9 +30,9 @@ const projects = [
     }
 ];
 
-export const Projects: React.FC = () => {
+export const Projects = () => {
     const { isRecruiterMode, setCursorText, setCursorVariant } = useMode();
-    const targetRef = useRef<HTMLDivElement>(null);
+    const targetRef = useRef(null);
     const { scrollYProgress } = useScroll({
         target: targetRef,
     });

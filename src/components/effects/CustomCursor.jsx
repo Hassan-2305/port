@@ -2,18 +2,19 @@ import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useMode } from '../../context/ModeContext';
 
-export const CustomCursor: React.FC = () => {
+
+export const CustomCursor = () => {
     const { isRecruiterMode, cursorText, cursorVariant } = useMode();
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
     const [isHovering, setIsHovering] = useState(false);
 
     useEffect(() => {
-        const updateMousePosition = (e: MouseEvent) => {
+        const updateMousePosition = (e) => {
             setMousePosition({ x: e.clientX, y: e.clientY });
         };
 
-        const handleMouseOver = (e: MouseEvent) => {
-            const target = e.target as HTMLElement;
+        const handleMouseOver = (e) => {
+            const target = e.target;
             // Check for interactive elements OR if we have a custom cursor variant set
             if (target.tagName === 'BUTTON' || target.tagName === 'A' || target.closest('button') || target.closest('a')) {
                 setIsHovering(true);
@@ -40,7 +41,7 @@ export const CustomCursor: React.FC = () => {
             backgroundColor: "#ffffff",
             x: mousePosition.x - 8,
             y: mousePosition.y - 8,
-            mixBlendMode: "difference" as any
+            mixBlendMode: "difference"
         },
         project: {
             height: 80,
@@ -48,7 +49,7 @@ export const CustomCursor: React.FC = () => {
             backgroundColor: "#4f46e5", // Indigo-600
             x: mousePosition.x - 40,
             y: mousePosition.y - 40,
-            mixBlendMode: "normal" as any
+            mixBlendMode: "normal"
         },
         text: {
             height: 100,
@@ -56,7 +57,7 @@ export const CustomCursor: React.FC = () => {
             backgroundColor: "#ffffff",
             x: mousePosition.x - 50,
             y: mousePosition.y - 50,
-            mixBlendMode: "difference" as any
+            mixBlendMode: "difference"
         }
     };
 

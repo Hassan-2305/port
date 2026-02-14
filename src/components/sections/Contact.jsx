@@ -42,7 +42,7 @@ const contactMethods = [
     }
 ];
 
-export const Contact: React.FC = () => {
+export const Contact = () => {
     const { isRecruiterMode } = useMode();
     const [copiedEmail, setCopiedEmail] = useState(false);
 

@@ -12,7 +12,7 @@ const philosophy = [
     { title: "Scale", text: "Performance isn't an afterthought. From 10 to 10M users, the code scales." }
 ];
 
-export const Skills: React.FC = () => {
+export const Skills = () => {
     const { isRecruiterMode } = useMode();
 
     // --- RECRUITER MODE (Simple List) ---

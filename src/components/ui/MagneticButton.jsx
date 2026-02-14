@@ -2,22 +2,12 @@ import React, { useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useMode } from '../../context/ModeContext';
 
-interface MagneticButtonProps {
-    children: React.ReactNode;
-    className?: string;
-    strength?: number; // How strong the pull is (default 0.5)
-}
-
-export const MagneticButton: React.FC<MagneticButtonProps> = ({
-    children,
-    className = "",
-    strength = 0.5
-}) => {
+export const MagneticButton = ({ children, className = "", strength = 0.5 }) => {
     const { isRecruiterMode } = useMode();
-    const ref = useRef<HTMLDivElement>(null);
+    const ref = useRef(null);
     const [position, setPosition] = useState({ x: 0, y: 0 });
 
-    const handleMouseMove = (e: React.MouseEvent) => {
+    const handleMouseMove = (e) => {
         if (isRecruiterMode) return; // Disable effect in Recruiter Mode
 
         const { clientX, clientY } = e;

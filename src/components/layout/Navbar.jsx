@@ -4,7 +4,7 @@ import { Switch } from '../ui/Switch';
 import { Menu, X, ArrowRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-export const Navbar: React.FC = () => {
+export const Navbar = () => {
     const { isRecruiterMode, toggleRecruiterMode } = useMode();
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 

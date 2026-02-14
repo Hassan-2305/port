@@ -46,7 +46,7 @@ const experiences = [
     }
 ];
 
-export const Experience: React.FC = () => {
+export const Experience = () => {
     const { isRecruiterMode } = useMode();
 
     // --- RECRUITER MODE (Compact Table) ---

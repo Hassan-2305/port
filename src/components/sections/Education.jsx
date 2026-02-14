@@ -35,7 +35,7 @@ const generateHeatmapData = () => {
 };
 const heatmapData = generateHeatmapData();
 
-const getLevelColor = (level: number) => {
+const getLevelColor = (level) => {
     switch (level) {
         case 0: return 'bg-white/5';
         case 1: return 'bg-green-900/40';
@@ -46,7 +46,7 @@ const getLevelColor = (level: number) => {
     }
 };
 
-export const Education: React.FC = () => {
+export const Education = () => {
     const { isRecruiterMode } = useMode();
 
     if (isRecruiterMode) {

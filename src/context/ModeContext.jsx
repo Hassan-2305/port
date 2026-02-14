@@ -1,23 +1,10 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 
-type ModeContextType = {
-    isRecruiterMode: boolean;
-    toggleRecruiterMode: () => void;
-    setRecruiterMode: (value: boolean) => void;
-    animationDuration: {
-        slow: number;
-        medium: number;
-        fast: number;
-    };
-    cursorText: string;
-    setCursorText: (text: string) => void;
-    cursorVariant: "default" | "text" | "button" | "project";
-    setCursorVariant: (variant: "default" | "text" | "button" | "project") => void;
-};
 
-const ModeContext = createContext<ModeContextType | undefined>(undefined);
 
-export const ModeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+const ModeContext = createContext(undefined);
+
+export const ModeProvider = ({ children }) => {
     const [isRecruiterMode, setIsRecruiterMode] = useState(false);
 
     // Persistence
@@ -33,11 +20,11 @@ export const ModeProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }, [isRecruiterMode]);
 
     const toggleRecruiterMode = () => setIsRecruiterMode(prev => !prev);
-    const setRecruiterMode = (value: boolean) => setIsRecruiterMode(value);
+    const setRecruiterMode = (value) => setIsRecruiterMode(value);
 
     // Cursor State
     const [cursorText, setCursorText] = useState("");
-    const [cursorVariant, setCursorVariant] = useState<"default" | "text" | "button" | "project">("default");
+    const [cursorVariant, setCursorVariant] = useState("default");
 
     // Animation constants based on mode
     const animationDuration = {

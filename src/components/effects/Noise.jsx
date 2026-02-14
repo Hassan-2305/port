@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const Noise: React.FC = () => {
+export const Noise = () => {
     return (
         <div
             className="pointer-events-none fixed inset-0 z-[9999] opacity-[0.05] mix-blend-overlay"

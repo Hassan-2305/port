@@ -1,13 +1,7 @@
 import { motion } from "framer-motion";
 import { cn } from "../../lib/utils";
 
-interface SwitchProps {
-    checked: boolean;
-    onCheckedChange: (checked: boolean) => void;
-    className?: string;
-}
-
-export const Switch: React.FC<SwitchProps> = ({ checked, onCheckedChange, className }) => {
+export const Switch = ({ checked, onCheckedChange, className }) => {
     return (
         <div
             className={cn(

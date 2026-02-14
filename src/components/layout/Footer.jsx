@@ -4,7 +4,7 @@ import { useMode } from '../../context/ModeContext';
 import { MagneticButton } from '../ui/MagneticButton';
 import { ArrowUpRight, Check } from 'lucide-react';
 
-export const Footer: React.FC = () => {
+export const Footer = () => {
     const { isRecruiterMode } = useMode();
     const [time, setTime] = useState(new Date());
     const [copied, setCopied] = useState(false);

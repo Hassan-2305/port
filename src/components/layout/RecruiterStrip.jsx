@@ -2,7 +2,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useMode } from "../../context/ModeContext";
 import { FileText, Code2, Zap, Layers } from "lucide-react";
 
-export const RecruiterStrip: React.FC = () => {
+export const RecruiterStrip = () => {
     const { isRecruiterMode } = useMode();
 
     return (
