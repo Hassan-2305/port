@@ -69,7 +69,7 @@ export const Projects = () => {
 
     // --- NORMAL MODE (Horizontal Scroll) ---
     return (
-        <section ref={targetRef} className="relative h-[300vh] bg-neutral-900">
+        <section id="projects" ref={targetRef} className="relative h-[300vh] bg-neutral-900">
             <div className="sticky top-0 h-screen flex items-center overflow-hidden">
                 <motion.div style={{ x }} className="flex gap-16 px-24 will-change-transform">
                     {/* Section Title Card */}
