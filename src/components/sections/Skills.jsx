@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { useMode } from '../../context/ModeContext';
 
 const skills = [
-    "React / Next.js", "TypeScript", "WebGL / Three.js", "Node.js", "Design Systems", "Accessibility"
+    "React / Next.js", "Python", "Java", "C++", "C", "WebGL", "Design Systems"
 ];
 
 const philosophy = [
@@ -100,9 +100,9 @@ export const Skills = () => {
 
                             <div className="space-y-8">
                                 {[
-                                    { category: "Frontend", tools: ["React / Next.js", "TypeScript", "Tailwind CSS", "Framer Motion", "WebGL / R3F"], color: "bg-blue-500" },
-                                    { category: "Backend & AI", tools: ["Node.js", "Python", "OpenAI / LLMs", "PostgreSQL", "Redis"], color: "bg-purple-500" },
-                                    { category: "DevOps & Tools", tools: ["Docker", "AWS", "Git", "Figma", "Blender"], color: "bg-orange-500" }
+                                    { category: "Frontend", tools: ["React / Next.js", "Tailwind CSS", "Framer Motion", "WebGL / R3F"], color: "bg-blue-500" },
+                                    { category: "Languages", tools: ["Python", "Java", "C++", "C", "JavaScript", "TypeScript"], color: "bg-purple-500" },
+                                    { category: "Tools & Design", tools: ["Git", "Figma", "Blender", "Docker", "VS Code"], color: "bg-orange-500" }
                                 ].map((group, idx) => (
                                     <div key={group.category}>
                                         <h5 className="text-white font-bold mb-4 flex items-center gap-2">

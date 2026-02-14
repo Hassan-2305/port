@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useMode } from '../../context/ModeContext';
-import { Github, Linkedin, Mail, FileDown, Copy, Check, ExternalLink } from 'lucide-react';
+import { Github, Linkedin, Mail, FileDown, Copy, Check, ExternalLink, MessageCircle, Instagram } from 'lucide-react';
 import { MagneticButton } from '../ui/MagneticButton';
 
 const contactMethods = [
@@ -17,8 +17,8 @@ const contactMethods = [
     {
         name: "LinkedIn",
         icon: Linkedin,
-        handle: "Hassan Muhammad",
-        link: "https://linkedin.com/in/yourprofile",
+        handle: "Mohammed Hassan",
+        link: "https://www.linkedin.com/in/mohamhassan/",
         action: "Connect",
         gradient: "from-blue-500 to-cyan-500",
         hoverGlow: "group-hover:shadow-[0_0_30px_rgba(59,130,246,0.4)]"
@@ -26,7 +26,7 @@ const contactMethods = [
     {
         name: "Email",
         icon: Mail,
-        handle: "your.email@example.com",
+        handle: "mohammedhassan2305@gmail.com",
         action: "Copy",
         gradient: "from-orange-500 to-red-500",
         hoverGlow: "group-hover:shadow-[0_0_30px_rgba(249,115,22,0.4)]"
@@ -47,7 +47,7 @@ export const Contact = () => {
     const [copiedEmail, setCopiedEmail] = useState(false);
 
     const handleEmailCopy = () => {
-        navigator.clipboard.writeText("your.email@example.com");
+        navigator.clipboard.writeText("mohammedhassan2305@gmail.com");
         setCopiedEmail(true);
         setTimeout(() => setCopiedEmail(false), 2000);
     };
@@ -63,11 +63,11 @@ export const Contact = () => {
                     </h2>
                     <div className="space-y-4">
                         <a
-                            href="mailto:your.email@example.com"
+                            href="mailto:mohammedhassan2305@gmail.com"
                             className="block p-4 rounded-lg bg-white/5 border border-white/10 hover:border-indigo-500/50 transition-colors text-white"
                         >
                             <Mail className="w-5 h-5 inline mr-2" />
-                            your.email@example.com
+                            mohammedhassan2305@gmail.com
                         </a>
                         <a
                             href="https://github.com/Hassan-2305"
@@ -94,7 +94,7 @@ export const Contact = () => {
 
     // --- NORMAL MODE (Magnetic Cards) ---
     return (
-        <section className="min-h-screen py-32 bg-gradient-to-b from-dark via-neutral-900 to-dark relative overflow-hidden flex items-center">
+        <section id="contact" className="min-h-screen py-32 bg-gradient-to-b from-dark via-neutral-900 to-dark relative overflow-hidden flex items-center">
             {/* Background Elements */}
             <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-indigo-500/10 rounded-full blur-[120px]" />
             <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-[120px]" />
@@ -195,8 +195,8 @@ export const Contact = () => {
                     transition={{ delay: 0.6, duration: 0.8 }}
                     className="text-center mt-20 text-neutral-500 text-sm"
                 >
-                    <p>Designed & Built by Hassan Muhammad</p>
-                    <p className="mt-2">© 2024. All rights reserved.</p>
+                    <p>Designed & Built by Mohammed Hassan</p>
+                    <p className="mt-2">© 2026. All rights reserved.</p>
                 </motion.div>
             </div>
         </section>

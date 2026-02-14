@@ -62,10 +62,9 @@ export const Education = () => {
                         <div className="p-4 rounded-lg bg-white/5 border border-white/10">
                             <div className="flex justify-between items-start">
                                 <div>
-                                    <h3 className="text-lg font-bold text-white">Bachelor of Science in Computer Science</h3>
-                                    <p className="text-neutral-400">University of Technology • 2021 - 2025</p>
+                                    <h3 className="text-lg font-bold text-white">B.Tech in Computer Science & Engineering</h3>
+                                    <p className="text-neutral-400">Cochin University of Science & Technology (CUSAT) • 2024 - 2028 (2nd Year)</p>
                                 </div>
-                                <span className="bg-indigo-500/10 text-indigo-400 px-3 py-1 rounded text-sm border border-indigo-500/20">GPA 3.8</span>
                             </div>
                         </div>
 
@@ -87,7 +86,7 @@ export const Education = () => {
     }
 
     return (
-        <section className="py-32 bg-dark relative overflow-hidden">
+        <section id="academic" className="py-32 bg-dark relative overflow-hidden">
             {/* Decoration */}
             <div className="absolute right-0 top-1/4 w-1/3 h-1/2 bg-gradient-to-b from-indigo-500/5 to-transparent blur-3xl" />
 
@@ -119,14 +118,9 @@ export const Education = () => {
                                 </div>
 
                                 <div className="relative z-10">
-                                    <span className="text-indigo-400 font-mono text-sm tracking-wider mb-2 block">DEGREE</span>
-                                    <h3 className="text-3xl font-bold text-white mb-2">Bachelor of Computer Science</h3>
-                                    <p className="text-xl text-neutral-400 mb-6">University of Technology</p>
-
-                                    <div className="flex flex-wrap gap-3 mb-6">
-                                        <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-sm text-neutral-300">GPA 3.8/4.0</span>
-                                        <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-sm text-neutral-300">Dean's List</span>
-                                    </div>
+                                    <span className="text-indigo-400 font-mono text-sm tracking-wider mb-2 block">B.TECH (2024-2028) • 2nd Year</span>
+                                    <h3 className="text-3xl font-bold text-white mb-2">Computer Science & Engineering</h3>
+                                    <p className="text-xl text-neutral-400 mb-6">Cochin University of Science & Technology (CUSAT)</p>
 
                                     <div className="space-y-2">
                                         <div className="text-sm text-neutral-500 uppercase tracking-widest font-mono">Relevant Coursework</div>

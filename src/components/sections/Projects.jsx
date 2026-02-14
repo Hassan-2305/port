@@ -8,25 +8,25 @@ const projects = [
         title: "AI Resume Tailor",
         category: "Generative AI",
         image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=1000",
-        year: "2024"
+        year: "2026"
     },
     {
-        title: "Event Horizon",
-        category: "UI/UX Platform",
+        title: "Open Source Connect",
+        category: "UI/UX & Web Design",
         image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=1000",
         year: "2024"
     },
     {
-        title: "Vid Architecture",
-        category: "Video Systems",
-        image: "https://images.unsplash.com/photo-1535016120720-40c6874c3b1c?auto=format&fit=crop&q=80&w=1000",
-        year: "2023"
+        title: "Tic-Tac-Toe Game",
+        category: "Python / Pygame",
+        image: "https://images.unsplash.com/photo-1614680376593-902f74cf0d41?auto=format&fit=crop&q=80&w=1000",
+        year: "2025"
     },
     {
-        title: "Portfolio V2",
-        category: "Creative Dev",
-        image: "https://images.unsplash.com/photo-1492551557933-34265f7af79e?auto=format&fit=crop&q=80&w=1000",
-        year: "2024"
+        title: "3D & UI Designs",
+        category: "Figma & Blender",
+        image: "https://images.unsplash.com/photo-1545235617-9465d2a55698?auto=format&fit=crop&q=80&w=1000",
+        year: "2026"
     }
 ];
 
@@ -71,9 +71,9 @@ export const Projects = () => {
     return (
         <section ref={targetRef} className="relative h-[300vh] bg-neutral-900">
             <div className="sticky top-0 h-screen flex items-center overflow-hidden">
-                <motion.div style={{ x }} className="flex gap-16 px-24">
+                <motion.div style={{ x }} className="flex gap-16 px-24 will-change-transform">
                     {/* Section Title Card */}
-                    <div className="flex-shrink-0 w-[30vw] flex flex-col justify-center">
+                    <div className="flex-shrink-0 w-max flex flex-col justify-center pr-12">
                         <h2 className="text-[8vw] leading-none font-bold font-heading text-neutral-800 uppercase">
                             Selected <br /> <span className="text-white">Works</span>
                         </h2>
@@ -112,6 +112,8 @@ export const Projects = () => {
                                 <motion.img
                                     src={project.image}
                                     alt={project.title}
+                                    loading="lazy"
+                                    decoding="async"
                                     className="w-full h-full object-cover transform transition-transform duration-1000"
                                     whileHover={{ scale: 1.1 }}
                                 />

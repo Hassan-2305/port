@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 
-export const Preloader = ({ onComplete }) => {
+export const Preloader = ({ onComplete, assetsLoaded = false }) => {
     const [count, setCount] = useState(0);
 
     useEffect(() => {
@@ -21,15 +21,18 @@ export const Preloader = ({ onComplete }) => {
             });
         }, interval);
 
-        const completeTimer = setTimeout(() => {
-            onComplete();
-        }, duration + 800);
+        return () => clearInterval(timer);
+    }, []);
 
-        return () => {
-            clearInterval(timer);
-            clearTimeout(completeTimer);
-        };
-    }, [onComplete]);
+    // Trigger onComplete when count hits 100
+    useEffect(() => {
+        if (count === 100) {
+            const completeTimer = setTimeout(() => {
+                onComplete();
+            }, 800);
+            return () => clearTimeout(completeTimer);
+        }
+    }, [count, onComplete]);
 
     return (
         <motion.div

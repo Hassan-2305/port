@@ -1,47 +1,49 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useMode } from '../../context/ModeContext';
-import { Calendar, MapPin, TrendingUp, Users, Code } from 'lucide-react';
+import { Calendar, MapPin, TrendingUp, Users, Code, Car } from 'lucide-react';
 
 const experiences = [
     {
-        company: "Stealth Startup",
-        role: "Full Stack Engineer",
-        duration: "Jun 2024 - Present",
+        company: "Kera AI Urban Technologies",
+        role: "UI/UX & Frontend Intern",
+        duration: "Jan 2026 - Feb 2026",
         location: "Remote",
-        description: "Architecting scalable microservices for a high-growth fintech platform. Optimized core API latency by 40% using Rust-based edge functions.",
+        description: "Developed UI/UX for a parking-based Vehicle-to-Infrastructure (V2I) application. Focused on intuitive mapping interfaces and real-time data visualization.",
         achievements: [
-            { icon: Code, label: "System Core", value: "Architecture" },
-            { icon: TrendingUp, label: "40% faster", value: "Latency" },
-            { icon: Users, label: "High Growth", value: "Environment" }
+            { icon: Car, label: "V2I App", value: "Smart City" },
+            { icon: MapPin, label: "Mapping", value: "Interface" },
+            { icon: Code, label: "Frontend", value: "React" }
         ],
-        tech: ["React", "Node.js", "PostgreSQL", "Docker", "AWS"],
+        tech: ["React", "UI/UX", "Maps API", "V2I"],
+        gradient: "from-purple-500 to-indigo-500"
+    },
+    {
+        company: "Phicsit",
+        role: "UI/UX Design Intern",
+        duration: "2025 - 2026",
+        location: "Remote",
+        description: "Designed the official website for Open Source Connect India (osconnect.org). Balanced clean visuals with usability and worked with real content to shape the overall user experience.",
+        achievements: [
+            { icon: Users, label: "OS Connect", value: "Community" },
+            { icon: TrendingUp, label: "Live Site", value: "Shipped" },
+            { icon: Code, label: "Web Design", value: "UI/UX" }
+        ],
+        tech: ["Figma", "Web Design", "UI/UX", "Prototyping"],
         gradient: "from-blue-500 to-cyan-500"
     },
     {
-        company: "AI Research Lab",
-        role: "Machine Learning Engineer",
-        duration: "Jan 2024 - May 2024",
-        location: "Hybrid",
-        description: "Developed proprietary LLM fine-tuning pipelines for specialized domain adaptation. Achieved 94% benchmark accuracy on internal datasets.",
+        company: "Freelance",
+        role: "Frontend Developer",
+        duration: "2024 - Present",
+        location: "Remote",
+        description: "Building AI-powered tools and creative web experiences. Delivering bespoke digital solutions with a focus on performance and interaction design.",
         achievements: [
-            { icon: TrendingUp, label: "94% SOTA", value: "Accuracy" },
-            { icon: Code, label: "LLM Pipeline", value: "Developed" }
+            { icon: Code, label: "AI Tools", value: "Development" },
+            { icon: TrendingUp, label: "Creative", value: "Web" },
+            { icon: Users, label: "Clients", value: "Global" }
         ],
-        tech: ["Python", "TensorFlow", "PyTorch", "HuggingFace"],
-        gradient: "from-purple-500 to-pink-500"
-    },
-    {
-        company: "Independent Consultant",
-        role: "Creative Technologist",
-        duration: "Jul 2023 - Dec 2023",
-        location: "Global",
-        description: "Delivering bespoke digital experiences for varied clients. Focusing on 3D web interaction, performance, and accessible design systems.",
-        achievements: [
-            { icon: Users, label: "Global", value: "Client Base" },
-            { icon: TrendingUp, label: "5.0", value: "Satisfaction" }
-        ],
-        tech: ["Next.js", "WebGL", "Tailwind", "Design Systems"],
+        tech: ["React", "Next.js", "AI Integration", "3D Web"],
         gradient: "from-orange-500 to-red-500"
     }
 ];

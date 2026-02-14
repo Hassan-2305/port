@@ -15,22 +15,22 @@ export const Footer = () => {
     }, []);
 
     const handleCopyEmail = () => {
-        navigator.clipboard.writeText("your.email@example.com");
+        navigator.clipboard.writeText("mohammedhassan2305@gmail.com");
         setCopied(true);
         setTimeout(() => setCopied(false), 2000);
     };
 
     const socials = [
         { name: "GitHub", link: "https://github.com/Hassan-2305" },
-        { name: "LinkedIn", link: "https://linkedin.com/in/yourprofile" },
-        { name: "Instagram", link: "https://instagram.com" },
-        { name: "Twitter", link: "https://twitter.com" }
+        { name: "LinkedIn", link: "https://www.linkedin.com/in/mohamhassan/" },
+        { name: "Instagram", link: "https://www.instagram.com/dark_knight_20_/" },
+        { name: "WhatsApp", link: "https://wa.me/8547771628" }
     ];
 
     if (isRecruiterMode) {
         return (
             <footer className="py-8 bg-dark border-t border-white/5 text-center text-neutral-500 text-sm">
-                <p>&copy; {new Date().getFullYear()} Hassan Muhammad. All rights reserved.</p>
+                <p>&copy; 2026 Mohammed Hassan. All rights reserved.</p>
             </footer>
         );
     }
@@ -46,7 +46,7 @@ export const Footer = () => {
                     <div className="space-y-4">
                         <div className="flex flex-col">
                             <span className="text-neutral-500 text-xs uppercase tracking-widest mb-1">Version</span>
-                            <span className="text-white font-medium">2024 Edition</span>
+                            <span className="text-white font-medium">2026 Edition</span>
                         </div>
                         <div className="flex flex-col">
                             <span className="text-neutral-500 text-xs uppercase tracking-widest mb-1">Local Time</span>
@@ -101,7 +101,7 @@ export const Footer = () => {
 
                 {/* Bottom Bar */}
                 <div className="flex flex-col md:flex-row justify-between items-center mt-12 pt-8 border-t border-white/5 text-xs text-neutral-500 uppercase tracking-wider">
-                    <p>&copy; {new Date().getFullYear()} Hassan Muhammad</p>
+                    <p>&copy; 2026 Mohammed Hassan</p>
                     <p>Designed & Engineered with Craft</p>
                     <div className="flex items-center gap-1">
                         SCROLL TO TOP <ArrowUpRight size={14} />
