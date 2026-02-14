@@ -24,9 +24,7 @@ export const Navbar: React.FC = () => {
                 <div className="container mx-auto px-6 h-16 flex items-center justify-between pointer-events-auto">
 
                     {/* Logo */}
-                    <div className="font-heading font-bold text-xl tracking-tighter text-white z-50">
-                        DEV<span className="text-indigo-500">.Portfolio</span>
-                    </div>
+
 
                     {/* Desktop Nav (Recruiter Mode Only) */}
                     {isRecruiterMode && (

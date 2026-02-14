@@ -120,6 +120,19 @@ export const Contact: React.FC = () => {
                     <p className="text-xl text-neutral-400 max-w-2xl mx-auto">
                         Always excited to collaborate on interesting projects. Drop me a message and let's create something amazing.
                     </p>
+
+                    {/* Human Touch Annotation */}
+                    <div className="hidden md:block absolute -bottom-12 right-[20%] pointer-events-none opacity-60">
+                        <div className="relative">
+                            <span className="absolute -top-8 left-12 w-max text-white/60 font-handwriting text-2xl rotate-6">
+                                Say hello! 👋
+                            </span>
+                            <svg width="60" height="50" viewBox="0 0 60 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M50 10 C 40 30, 20 30, 10 40" stroke="white" strokeWidth="1.5" strokeOpacity="0.6" strokeLinecap="round" strokeDasharray="3 3" />
+                                <path d="M10 40 L 15 32 M 10 40 L 18 42" stroke="white" strokeWidth="1.5" strokeOpacity="0.6" strokeLinecap="round" />
+                            </svg>
+                        </div>
+                    </div>
                 </motion.div>
 
                 {/* Contact Cards Grid */}

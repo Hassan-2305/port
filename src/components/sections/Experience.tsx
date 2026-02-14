@@ -5,43 +5,43 @@ import { Calendar, MapPin, TrendingUp, Users, Code } from 'lucide-react';
 
 const experiences = [
     {
-        company: "Tech Startup Inc.",
-        role: "Full Stack Developer Intern",
+        company: "Stealth Startup",
+        role: "Full Stack Engineer",
         duration: "Jun 2024 - Present",
         location: "Remote",
-        description: "Built scalable microservices architecture serving 10K+ users. Reduced API response time by 40% through optimization.",
+        description: "Architecting scalable microservices for a high-growth fintech platform. Optimized core API latency by 40% using Rust-based edge functions.",
         achievements: [
-            { icon: Code, label: "15K+ lines", value: "Code Written" },
-            { icon: TrendingUp, label: "40% faster", value: "Performance" },
-            { icon: Users, label: "5 person", value: "Team Size" }
+            { icon: Code, label: "System Core", value: "Architecture" },
+            { icon: TrendingUp, label: "40% faster", value: "Latency" },
+            { icon: Users, label: "High Growth", value: "Environment" }
         ],
         tech: ["React", "Node.js", "PostgreSQL", "Docker", "AWS"],
         gradient: "from-blue-500 to-cyan-500"
     },
     {
-        company: "University Research Lab",
-        role: "ML Research Assistant",
+        company: "AI Research Lab",
+        role: "Machine Learning Engineer",
         duration: "Jan 2024 - May 2024",
-        location: "On-site",
-        description: "Developed ML models for image classification with 94% accuracy. Published findings in student research journal.",
+        location: "Hybrid",
+        description: "Developed proprietary LLM fine-tuning pipelines for specialized domain adaptation. Achieved 94% benchmark accuracy on internal datasets.",
         achievements: [
-            { icon: TrendingUp, label: "94% accuracy", value: "ML Model" },
-            { icon: Code, label: "3 models", value: "Trained" }
+            { icon: TrendingUp, label: "94% SOTA", value: "Accuracy" },
+            { icon: Code, label: "LLM Pipeline", value: "Developed" }
         ],
-        tech: ["Python", "TensorFlow", "PyTorch", "Jupyter"],
+        tech: ["Python", "TensorFlow", "PyTorch", "HuggingFace"],
         gradient: "from-purple-500 to-pink-500"
     },
     {
-        company: "Freelance Projects",
-        role: "Web Developer",
+        company: "Independent Consultant",
+        role: "Creative Technologist",
         duration: "Jul 2023 - Dec 2023",
-        location: "Remote",
-        description: "Delivered 8+ client projects including e-commerce sites and SaaS dashboards. Maintained 5-star rating.",
+        location: "Global",
+        description: "Delivering bespoke digital experiences for varied clients. Focusing on 3D web interaction, performance, and accessible design systems.",
         achievements: [
-            { icon: Users, label: "8 clients", value: "Projects Delivered" },
-            { icon: TrendingUp, label: "5.0 rating", value: "Client Satisfaction" }
+            { icon: Users, label: "Global", value: "Client Base" },
+            { icon: TrendingUp, label: "5.0", value: "Satisfaction" }
         ],
-        tech: ["React", "Next.js", "Tailwind", "Firebase"],
+        tech: ["Next.js", "WebGL", "Tailwind", "Design Systems"],
         gradient: "from-orange-500 to-red-500"
     }
 ];
@@ -102,6 +102,19 @@ export const Experience: React.FC = () => {
                     <p className="text-xl text-neutral-400 max-w-2xl">
                         Building products, solving problems, and learning every single day.
                     </p>
+
+                    {/* Human Touch Annotation */}
+                    <div className="hidden md:block absolute top-0 right-20 pointer-events-none opacity-60">
+                        <div className="relative">
+                            <span className="absolute -top-8 -right-12 w-max text-white/60 font-handwriting text-2xl -rotate-6">
+                                The journey so far...
+                            </span>
+                            <svg width="100" height="50" viewBox="0 0 100 50" fill="none" xmlns="http://www.w3.org/2000/svg" className="translate-y-2">
+                                <path d="M80 10 C 60 10, 40 20, 10 40" stroke="white" strokeWidth="1.5" strokeOpacity="0.6" strokeLinecap="round" strokeDasharray="4 4" />
+                                <path d="M10 40 L 18 35 M 10 40 L 16 46" stroke="white" strokeWidth="1.5" strokeOpacity="0.6" strokeLinecap="round" />
+                            </svg>
+                        </div>
+                    </div>
                 </motion.div>
 
                 <div className="space-y-12">

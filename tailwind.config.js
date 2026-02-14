@@ -10,6 +10,7 @@ export default {
         sans: ['Inter', 'system-ui', 'sans-serif'],
         heading: ['Space Grotesk', 'sans-serif'],
         mono: ['JetBrains Mono', 'monospace'],
+        handwriting: ['Caveat', 'cursive'],
       },
       colors: {
         dark: "#0a0a0a",

@@ -18,12 +18,27 @@ export const FloatingDock: React.FC = () => {
 
             <div className="w-px h-8 bg-white/10 my-auto" />
 
-            <DockIcon
-                mouseX={mouseX}
-                icon={<Zap size={20} className="text-yellow-400" />}
-                label="Recruiter Mode"
-                onClick={() => setRecruiterMode(true)}
-            />
+            <div className="relative group">
+                <DockIcon
+                    mouseX={mouseX}
+                    icon={<Zap size={20} className="text-yellow-400" />}
+                    label="Recruiter Mode"
+                    onClick={() => setRecruiterMode(true)}
+                />
+                {!isRecruiterMode && (
+                    <div className="absolute bottom-0 left-full ml-6 mb-2 pointer-events-none hidden xl:block w-32">
+                        <div className="relative">
+                            <span className="absolute -top-8 left-2 text-white/90 font-handwriting text-2xl rotate-6 whitespace-nowrap">
+                                Recruiter?
+                            </span>
+                            <svg width="60" height="40" viewBox="0 0 60 40" fill="none" xmlns="http://www.w3.org/2000/svg" className="-translate-x-2 translate-y-1">
+                                <path d="M50 0 C 50 15, 40 25, 10 30" stroke="white" strokeWidth="2" strokeLinecap="round" strokeDasharray="4 4" />
+                                <path d="M10 30 L 18 25 M 10 30 L 16 36" stroke="white" strokeWidth="2" strokeLinecap="round" />
+                            </svg>
+                        </div>
+                    </div>
+                )}
+            </div>
         </div>
     );
 };

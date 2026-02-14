@@ -1,6 +1,6 @@
 import { ModeProvider } from './context/ModeContext';
 import { Layout } from './components/layout/Layout';
-import { Hero } from './components/sections/HeroV26';
+import { Hero } from './components/sections/Hero';
 import { Skills } from './components/sections/Skills';
 import { Projects } from './components/sections/Projects';
 import { Experience } from './components/sections/Experience';

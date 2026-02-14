@@ -5,28 +5,28 @@ import { ArrowUpRight } from 'lucide-react';
 
 const projects = [
     {
-        title: "Vanguard Analytics",
-        category: "FinTech Dashboard",
-        image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=1000",
+        title: "AI Resume Tailor",
+        category: "Generative AI",
+        image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=1000",
         year: "2024"
     },
     {
-        title: "Lumina UI",
-        category: "Design System",
+        title: "Event Horizon",
+        category: "UI/UX Platform",
         image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=1000",
+        year: "2024"
+    },
+    {
+        title: "Vid Architecture",
+        category: "Video Systems",
+        image: "https://images.unsplash.com/photo-1535016120720-40c6874c3b1c?auto=format&fit=crop&q=80&w=1000",
         year: "2023"
     },
     {
-        title: "Nebula Chat",
-        category: "AI Interface",
-        image: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&q=80&w=1000",
-        year: "2023"
-    },
-    {
-        title: "Echo Sound",
-        category: "Audio Platform",
-        image: "https://images.unsplash.com/photo-1478737270239-2f02b77ac6d5?auto=format&fit=crop&q=80&w=1000",
-        year: "2022"
+        title: "Portfolio V2",
+        category: "Creative Dev",
+        image: "https://images.unsplash.com/photo-1492551557933-34265f7af79e?auto=format&fit=crop&q=80&w=1000",
+        year: "2024"
     }
 ];
 
@@ -80,6 +80,18 @@ export const Projects: React.FC = () => {
                         <p className="mt-8 text-neutral-400 max-w-sm text-lg">
                             A collection of projects defined by high-performance code and immersive design.
                         </p>
+
+                        <div className="mt-12 hidden md:block opacity-60 pointer-events-none">
+                            <div className="relative">
+                                <span className="absolute -top-6 left-0 w-max text-white/60 font-handwriting text-xl -rotate-2">
+                                    Drag to explore
+                                </span>
+                                <svg width="100" height="30" viewBox="0 0 100 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M0 15 H 80" stroke="white" strokeWidth="1.5" strokeOpacity="0.6" strokeLinecap="round" strokeDasharray="4 4" />
+                                    <path d="M80 15 L 70 10 M 80 15 L 70 20" stroke="white" strokeWidth="1.5" strokeOpacity="0.6" strokeLinecap="round" />
+                                </svg>
+                            </div>
+                        </div>
                     </div>
 
                     {/* Project Cards */}
