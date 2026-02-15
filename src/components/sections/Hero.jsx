@@ -130,7 +130,7 @@ export const Hero = () => {
         return () => clearInterval(interval);
     }, []);
 
-    // --- RECRUITER MODE — Smooth fade transition ---
+    // --- RECRUITER MODE — Professional Profile Card ---
     if (isRecruiterMode) {
         return (
             <motion.section
@@ -138,10 +138,67 @@ export const Hero = () => {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.6, ease: "easeInOut" }}
-                className="min-h-[60vh] flex items-center justify-center bg-dark"
+                className="min-h-screen flex items-center justify-center bg-dark relative overflow-hidden"
             >
-                <div className="container mx-auto px-6">
-                    <h1 className="text-5xl font-bold text-white mb-4">Mohammed Hassan</h1>
+                {/* Background Pattern */}
+                <div className="absolute inset-0 opacity-20" style={{
+                    backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(255,255,255,0.1) 1px, transparent 0)',
+                    backgroundSize: '40px 40px'
+                }}></div>
+
+                <div className="container mx-auto px-6 relative z-10 max-w-4xl">
+                    <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8 md:p-12 shadow-2xl">
+                        <div className="flex flex-col md:flex-row items-start gap-8">
+
+                            {/* Avatar / Profile Initials */}
+                            <div className="w-24 h-24 md:w-32 md:h-32 rounded-full bg-indigo-500/20 flex items-center justify-center border border-indigo-500/30 flex-shrink-0">
+                                <span className="text-4xl md:text-5xl font-heading font-bold text-indigo-400">MH</span>
+                            </div>
+
+                            <div className="flex-1 space-y-6">
+                                <div>
+                                    <div className="flex items-center gap-3 mb-2">
+                                        <h1 className="text-4xl md:text-5xl font-bold text-white tracking-tight">Mohammed Hassan</h1>
+                                        <span className="px-3 py-1 bg-green-500/10 border border-green-500/20 text-green-400 text-xs font-mono rounded-full uppercase tracking-wider">
+                                            Available for Hire
+                                        </span>
+                                    </div>
+                                    <p className="text-xl text-indigo-200 font-medium">Full Stack Creative Developer</p>
+                                </div>
+
+                                <p className="text-neutral-300 leading-relaxed text-lg max-w-2xl">
+                                    I build high-performance, interactive web experiences.
+                                    Specializing in <strong>React, Next.js, and WebGL</strong>, I bridge the gap between design and engineering to deliver polished, user-centric products.
+                                </p>
+
+                                <div className="flex flex-wrap gap-4 pt-2">
+                                    <a
+                                        href="/resume.pdf"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="px-6 py-3 bg-white text-black font-bold rounded-lg hover:bg-neutral-200 transition-colors flex items-center gap-2"
+                                    >
+                                        Download Resume
+                                    </a>
+                                    <a
+                                        href="mailto:mohammedhassan2305@gmail.com"
+                                        className="px-6 py-3 bg-white/5 text-white border border-white/10 font-medium rounded-lg hover:bg-white/10 transition-colors"
+                                    >
+                                        Contact Me
+                                    </a>
+                                </div>
+
+                                <div className="flex gap-6 pt-4 border-t border-white/10">
+                                    <a href="https://github.com/Hassan-2305" target="_blank" rel="noopener noreferrer" className="text-neutral-400 hover:text-white transition-colors flex items-center gap-2 text-sm">
+                                        <Github size={18} /> GitHub
+                                    </a>
+                                    <a href="https://www.linkedin.com/in/mohamhassan/" target="_blank" rel="noopener noreferrer" className="text-neutral-400 hover:text-white transition-colors flex items-center gap-2 text-sm">
+                                        <Linkedin size={18} /> LinkedIn
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </motion.section>
         );

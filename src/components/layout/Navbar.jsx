@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useMode } from '../../context/ModeContext';
 import { Switch } from '../ui/Switch';
-import { Menu, X, ArrowRight } from 'lucide-react';
+import { Menu, X, ArrowRight, Code, Zap, Layers, Download } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export const Navbar = () => {
@@ -10,7 +10,7 @@ export const Navbar = () => {
 
     // Navbar style based on mode
     const navClasses = isRecruiterMode
-        ? "fixed top-0 left-0 right-0 z-50 border-b border-white/5 bg-dark/80 backdrop-blur-xl"
+        ? "fixed top-0 left-0 right-0 z-50 pointer-events-none" // Transparent in Recruiter Mode since we have the sidebar
         : "fixed top-0 left-0 right-0 z-50 pointer-events-none mix-blend-difference"; // Minimal in Normal Mode
 
     return (
@@ -26,22 +26,75 @@ export const Navbar = () => {
                     {/* Logo */}
 
 
-                    {/* Desktop Nav (Recruiter Mode Only) */}
+                    {/* Recruiter Mode - Vertical Sidebar (Right) */}
                     {isRecruiterMode && (
-                        <div className="hidden md:flex items-center gap-8">
-                            <a href="#projects" className="text-sm font-medium text-neutral-300 hover:text-white transition-colors">Projects</a>
-                            <a href="#experience" className="text-sm font-medium text-neutral-300 hover:text-white transition-colors">Experience</a>
-                            <a href="#contact" className="text-sm font-medium text-neutral-300 hover:text-white transition-colors">Contact</a>
-
-                            <div className="h-4 w-px bg-white/10 mx-2" />
-
-                            <div className="flex items-center gap-3 bg-white/5 px-3 py-1.5 rounded-full border border-white/5">
-                                <span className="text-xs font-semibold uppercase tracking-wider text-indigo-400">
-                                    Recruiter Mode
+                        <motion.div
+                            initial={{ x: 100, opacity: 0 }}
+                            animate={{ x: 0, opacity: 1 }}
+                            className="fixed right-0 top-0 bottom-0 w-20 md:w-24 bg-dark/90 backdrop-blur-xl border-l border-white/10 z-50 flex flex-col items-center py-8 gap-8"
+                        >
+                            {/* Top: Status */}
+                            <div className="flex flex-col items-center gap-2 group cursor-help">
+                                <span className="relative flex h-3 w-3">
+                                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                                    <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
                                 </span>
-                                <Switch checked={isRecruiterMode} onCheckedChange={toggleRecruiterMode} />
+                                <span className="text-[10px] text-green-400 font-mono uppercase tracking-widest hidden group-hover:block absolute top-14 bg-black/80 px-2 py-1 rounded whitespace-nowrap">
+                                    Open to Work
+                                </span>
                             </div>
-                        </div>
+
+                            {/* Middle: Skills & Stats (Vertical Icons) */}
+                            <div className="flex-1 flex flex-col items-center justify-center gap-8 text-white/40">
+                                <div className="flex flex-col items-center gap-1 group relative">
+                                    <div className="p-2 rounded-lg bg-white/5 group-hover:bg-white/10 group-hover:text-cyan-400 transition-colors">
+                                        <Code size={20} />
+                                    </div>
+                                    <span className="absolute right-full mr-4 top-1/2 -translate-y-1/2 text-xs font-medium text-white bg-dark/90 px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap border border-white/10">
+                                        React Ecosystem
+                                    </span>
+                                </div>
+                                <div className="flex flex-col items-center gap-1 group relative">
+                                    <div className="p-2 rounded-lg bg-white/5 group-hover:bg-white/10 group-hover:text-yellow-400 transition-colors">
+                                        <Zap size={20} />
+                                    </div>
+                                    <span className="absolute right-full mr-4 top-1/2 -translate-y-1/2 text-xs font-medium text-white bg-dark/90 px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap border border-white/10">
+                                        High Performance
+                                    </span>
+                                </div>
+                                <div className="flex flex-col items-center gap-1 group relative">
+                                    <div className="p-2 rounded-lg bg-white/5 group-hover:bg-white/10 group-hover:text-purple-400 transition-colors">
+                                        <Layers size={20} />
+                                    </div>
+                                    <span className="absolute right-full mr-4 top-1/2 -translate-y-1/2 text-xs font-medium text-white bg-dark/90 px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap border border-white/10">
+                                        Design Systems
+                                    </span>
+                                </div>
+                            </div>
+
+                            {/* Bottom: Actions */}
+                            <div className="flex flex-col items-center gap-6">
+                                {/* Resume DL */}
+                                <a
+                                    href="/resume.pdf"
+                                    target="_blank"
+                                    title="Download Resume"
+                                    className="p-3 bg-indigo-600 rounded-full text-white hover:bg-indigo-500 hover:scale-110 transition-all shadow-lg shadow-indigo-500/20"
+                                >
+                                    <Download size={20} />
+                                </a>
+
+                                <div className="h-px w-8 bg-white/10" />
+
+                                {/* Toggle */}
+                                <div className="flex flex-col items-center gap-2">
+                                    <Switch checked={isRecruiterMode} onCheckedChange={toggleRecruiterMode} className="rotate-90" />
+                                    <span className="text-[10px] font-bold text-white/30 uppercase tracking-widest -rotate-90 mt-4">
+                                        Mode
+                                    </span>
+                                </div>
+                            </div>
+                        </motion.div>
                     )}
 
                     {/* Mobile Toggle (Always Visible on Mobile) */}

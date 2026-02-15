@@ -34,28 +34,61 @@ export const Projects = () => {
 
     const x = useTransform(scrollYProgress, [0, 1], ["1%", "-75%"]);
 
-    // --- RECRUITER MODE (Table View) ---
+    // --- RECRUITER MODE (Detailed Grid) ---
     if (isRecruiterMode) {
         return (
             <section id="projects" className="py-20 bg-dark">
-                <div className="container mx-auto px-6">
-                    <h2 className="text-2xl font-bold mb-8 text-white flex items-center gap-2">
-                        <span className="w-2 h-2 bg-indigo-500 rounded-full"></span>
-                        Select Projects
+                <div className="container mx-auto px-6 max-w-4xl">
+                    <h2 className="text-3xl font-bold mb-12 text-white flex items-center gap-3">
+                        <span className="w-3 h-3 bg-indigo-500 rounded-full shadow-[0_0_10px_rgba(99,102,241,0.5)]"></span>
+                        Featured Projects
                     </h2>
-                    <div className="grid gap-4">
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         {projects.map((project) => (
-                            <div key={project.title} className="group flex items-center justify-between p-4 rounded-lg bg-white/5 border border-white/5 hover:border-indigo-500/30 transition-colors">
-                                <div>
-                                    <h3 className="text-lg font-bold text-white group-hover:text-indigo-400 transition-colors">{project.title}</h3>
-                                    <p className="text-sm text-neutral-400">{project.category}</p>
+                            <div key={project.title} className="group relative bg-white/5 border border-white/5 rounded-xl overflow-hidden hover:border-indigo-500/30 transition-all duration-300 hover:shadow-2xl hover:shadow-indigo-500/10 hover:-translate-y-1">
+
+                                {/* Image Preview */}
+                                <div className="h-48 overflow-hidden relative">
+                                    <div className="absolute inset-0 bg-gradient-to-t from-dark/80 to-transparent z-10" />
+                                    <img
+                                        src={project.image}
+                                        alt={project.title}
+                                        className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
+                                        style={project.objectPosition ? { objectPosition: project.objectPosition } : undefined}
+                                    />
                                 </div>
-                                <div className="flex items-center gap-4">
-                                    <span className="text-sm font-mono text-neutral-500">{project.year}</span>
-                                    <ArrowUpRight className="w-5 h-5 text-neutral-500 group-hover:text-white transition-colors" />
+
+                                {/* Content */}
+                                <div className="p-6">
+                                    <div className="flex justify-between items-start mb-2">
+                                        <div>
+                                            <h3 className="text-xl font-bold text-white mb-1 group-hover:text-indigo-400 transition-colors">{project.title}</h3>
+                                            <p className="text-sm font-mono text-indigo-300">{project.category}</p>
+                                        </div>
+                                        <span className="text-xs font-bold text-neutral-500 border border-white/10 px-2 py-1 rounded">
+                                            {project.year}
+                                        </span>
+                                    </div>
+
+                                    {/* Actions */}
+                                    <div className="flex items-center gap-4 mt-6 pt-6 border-t border-white/5">
+                                        <a href="#" className="flex items-center gap-2 text-sm font-bold text-white hover:text-indigo-400 transition-colors">
+                                            Live Demo <ArrowUpRight className="w-4 h-4" />
+                                        </a>
+                                        <a href="#" className="flex items-center gap-2 text-sm font-medium text-neutral-400 hover:text-white transition-colors">
+                                            View Code
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         ))}
+                    </div>
+
+                    <div className="mt-12 text-center">
+                        <a href="https://github.com/Hassan-2305" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-neutral-400 hover:text-white transition-colors border-b border-dashed border-neutral-600 hover:border-white pb-0.5">
+                            View all projects on GitHub <ArrowUpRight className="w-3 h-3" />
+                        </a>
                     </div>
                 </div>
             </section>

@@ -15,18 +15,58 @@ const philosophy = [
 export const Skills = () => {
     const { isRecruiterMode } = useMode();
 
-    // --- RECRUITER MODE (Simple List) ---
+    // --- RECRUITER MODE (Categorized Grid) ---
     if (isRecruiterMode) {
         return (
             <section id="skills" className="py-20 bg-dark border-b border-white/5">
-                <div className="container mx-auto px-6">
-                    <h2 className="text-xl font-bold mb-6 text-white uppercase tracking-wider">Technical Proficiency</h2>
-                    <div className="flex flex-wrap gap-3">
-                        {skills.map(skill => (
-                            <span key={skill} className="px-3 py-1 bg-white/5 border border-white/10 rounded text-neutral-300 text-sm">
-                                {skill}
-                            </span>
-                        ))}
+                <div className="container mx-auto px-6 max-w-4xl">
+                    <h2 className="text-3xl font-bold mb-12 text-white flex items-center gap-3">
+                        <span className="w-3 h-3 bg-indigo-500 rounded-full shadow-[0_0_10px_rgba(99,102,241,0.5)]"></span>
+                        Technical Proficiency
+                    </h2>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        {/* Domain 1: Frontend Ecosystem */}
+                        <div className="bg-white/5 border border-white/5 rounded-xl p-6 hover:border-indigo-500/30 transition-colors">
+                            <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                                <span className="text-indigo-400">01.</span> Frontend Ecosystem
+                            </h3>
+                            <div className="flex flex-wrap gap-2">
+                                {["React", "Next.js", "TypeScript", "Tailwind CSS", "Framer Motion", "Three.js", "WebGL"].map(skill => (
+                                    <span key={skill} className="px-3 py-1.5 bg-dark border border-white/10 rounded-md text-neutral-300 text-sm hover:text-white hover:border-indigo-500/50 transition-colors cursor-default">
+                                        {skill}
+                                    </span>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Domain 2: Backend & Systems */}
+                        <div className="bg-white/5 border border-white/5 rounded-xl p-6 hover:border-indigo-500/30 transition-colors">
+                            <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                                <span className="text-purple-400">02.</span> Backend & Systems
+                            </h3>
+                            <div className="flex flex-wrap gap-2">
+                                {["Python", "Node.js", "Java", "C++", "C", "PostgreSQL", "Firebase"].map(skill => (
+                                    <span key={skill} className="px-3 py-1.5 bg-dark border border-white/10 rounded-md text-neutral-300 text-sm hover:text-white hover:border-indigo-500/50 transition-colors cursor-default">
+                                        {skill}
+                                    </span>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Domain 3: Tools & Design */}
+                        <div className="bg-white/5 border border-white/5 rounded-xl p-6 hover:border-indigo-500/30 transition-colors md:col-span-2">
+                            <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                                <span className="text-orange-400">03.</span> Tools & Design
+                            </h3>
+                            <div className="flex flex-wrap gap-2">
+                                {["Git / GitHub", "Docker", "Figma", "Blender", "Adobe Suite", "Vercel", "Agile"].map(skill => (
+                                    <span key={skill} className="px-3 py-1.5 bg-dark border border-white/10 rounded-md text-neutral-300 text-sm hover:text-white hover:border-indigo-500/50 transition-colors cursor-default">
+                                        {skill}
+                                    </span>
+                                ))}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>

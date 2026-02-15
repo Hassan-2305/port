@@ -51,27 +51,54 @@ const experiences = [
 export const Experience = () => {
     const { isRecruiterMode } = useMode();
 
-    // --- RECRUITER MODE (Compact Table) ---
+    // --- RECRUITER MODE (Resume Style) ---
     if (isRecruiterMode) {
         return (
             <section id="experience" className="py-20 bg-dark border-t border-white/5">
-                <div className="container mx-auto px-6">
-                    <h2 className="text-2xl font-bold mb-8 text-white flex items-center gap-2">
-                        <span className="w-2 h-2 bg-indigo-500 rounded-full"></span>
-                        Experience
+                <div className="container mx-auto px-6 max-w-4xl">
+                    <h2 className="text-3xl font-bold mb-12 text-white flex items-center gap-3">
+                        <span className="w-3 h-3 bg-indigo-500 rounded-full shadow-[0_0_10px_rgba(99,102,241,0.5)]"></span>
+                        Professional Experience
                     </h2>
-                    <div className="space-y-4">
-                        {experiences.map((exp) => (
-                            <div key={exp.company} className="p-4 rounded-lg bg-white/5 border border-white/5 hover:border-indigo-500/30 transition-colors">
-                                <div className="flex justify-between items-start mb-2">
-                                    <div>
-                                        <h3 className="text-lg font-bold text-white">{exp.role}</h3>
-                                        <p className="text-sm text-neutral-400">{exp.company} • {exp.duration}</p>
-                                    </div>
+
+                    <div className="relative border-l border-white/10 ml-3 space-y-12">
+                        {experiences.map((exp, index) => (
+                            <div key={exp.company} className="relative pl-8 md:pl-12">
+                                {/* Timeline Dot */}
+                                <div className="absolute -left-[5px] top-2 w-2.5 h-2.5 rounded-full bg-neutral-800 border border-white/20 transition-colors group-hover:bg-indigo-500 group-hover:border-indigo-500"></div>
+
+                                <div className="flex flex-col md:flex-row md:items-baseline md:justify-between mb-2">
+                                    <h3 className="text-xl font-bold text-white tracking-tight">{exp.role}</h3>
+                                    <span className="font-mono text-sm text-indigo-400 bg-indigo-500/10 px-3 py-1 rounded border border-indigo-500/20 whitespace-nowrap">
+                                        {exp.duration}
+                                    </span>
                                 </div>
-                                <div className="flex flex-wrap gap-2 mt-3">
+
+                                <div className="text-lg text-neutral-300 font-medium mb-4 flex items-center gap-2">
+                                    {exp.company}
+                                    <span className="text-neutral-600">•</span>
+                                    <span className="text-sm text-neutral-500 font-normal">{exp.location}</span>
+                                </div>
+
+                                <p className="text-neutral-400 leading-relaxed mb-6 max-w-3xl">
+                                    {exp.description}
+                                </p>
+
+                                {/* Key Achievement Highlights */}
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
+                                    {exp.achievements.map((ach, i) => (
+                                        <div key={i} className="flex items-center gap-2 text-sm text-neutral-300">
+                                            <div className="w-1.5 h-1.5 rounded-full bg-white/20"></div>
+                                            <span>
+                                                <strong className="text-white">{ach.label}:</strong> {ach.value}
+                                            </span>
+                                        </div>
+                                    ))}
+                                </div>
+
+                                <div className="flex flex-wrap gap-2 mt-4">
                                     {exp.tech.map(tech => (
-                                        <span key={tech} className="text-xs px-2 py-1 rounded bg-white/5 text-neutral-300 border border-white/10">
+                                        <span key={tech} className="text-xs font-medium px-2.5 py-1 rounded bg-white/5 text-neutral-400 border border-white/10 hover:border-white/20 hover:text-white transition-colors cursor-default">
                                             {tech}
                                         </span>
                                     ))}
