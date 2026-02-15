@@ -1,28 +1,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useMode } from '../../context/ModeContext';
-import { GraduationCap, Award, GitCommit, ExternalLink, BookOpen } from 'lucide-react';
+import { GraduationCap, GitCommit, ExternalLink, BookOpen } from 'lucide-react';
 
-const certifications = [
-    {
-        name: "AWS Certified Solutions Architect",
-        issuer: "Amazon Web Services",
-        date: "2024",
-        color: "from-orange-400 to-yellow-400"
-    },
-    {
-        name: "Meta Front-End Developer",
-        issuer: "Coursera",
-        date: "2023",
-        color: "from-blue-400 to-cyan-400"
-    },
-    {
-        name: "Google UX Design",
-        issuer: "Google",
-        date: "2023",
-        color: "from-red-400 to-pink-400"
-    }
-];
+
 
 // Mock data for GitHub heatmap (last 5 months approx)
 const contributionLevels = [0, 1, 2, 3, 4];
@@ -55,7 +36,7 @@ export const Education = () => {
                 <div className="container mx-auto px-6">
                     <h2 className="text-2xl font-bold mb-8 text-white flex items-center gap-2">
                         <span className="w-2 h-2 bg-indigo-500 rounded-full"></span>
-                        Education & Certifications
+                        Education
                     </h2>
 
                     <div className="space-y-6">
@@ -68,17 +49,7 @@ export const Education = () => {
                             </div>
                         </div>
 
-                        <div className="grid md:grid-cols-2 gap-4">
-                            {certifications.map(cert => (
-                                <div key={cert.name} className="flex items-center gap-3 p-3 rounded bg-white/5 border border-white/10">
-                                    <Award className="w-5 h-5 text-neutral-400" />
-                                    <div>
-                                        <div className="text-white text-sm font-medium">{cert.name}</div>
-                                        <div className="text-xs text-neutral-500">{cert.issuer} • {cert.date}</div>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
+
                     </div>
                 </div>
             </section>
@@ -138,33 +109,7 @@ export const Education = () => {
                         </motion.div>
 
                         {/* Certifications */}
-                        <div>
-                            <h3 className="text-2xl font-bold mb-6 flex items-center gap-2">
-                                <Award className="text-neutral-500" /> Certifications
-                            </h3>
-                            <div className="grid gap-4">
-                                {certifications.map((cert, index) => (
-                                    <motion.div
-                                        key={cert.name}
-                                        initial={{ opacity: 0, x: -20 }}
-                                        whileInView={{ opacity: 1, x: 0 }}
-                                        transition={{ delay: index * 0.1 }}
-                                        className="group p-4 bg-white/5 border border-white/10 rounded-xl hover:bg-white/10 transition-colors flex items-center justify-between"
-                                    >
-                                        <div className="flex items-center gap-4">
-                                            <div className={`w-10 h-10 rounded-lg bg-gradient-to-br ${cert.color} flex items-center justify-center`}>
-                                                <Award className="text-black w-5 h-5" />
-                                            </div>
-                                            <div>
-                                                <div className="font-bold text-white group-hover:text-indigo-300 transition-colors">{cert.name}</div>
-                                                <div className="text-sm text-neutral-500">{cert.issuer}</div>
-                                            </div>
-                                        </div>
-                                        <div className="text-sm text-neutral-600 font-mono">{cert.date}</div>
-                                    </motion.div>
-                                ))}
-                            </div>
-                        </div>
+
 
                         {/* Human Touch Annotation — Big loopy arrow pointing to contributions */}
                         <div className="hidden lg:block mt-16 pl-8 pointer-events-none">

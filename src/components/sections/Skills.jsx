@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { useMode } from '../../context/ModeContext';
 
 const skills = [
-    "React / Next.js", "Python", "Java", "C++", "C", "WebGL", "Design Systems"
+    "React", "Python", "Java", "C++", "C", "WebGL", "Design Systems"
 ];
 
 const philosophy = [
@@ -15,58 +15,54 @@ const philosophy = [
 export const Skills = () => {
     const { isRecruiterMode } = useMode();
 
-    // --- RECRUITER MODE (Categorized Grid) ---
+    // --- RECRUITER MODE (Technical Specs) ---
     if (isRecruiterMode) {
         return (
-            <section id="skills" className="py-20 bg-dark border-b border-white/5">
-                <div className="container mx-auto px-6 max-w-4xl">
-                    <h2 className="text-3xl font-bold mb-12 text-white flex items-center gap-3">
-                        <span className="w-3 h-3 bg-indigo-500 rounded-full shadow-[0_0_10px_rgba(99,102,241,0.5)]"></span>
-                        Technical Proficiency
+            <section id="skills" className="py-20 bg-[#050505] text-white border-t border-white/5 font-sans">
+                <div className="container mx-auto px-6 max-w-5xl">
+                    <h2 className="text-4xl font-bold font-heading mb-12 flex items-center gap-4">
+                        <span className="text-indigo-500 font-mono text-xl">04.</span>
+                        Technical Specifications
                     </h2>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        {/* Domain 1: Frontend Ecosystem */}
-                        <div className="bg-white/5 border border-white/5 rounded-xl p-6 hover:border-indigo-500/30 transition-colors">
-                            <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
-                                <span className="text-indigo-400">01.</span> Frontend Ecosystem
-                            </h3>
-                            <div className="flex flex-wrap gap-2">
-                                {["React", "Next.js", "TypeScript", "Tailwind CSS", "Framer Motion", "Three.js", "WebGL"].map(skill => (
-                                    <span key={skill} className="px-3 py-1.5 bg-dark border border-white/10 rounded-md text-neutral-300 text-sm hover:text-white hover:border-indigo-500/50 transition-colors cursor-default">
-                                        {skill}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+                        {/* Define skills manually or map if structure matches */}
+                        {[
+                            { category: "Frontend Ecosystem", items: ["React", "Tailwind CSS", "Framer Motion", "Three.js", "WebGL"] },
+                            { category: "Languages", items: ["Python", "Java", "C++", "C", "JavaScript"] },
+                            { category: "Tools & Design", items: ["Git / GitHub", "Docker", "Figma", "Blender", "Vercel", "Agile"] }
+                        ].map((skillGroup, index) => (
+                            <div key={skillGroup.category} className="border border-white/10 bg-white/5 md:bg-transparent rounded-xl md:rounded-none md:border-0 md:border-t md:border-white/10 pt-6 md:pt-8">
+                                <h3 className="text-xl font-bold font-heading text-indigo-400 mb-6 flex items-center gap-3">
+                                    <span className="text-xs font-mono text-neutral-600 uppercase tracking-widest border border-neutral-800 px-2 py-0.5 rounded">
+                                        SYS-MOD-0{index + 1}
                                     </span>
-                                ))}
-                            </div>
-                        </div>
+                                    {skillGroup.category}
+                                </h3>
 
-                        {/* Domain 2: Backend & Systems */}
-                        <div className="bg-white/5 border border-white/5 rounded-xl p-6 hover:border-indigo-500/30 transition-colors">
-                            <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
-                                <span className="text-purple-400">02.</span> Backend & Systems
-                            </h3>
-                            <div className="flex flex-wrap gap-2">
-                                {["Python", "Node.js", "Java", "C++", "C", "PostgreSQL", "Firebase"].map(skill => (
-                                    <span key={skill} className="px-3 py-1.5 bg-dark border border-white/10 rounded-md text-neutral-300 text-sm hover:text-white hover:border-indigo-500/50 transition-colors cursor-default">
-                                        {skill}
-                                    </span>
-                                ))}
+                                <div className="space-y-4">
+                                    {skillGroup.items.map((item, i) => (
+                                        <div key={item} className="flex justify-between items-center group border-b border-white/5 pb-2 hover:border-white/20 transition-colors">
+                                            <span className="text-neutral-300 font-mono text-sm group-hover:text-white transition-colors">
+                                                {item}
+                                            </span>
+                                            {/* Fake version number or status for technical feel */}
+                                            <div className="flex items-center gap-4">
+                                                <span className="text-[10px] text-neutral-600 font-mono uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">
+                                                    v{Math.floor(Math.random() * 5)}.{Math.floor(Math.random() * 9)}.{Math.floor(Math.random() * 9)}
+                                                </span>
+                                                <div className="w-1.5 h-1.5 rounded-full bg-green-500/50 group-hover:bg-green-400 shadow-[0_0_5px_rgba(74,222,128,0.5)] transition-colors"></div>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
                             </div>
-                        </div>
+                        ))}
+                    </div>
 
-                        {/* Domain 3: Tools & Design */}
-                        <div className="bg-white/5 border border-white/5 rounded-xl p-6 hover:border-indigo-500/30 transition-colors md:col-span-2">
-                            <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
-                                <span className="text-orange-400">03.</span> Tools & Design
-                            </h3>
-                            <div className="flex flex-wrap gap-2">
-                                {["Git / GitHub", "Docker", "Figma", "Blender", "Adobe Suite", "Vercel", "Agile"].map(skill => (
-                                    <span key={skill} className="px-3 py-1.5 bg-dark border border-white/10 rounded-md text-neutral-300 text-sm hover:text-white hover:border-indigo-500/50 transition-colors cursor-default">
-                                        {skill}
-                                    </span>
-                                ))}
-                            </div>
-                        </div>
+                    <div className="mt-16 pt-8 border-t border-dashed border-white/10 flex justify-between items-center text-xs font-mono text-neutral-600 uppercase tracking-wider">
+                        <span>System Status: Operational</span>
+                        <span>All Systems Go</span>
                     </div>
                 </div>
             </section>
@@ -77,8 +73,8 @@ export const Skills = () => {
     return (
         <section className="py-32 bg-dark text-white relative overflow-hidden">
             {/* Background Typography */}
-            <div className="absolute top-0 right-0 -mr-20 -mt-20 opacity-5 select-none pointer-events-none">
-                <h2 className="text-[20vw] font-bold font-heading leading-none text-white">PHILOSOPHY</h2>
+            <div className="absolute -top-32 left-0 w-full flex justify-center opacity-5 select-none pointer-events-none overflow-hidden">
+                <h2 className="text-[20vw] font-bold font-heading leading-none text-white tracking-tighter whitespace-nowrap">DEVELOPER</h2>
             </div>
 
             <div className="container mx-auto px-6 relative z-10">
@@ -140,8 +136,8 @@ export const Skills = () => {
 
                             <div className="space-y-8">
                                 {[
-                                    { category: "Frontend", tools: ["React / Next.js", "Tailwind CSS", "Framer Motion", "WebGL / R3F"], color: "bg-blue-500" },
-                                    { category: "Languages", tools: ["Python", "Java", "C++", "C", "JavaScript", "TypeScript"], color: "bg-purple-500" },
+                                    { category: "Frontend", tools: ["React", "Tailwind CSS", "Framer Motion", "WebGL / R3F"], color: "bg-blue-500" },
+                                    { category: "Languages", tools: ["Python", "Java", "C++", "C", "JavaScript"], color: "bg-purple-500" },
                                     { category: "Tools & Design", tools: ["Git", "Figma", "Blender", "Docker", "VS Code"], color: "bg-orange-500" }
                                 ].map((group, idx) => (
                                     <div key={group.category}>

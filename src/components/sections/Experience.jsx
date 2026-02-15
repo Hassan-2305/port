@@ -32,76 +32,71 @@ const experiences = [
         tech: ["Figma", "Web Design", "UI/UX", "Prototyping"],
         gradient: "from-blue-500 to-cyan-500"
     },
-    {
-        company: "Freelance",
-        role: "Frontend Developer",
-        duration: "2024 - Present",
-        location: "Remote",
-        description: "Building AI-powered tools and creative web experiences. Delivering bespoke digital solutions with a focus on performance and interaction design.",
-        achievements: [
-            { icon: Code, label: "AI Tools", value: "Development" },
-            { icon: TrendingUp, label: "Creative", value: "Web" },
-            { icon: Users, label: "Clients", value: "Global" }
-        ],
-        tech: ["React", "Next.js", "AI Integration", "3D Web"],
-        gradient: "from-orange-500 to-red-500"
-    }
+
 ];
 
 export const Experience = () => {
     const { isRecruiterMode } = useMode();
 
-    // --- RECRUITER MODE (Resume Style) ---
+    // --- RECRUITER MODE (Marginalia Layout) ---
     if (isRecruiterMode) {
         return (
-            <section id="experience" className="py-20 bg-dark border-t border-white/5">
-                <div className="container mx-auto px-6 max-w-4xl">
-                    <h2 className="text-3xl font-bold mb-12 text-white flex items-center gap-3">
-                        <span className="w-3 h-3 bg-indigo-500 rounded-full shadow-[0_0_10px_rgba(99,102,241,0.5)]"></span>
-                        Professional Experience
+            <section id="experience" className="py-20 bg-[#050505] text-white border-t border-white/5 font-sans">
+                <div className="container mx-auto px-6 max-w-5xl">
+                    <h2 className="text-4xl font-bold font-heading mb-16 flex items-center gap-4">
+                        <span className="text-indigo-500 font-mono text-xl">02.</span>
+                        Experience
                     </h2>
 
-                    <div className="relative border-l border-white/10 ml-3 space-y-12">
+                    <div className="space-y-16">
                         {experiences.map((exp, index) => (
-                            <div key={exp.company} className="relative pl-8 md:pl-12">
-                                {/* Timeline Dot */}
-                                <div className="absolute -left-[5px] top-2 w-2.5 h-2.5 rounded-full bg-neutral-800 border border-white/20 transition-colors group-hover:bg-indigo-500 group-hover:border-indigo-500"></div>
+                            <div key={exp.company} className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 group">
 
-                                <div className="flex flex-col md:flex-row md:items-baseline md:justify-between mb-2">
-                                    <h3 className="text-xl font-bold text-white tracking-tight">{exp.role}</h3>
-                                    <span className="font-mono text-sm text-indigo-400 bg-indigo-500/10 px-3 py-1 rounded border border-indigo-500/20 whitespace-nowrap">
+                                {/* Left: Meta / Date (Marginalia) */}
+                                <div className="md:col-span-3 text-right md:text-right flex flex-row md:flex-col justify-between md:justify-start items-center md:items-end gap-2">
+                                    <span className="font-mono text-sm text-indigo-400 uppercase tracking-wider">
                                         {exp.duration}
+                                    </span>
+                                    <span className="font-mono text-xs text-neutral-600 hidden md:block">
+                                        {exp.location}
                                     </span>
                                 </div>
 
-                                <div className="text-lg text-neutral-300 font-medium mb-4 flex items-center gap-2">
-                                    {exp.company}
-                                    <span className="text-neutral-600">•</span>
-                                    <span className="text-sm text-neutral-500 font-normal">{exp.location}</span>
-                                </div>
+                                {/* Right: Content */}
+                                <div className="md:col-span-9 border-l border-white/10 pl-8 md:pl-12 relative">
+                                    {/* Hover Marker */}
+                                    <div className="absolute left-[-1px] top-0 bottom-0 w-[1px] bg-indigo-500 scale-y-0 group-hover:scale-y-100 transition-transform duration-300 origin-top"></div>
 
-                                <p className="text-neutral-400 leading-relaxed mb-6 max-w-3xl">
-                                    {exp.description}
-                                </p>
+                                    <div className="mb-4">
+                                        <h3 className="text-2xl font-bold font-heading text-white group-hover:text-indigo-400 transition-colors">
+                                            {exp.role}
+                                        </h3>
+                                        <div className="text-lg text-neutral-400 font-medium">{exp.company}</div>
+                                    </div>
 
-                                {/* Key Achievement Highlights */}
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
-                                    {exp.achievements.map((ach, i) => (
-                                        <div key={i} className="flex items-center gap-2 text-sm text-neutral-300">
-                                            <div className="w-1.5 h-1.5 rounded-full bg-white/20"></div>
-                                            <span>
-                                                <strong className="text-white">{ach.label}:</strong> {ach.value}
+                                    <p className="text-neutral-400 leading-relaxed mb-6 max-w-2xl">
+                                        {exp.description}
+                                    </p>
+
+                                    {/* Key Achievements (Compact) */}
+                                    <div className="space-y-2 mb-6">
+                                        {exp.achievements.map((ach, i) => (
+                                            <div key={i} className="flex items-center gap-3 text-sm font-mono text-neutral-500 hover:text-white transition-colors">
+                                                <span className="w-1.5 h-1.5 bg-indigo-500/50 rounded-full"></span>
+                                                <span className="text-white">{ach.label}:</span>
+                                                <span>{ach.value}</span>
+                                            </div>
+                                        ))}
+                                    </div>
+
+                                    {/* Minimal Tech Tags */}
+                                    <div className="flex flex-wrap gap-x-4 gap-y-2">
+                                        {exp.tech.map(tech => (
+                                            <span key={tech} className="font-mono text-xs text-indigo-500/70 uppercase tracking-wider">
+                                                [{tech}]
                                             </span>
-                                        </div>
-                                    ))}
-                                </div>
-
-                                <div className="flex flex-wrap gap-2 mt-4">
-                                    {exp.tech.map(tech => (
-                                        <span key={tech} className="text-xs font-medium px-2.5 py-1 rounded bg-white/5 text-neutral-400 border border-white/10 hover:border-white/20 hover:text-white transition-colors cursor-default">
-                                            {tech}
-                                        </span>
-                                    ))}
+                                        ))}
+                                    </div>
                                 </div>
                             </div>
                         ))}

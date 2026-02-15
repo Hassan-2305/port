@@ -5,12 +5,12 @@ import { EffectComposer, Bloom, Noise, Vignette } from '@react-three/postprocess
 import * as THREE from 'three';
 import { useMode } from '../../context/ModeContext';
 import { MagneticButton } from '../ui/MagneticButton';
-import { Github, Linkedin, Mail, ChevronDown } from 'lucide-react';
+import { Github, Linkedin, Mail, ChevronDown, Download } from 'lucide-react';
 import { motion, AnimatePresence, useInView } from 'framer-motion';
 
-// ═══════════════════════════════════════════════════════
+
 // HERO: THE OBSIDIAN MONOLITH (V4 / V44)
-// ═══════════════════════════════════════════════════════
+
 
 
 const MonolithScene = () => {
@@ -130,77 +130,106 @@ export const Hero = () => {
         return () => clearInterval(interval);
     }, []);
 
-    // --- RECRUITER MODE — Professional Profile Card ---
+    // --- RECRUITER MODE (Swiss Design / Identity) ---
     if (isRecruiterMode) {
         return (
-            <motion.section
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.6, ease: "easeInOut" }}
-                className="min-h-screen flex items-center justify-center bg-dark relative overflow-hidden"
-            >
-                {/* Background Pattern */}
-                <div className="absolute inset-0 opacity-20" style={{
-                    backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(255,255,255,0.1) 1px, transparent 0)',
-                    backgroundSize: '40px 40px'
-                }}></div>
+            <section className="min-h-screen bg-[#050505] text-white pt-32 pb-20 relative overflow-hidden font-sans">
+                {/* Background Grid - Subtle Technical Feel */}
+                <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none" />
 
-                <div className="container mx-auto px-6 relative z-10 max-w-4xl">
-                    <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8 md:p-12 shadow-2xl">
-                        <div className="flex flex-col md:flex-row items-start gap-8">
+                <div className="container mx-auto px-6 h-full flex flex-col justify-between relative z-10">
 
-                            {/* Avatar / Profile Initials */}
-                            <div className="w-24 h-24 md:w-32 md:h-32 rounded-full bg-indigo-500/20 flex items-center justify-center border border-indigo-500/30 flex-shrink-0">
-                                <span className="text-4xl md:text-5xl font-heading font-bold text-indigo-400">MH</span>
-                            </div>
+                    {/* Top: Identity Block */}
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                        {/* Left: Big Type Identity */}
+                        <div className="lg:col-span-8">
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.8 }}
+                            >
+                                <span className="block font-mono text-indigo-500 text-sm mb-4 tracking-widest uppercase">
+                                    // Portfolio_v5.0
+                                </span>
 
-                            <div className="flex-1 space-y-6">
-                                <div>
-                                    <div className="flex items-center gap-3 mb-2">
-                                        <h1 className="text-4xl md:text-5xl font-bold text-white tracking-tight">Mohammed Hassan</h1>
-                                        <span className="px-3 py-1 bg-green-500/10 border border-green-500/20 text-green-400 text-xs font-mono rounded-full uppercase tracking-wider">
-                                            Available for Hire
-                                        </span>
-                                    </div>
-                                    <p className="text-xl text-indigo-200 font-medium">Full Stack Creative Developer</p>
+                                <h1 className="text-7xl md:text-9xl font-heading font-bold leading-[0.9] tracking-tighter mb-6 group cursor-default">
+                                    <span className="block group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-white transition-colors duration-300">
+                                        MOHAMMED
+                                    </span>
+                                    <span className="block text-neutral-500 group-hover:text-white transition-colors duration-300 delay-75">
+                                        HASSAN
+                                    </span>
+                                </h1>
+
+                                <div className="inline-flex items-center gap-3 px-4 py-2 border border-green-500/20 bg-green-500/5 rounded-full mt-4">
+                                    <span className="relative flex h-2 w-2">
+                                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                                        <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                                    </span>
+                                    <span className="font-mono text-xs text-green-400 tracking-wider uppercase">
+                                        Available for Hire
+                                    </span>
+                                </div>
+                            </motion.div>
+                        </div>
+
+                        {/* Right: Pitch & Actions */}
+                        <div className="lg:col-span-4 flex flex-col justify-end">
+                            <motion.div
+                                initial={{ opacity: 0, x: 20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ duration: 0.8, delay: 0.2 }}
+                                className="space-y-8"
+                            >
+                                <div className="space-y-4">
+                                    <h2 className="text-2xl font-bold font-heading text-white">
+                                        Full Stack Creative Developer
+                                    </h2>
+                                    <p className="text-neutral-400 leading-relaxed max-w-sm">
+                                        Building high-performance, interactive web experiences. Specializing in <strong className="text-white">React, Next.js, and WebGL</strong>, I bridge the gap between design and engineering to deliver polished, user-centric products.
+                                    </p>
                                 </div>
 
-                                <p className="text-neutral-300 leading-relaxed text-lg max-w-2xl">
-                                    I build high-performance, interactive web experiences.
-                                    Specializing in <strong>React, Next.js, and WebGL</strong>, I bridge the gap between design and engineering to deliver polished, user-centric products.
-                                </p>
-
-                                <div className="flex flex-wrap gap-4 pt-2">
+                                <div className="flex flex-col gap-4">
                                     <a
                                         href="/resume.pdf"
                                         target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="px-6 py-3 bg-white text-black font-bold rounded-lg hover:bg-neutral-200 transition-colors flex items-center gap-2"
+                                        className="inline-flex items-center justify-center gap-3 bg-indigo-600 text-white px-8 py-4 rounded-lg font-bold hover:bg-indigo-500 transition-all hover:tracking-wide w-full md:w-auto"
                                     >
-                                        Download Resume
+                                        <Download size={20} />
+                                        <span>DOWNLOAD RESUME</span>
                                     </a>
-                                    <a
-                                        href="mailto:mohammedhassan2305@gmail.com"
-                                        className="px-6 py-3 bg-white/5 text-white border border-white/10 font-medium rounded-lg hover:bg-white/10 transition-colors"
-                                    >
-                                        Contact Me
-                                    </a>
-                                </div>
 
-                                <div className="flex gap-6 pt-4 border-t border-white/10">
-                                    <a href="https://github.com/Hassan-2305" target="_blank" rel="noopener noreferrer" className="text-neutral-400 hover:text-white transition-colors flex items-center gap-2 text-sm">
-                                        <Github size={18} /> GitHub
-                                    </a>
-                                    <a href="https://www.linkedin.com/in/mohamhassan/" target="_blank" rel="noopener noreferrer" className="text-neutral-400 hover:text-white transition-colors flex items-center gap-2 text-sm">
-                                        <Linkedin size={18} /> LinkedIn
-                                    </a>
+                                    <div className="flex items-center gap-6 pt-4 border-t border-white/10">
+                                        <a href="https://github.com/Hassan-2305" target="_blank" className="text-neutral-500 hover:text-white transition-colors">
+                                            <Github size={24} />
+                                        </a>
+                                        <a href="https://linkedin.com" target="_blank" className="text-neutral-500 hover:text-blue-400 transition-colors">
+                                            <Linkedin size={24} />
+                                        </a>
+                                        <a href="mailto:contact@example.com" className="text-neutral-500 hover:text-indigo-400 transition-colors">
+                                            <Mail size={24} />
+                                        </a>
+                                    </div>
                                 </div>
-                            </div>
+                            </motion.div>
                         </div>
                     </div>
+
+                    {/* Bottom: Technical Footer / Marquee */}
+                    <div className="mt-20 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 text-xs font-mono text-neutral-600 uppercase tracking-wider">
+                        <div className="flex gap-8">
+                            <span>Loc: India, Remote</span>
+                            <span>Exp: 2+ Years</span>
+                        </div>
+                        <div className="flex gap-8">
+                            <span>Stack: React / Node</span>
+                            <span>System: V5.0.1</span>
+                        </div>
+                    </div>
+
                 </div>
-            </motion.section>
+            </section>
         );
     }
 
@@ -248,16 +277,16 @@ export const Hero = () => {
 
                 {/* BOTTOM ROW */}
                 <div className="flex justify-between items-end w-full">
-                    <div className="flex flex-col gap-5">
+                    <div className="flex flex-col gap-0">
                         <div className="flex flex-col">
-                            <span className="text-white/40 text-xs font-mono tracking-widest uppercase -mb-1">
+                            <span className="text-white/40 text-xs font-mono tracking-widest uppercase -mb-1 ml-2">
                                 Hi, I'm
                             </span>
                             <h1 className="text-6xl md:text-9xl font-heading font-bold text-white tracking-tighter uppercase leading-none mix-blend-difference">
                                 HASSAN
                             </h1>
                         </div>
-                        <div className="inline-flex items-center gap-1 text-base md:text-xl font-light tracking-wide text-white/60 whitespace-nowrap">
+                        <div className="inline-flex items-center gap-1 text-base md:text-xl font-light tracking-wide text-white/60 whitespace-nowrap ml-4">
                             <span>I</span>
                             <div className="relative h-6 md:h-7 overflow-hidden flex items-center">
                                 {/* Ghost element to maintain width based on longest word */}

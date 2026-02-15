@@ -2,11 +2,18 @@ import React, { useState } from 'react';
 import { useMode } from '../../context/ModeContext';
 import { Switch } from '../ui/Switch';
 import { Menu, X, ArrowRight, Code, Zap, Layers, Download } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useScroll, useSpring } from 'framer-motion';
 
 export const Navbar = () => {
     const { isRecruiterMode, toggleRecruiterMode } = useMode();
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+    const { scrollYProgress } = useScroll();
+    const scaleX = useSpring(scrollYProgress, {
+        stiffness: 100,
+        damping: 30,
+        restDelta: 0.001
+    });
 
     // Navbar style based on mode
     const navClasses = isRecruiterMode
@@ -15,6 +22,14 @@ export const Navbar = () => {
 
     return (
         <>
+            {/* Scroll Progress Bar (Recruiter Mode Only) */}
+            {isRecruiterMode && (
+                <motion.div
+                    className="fixed top-0 left-0 right-0 h-1 bg-indigo-500 origin-left z-[100]"
+                    style={{ scaleX }}
+                />
+            )}
+
             <motion.nav
                 className={navClasses}
                 initial={{ y: -100 }}
@@ -45,32 +60,7 @@ export const Navbar = () => {
                             </div>
 
                             {/* Middle: Skills & Stats (Vertical Icons) */}
-                            <div className="flex-1 flex flex-col items-center justify-center gap-8 text-white/40">
-                                <div className="flex flex-col items-center gap-1 group relative">
-                                    <div className="p-2 rounded-lg bg-white/5 group-hover:bg-white/10 group-hover:text-cyan-400 transition-colors">
-                                        <Code size={20} />
-                                    </div>
-                                    <span className="absolute right-full mr-4 top-1/2 -translate-y-1/2 text-xs font-medium text-white bg-dark/90 px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap border border-white/10">
-                                        React Ecosystem
-                                    </span>
-                                </div>
-                                <div className="flex flex-col items-center gap-1 group relative">
-                                    <div className="p-2 rounded-lg bg-white/5 group-hover:bg-white/10 group-hover:text-yellow-400 transition-colors">
-                                        <Zap size={20} />
-                                    </div>
-                                    <span className="absolute right-full mr-4 top-1/2 -translate-y-1/2 text-xs font-medium text-white bg-dark/90 px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap border border-white/10">
-                                        High Performance
-                                    </span>
-                                </div>
-                                <div className="flex flex-col items-center gap-1 group relative">
-                                    <div className="p-2 rounded-lg bg-white/5 group-hover:bg-white/10 group-hover:text-purple-400 transition-colors">
-                                        <Layers size={20} />
-                                    </div>
-                                    <span className="absolute right-full mr-4 top-1/2 -translate-y-1/2 text-xs font-medium text-white bg-dark/90 px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap border border-white/10">
-                                        Design Systems
-                                    </span>
-                                </div>
-                            </div>
+                            <div className="flex-1" />
 
                             {/* Bottom: Actions */}
                             <div className="flex flex-col items-center gap-6">

@@ -21,24 +21,10 @@ export const RecruiterStrip = () => {
                             <div className="h-2 w-2 rounded-full bg-green-500 animate-pulse" />
                             <span className="font-medium text-indigo-200">Open to Work</span>
                             <span className="text-neutral-400 hidden md:inline">|</span>
-                            <span className="text-white font-semibold">Senior Frontend Engineer</span>
+                            <span className="text-white font-semibold">Creative Developer</span>
                         </div>
 
-                        {/* Quick Skills */}
-                        <div className="flex items-center gap-6 text-neutral-300">
-                            <div className="flex items-center gap-2">
-                                <Code2 className="w-4 h-4 text-indigo-400" />
-                                <span>React Ecosystem</span>
-                            </div>
-                            <div className="flex items-center gap-2">
-                                <Zap className="w-4 h-4 text-yellow-400" />
-                                <span>Performance</span>
-                            </div>
-                            <div className="flex items-center gap-2">
-                                <Layers className="w-4 h-4 text-blue-400" />
-                                <span>Design Systems</span>
-                            </div>
-                        </div>
+
 
                         {/* Resume Action */}
                         <button className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-1.5 rounded-full text-xs font-semibold transition-all shadow-lg hover:shadow-indigo-500/25">
