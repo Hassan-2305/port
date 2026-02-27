@@ -27,10 +27,14 @@ export const RecruiterStrip = () => {
 
 
                         {/* Resume Action */}
-                        <button className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-1.5 rounded-full text-xs font-semibold transition-all shadow-lg hover:shadow-indigo-500/25">
+                        <a
+                            href="/resume.pdf"
+                            download
+                            className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-1.5 rounded-full text-xs font-semibold transition-all shadow-lg hover:shadow-indigo-500/25"
+                        >
                             <FileText className="w-3.5 h-3.5" />
                             Download Resume
-                        </button>
+                        </a>
 
                     </div>
                 </motion.div>

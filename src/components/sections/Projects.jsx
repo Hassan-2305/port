@@ -4,24 +4,23 @@ import { useMode } from '../../context/ModeContext';
 import { ArrowUpRight } from 'lucide-react';
 
 const projects = [
-    {
-        title: "AI Resume Tailor",
-        category: "Generative AI",
-        image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=1000",
-        year: "2026"
-    },
+
     {
         title: "Open Source Connect",
         category: "UI/UX & Web Design",
         image: "/open-source-connect.png",
         year: "2024",
-        objectPosition: "top"
+        objectPosition: "top",
+        liveUrl: "https://osconnect.org",
+        codeUrl: null
     },
     {
         title: "3D & UI Designs",
         category: "Figma & Blender",
         image: "https://images.unsplash.com/photo-1545235617-9465d2a55698?auto=format&fit=crop&q=80&w=1000",
-        year: "2026"
+        year: "2026",
+        liveUrl: null,
+        codeUrl: null
     }
 ];
 
@@ -70,14 +69,20 @@ export const Projects = () => {
                                     </div>
 
                                     {/* Actions */}
-                                    <div className="flex items-center gap-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-x-4 group-hover:translate-x-0">
-                                        <a href="#" className="flex items-center gap-2 font-mono text-sm text-white hover:text-indigo-400 transition-colors">
-                                            LIVE DEMO <ArrowUpRight size={16} />
-                                        </a>
-                                        <a href="#" className="flex items-center gap-2 font-mono text-sm text-neutral-500 hover:text-white transition-colors">
-                                            CODE
-                                        </a>
-                                    </div>
+                                    {(project.liveUrl || project.codeUrl) && (
+                                        <div className="flex items-center gap-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-x-4 group-hover:translate-x-0">
+                                            {project.liveUrl && (
+                                                <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 font-mono text-sm text-white hover:text-indigo-400 transition-colors">
+                                                    LIVE DEMO <ArrowUpRight size={16} />
+                                                </a>
+                                            )}
+                                            {project.codeUrl && (
+                                                <a href={project.codeUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 font-mono text-sm text-neutral-500 hover:text-white transition-colors">
+                                                    CODE
+                                                </a>
+                                            )}
+                                        </div>
+                                    )}
 
                                     {/* Mobile Only Arrow (Always visible) */}
                                     <div className="md:hidden absolute top-4 right-0 text-white/20">

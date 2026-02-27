@@ -217,7 +217,7 @@ export const Hero = () => {
                     </div>
 
                     {/* Bottom: Technical Footer / Marquee */}
-                    <div className="mt-20 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 text-xs font-mono text-neutral-600 uppercase tracking-wider">
+                    <div className="mt-20 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 text-xs font-mono text-neutral-600 uppercase tracking-wider pr-24 md:pr-28">
                         <div className="flex gap-8">
                             <span>Loc: India, Remote</span>
                             <span>Exp: 2+ Years</span>

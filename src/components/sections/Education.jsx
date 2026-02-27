@@ -32,10 +32,10 @@ export const Education = () => {
 
     if (isRecruiterMode) {
         return (
-            <section id="education" className="py-20 bg-dark border-t border-white/5">
-                <div className="container mx-auto px-6">
-                    <h2 className="text-2xl font-bold mb-8 text-white flex items-center gap-2">
-                        <span className="w-2 h-2 bg-indigo-500 rounded-full"></span>
+            <section id="education" className="py-20 bg-[#050505] text-white border-t border-white/5 font-sans">
+                <div className="container mx-auto px-6 max-w-5xl">
+                    <h2 className="text-4xl font-bold font-heading mb-12 flex items-center gap-4">
+                        <span className="text-indigo-500 font-mono text-xl">01.</span>
                         Education
                     </h2>
 
