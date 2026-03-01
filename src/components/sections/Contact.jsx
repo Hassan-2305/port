@@ -1,7 +1,16 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import { useForm, ValidationError } from "@formspree/react";
 import { useMode } from '../../context/ModeContext';
-import { Github, Linkedin, Mail, FileDown, Copy, Check, ExternalLink, MessageCircle, Instagram } from 'lucide-react';
+import {
+    Github,
+    Linkedin,
+    Mail,
+    FileDown,
+    Copy,
+    Check,
+    ExternalLink
+} from 'lucide-react';
 import { MagneticButton } from '../ui/MagneticButton';
 
 const contactMethods = [
@@ -45,15 +54,36 @@ const contactMethods = [
 export const Contact = () => {
     const { isRecruiterMode } = useMode();
     const [copiedEmail, setCopiedEmail] = useState(false);
+    // Must be at top level — React Rules of Hooks
+    const [state, handleSubmit] = useForm("xzdaqvrn");
 
     const handleEmailCopy = () => {
-        navigator.clipboard.writeText("mohammedhassan2305@gmail.com");
-        setCopiedEmail(true);
-        setTimeout(() => setCopiedEmail(false), 2000);
+        const isMobile = window.matchMedia('(hover: none)').matches;
+        if (isMobile) {
+            window.location.href = 'mailto:mohammedhassan2305@gmail.com';
+        } else {
+            navigator.clipboard.writeText("mohammedhassan2305@gmail.com");
+            setCopiedEmail(true);
+            setTimeout(() => setCopiedEmail(false), 2000);
+        }
     };
 
-    // --- RECRUITER MODE (Simple Form) ---
+    // --- RECRUITER MODE (Formspree Form) ---
     if (isRecruiterMode) {
+
+        if (state.succeeded) {
+            return (
+                <section id="contact" className="py-20 bg-dark border-t border-white/5">
+                    <div className="container mx-auto px-6 max-w-2xl text-center">
+                        <h2 className="text-2xl font-bold text-white mb-4">Message Sent 🚀</h2>
+                        <p className="text-neutral-400">
+                            Thanks for reaching out! I’ll get back to you soon.
+                        </p>
+                    </div>
+                </section>
+            );
+        }
+
         return (
             <section id="contact" className="py-20 bg-dark border-t border-white/5">
                 <div className="container mx-auto px-6 max-w-2xl">
@@ -61,32 +91,46 @@ export const Contact = () => {
                         <span className="w-2 h-2 bg-indigo-500 rounded-full"></span>
                         Get In Touch
                     </h2>
-                    <div className="space-y-4">
-                        <a
-                            href="mailto:mohammedhassan2305@gmail.com"
-                            className="block p-4 rounded-lg bg-white/5 border border-white/10 hover:border-indigo-500/50 transition-colors text-white"
+
+                    <form onSubmit={handleSubmit} className="space-y-6">
+                        <input
+                            type="text"
+                            name="name"
+                            placeholder="Your Name"
+                            required
+                            className="w-full p-4 rounded-lg bg-white/5 border border-white/10 focus:border-indigo-500/50 text-white outline-none"
+                        />
+
+                        <input
+                            type="email"
+                            name="email"
+                            placeholder="Your Email"
+                            required
+                            className="w-full p-4 rounded-lg bg-white/5 border border-white/10 focus:border-indigo-500/50 text-white outline-none"
+                        />
+                        <ValidationError
+                            prefix="Email"
+                            field="email"
+                            errors={state.errors}
+                            className="text-red-400 text-sm"
+                        />
+
+                        <textarea
+                            name="message"
+                            placeholder="Your Message"
+                            required
+                            rows="5"
+                            className="w-full p-4 rounded-lg bg-white/5 border border-white/10 focus:border-indigo-500/50 text-white outline-none"
+                        />
+
+                        <button
+                            type="submit"
+                            disabled={state.submitting}
+                            className="w-full p-4 rounded-lg bg-indigo-600 hover:bg-indigo-700 transition-colors text-white font-medium"
                         >
-                            <Mail className="w-5 h-5 inline mr-2" />
-                            mohammedhassan2305@gmail.com
-                        </a>
-                        <a
-                            href="https://github.com/Hassan-2305"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="block p-4 rounded-lg bg-white/5 border border-white/10 hover:border-indigo-500/50 transition-colors text-white"
-                        >
-                            <Github className="w-5 h-5 inline mr-2" />
-                            @Hassan-2305
-                        </a>
-                        <a
-                            href="/resume.pdf"
-                            download
-                            className="block p-4 rounded-lg bg-indigo-600 hover:bg-indigo-700 transition-colors text-white text-center font-medium"
-                        >
-                            <FileDown className="w-5 h-5 inline mr-2" />
-                            Download Resume
-                        </a>
-                    </div>
+                            {state.submitting ? "Sending..." : "Send Message"}
+                        </button>
+                    </form>
                 </div>
             </section>
         );
@@ -95,7 +139,6 @@ export const Contact = () => {
     // --- NORMAL MODE (Magnetic Cards) ---
     return (
         <section id="contact" className="min-h-screen py-32 bg-gradient-to-b from-dark via-neutral-900 to-dark relative overflow-hidden flex items-center">
-            {/* Background Elements */}
             <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-indigo-500/10 rounded-full blur-[120px]" />
             <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-[120px]" />
 
@@ -120,22 +163,8 @@ export const Contact = () => {
                     <p className="text-xl text-neutral-400 max-w-2xl mx-auto">
                         Always excited to collaborate on interesting projects. Drop me a message and let's create something amazing.
                     </p>
-
-                    {/* Human Touch Annotation */}
-                    <div className="hidden md:block absolute -bottom-12 right-[20%] pointer-events-none">
-                        <div className="relative">
-                            <span className="absolute -top-8 left-12 w-max text-white/90 font-handwriting text-2xl rotate-6">
-                                Say hello! 👋
-                            </span>
-                            <svg width="60" height="50" viewBox="0 0 60 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M50 10 C 40 30, 20 30, 10 40" stroke="white" strokeWidth="2" strokeLinecap="round" strokeDasharray="4 4" />
-                                <path d="M10 40 L 15 32 M 10 40 L 18 42" stroke="white" strokeWidth="2" strokeLinecap="round" />
-                            </svg>
-                        </div>
-                    </div>
                 </motion.div>
 
-                {/* Contact Cards Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
                     {contactMethods.map((method, index) => (
                         <MagneticButton key={method.name} strength={0.3}>
@@ -153,31 +182,32 @@ export const Contact = () => {
                                     }
                                 }}
                             >
-                                {/* Gradient Border */}
                                 <div className={`absolute -inset-0.5 bg-gradient-to-r ${method.gradient} rounded-2xl blur opacity-30 group-hover:opacity-60 transition duration-500`}></div>
-
                                 <div className="relative bg-neutral-900/90 backdrop-blur-xl rounded-2xl border border-white/10 p-8 h-full flex flex-col">
-                                    {/* Icon */}
                                     <div className={`w-14 h-14 rounded-xl bg-gradient-to-r ${method.gradient} p-0.5 mb-4 group-hover:scale-110 transition-transform`}>
                                         <div className="w-full h-full bg-neutral-900 rounded-xl flex items-center justify-center">
                                             <method.icon className="w-7 h-7 text-white" />
                                         </div>
                                     </div>
 
-                                    {/* Content */}
                                     <h3 className="text-xl font-bold text-white mb-2">{method.name}</h3>
                                     <p className="text-neutral-400 text-sm mb-4 flex-grow">{method.handle}</p>
-
-                                    {/* Action Button */}
                                     <div className={`flex items-center gap-2 text-sm font-medium bg-gradient-to-r ${method.gradient} bg-clip-text text-transparent group-hover:translate-x-1 transition-transform`}>
                                         {method.name === "Email" && copiedEmail ? (
                                             <>
                                                 <Check className="w-4 h-4" />
                                                 Copied!
                                             </>
+                                        ) : method.name === "Email" ? (
+                                            <>
+                                                {window.matchMedia('(hover: none)').matches
+                                                    ? <Mail className="w-4 h-4" />
+                                                    : <Copy className="w-4 h-4" />}
+                                                {window.matchMedia('(hover: none)').matches ? 'Send Email' : 'Copy'}
+                                            </>
                                         ) : (
                                             <>
-                                                {method.name === "Email" ? <Copy className="w-4 h-4" /> : <ExternalLink className="w-4 h-4" />}
+                                                <ExternalLink className="w-4 h-4" />
                                                 {method.action}
                                             </>
                                         )}
@@ -188,7 +218,6 @@ export const Contact = () => {
                     ))}
                 </div>
 
-                {/* Footer Text */}
                 <motion.div
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}

@@ -21,7 +21,7 @@ export const RecruiterStrip = () => {
                             <div className="h-2 w-2 rounded-full bg-green-500 animate-pulse" />
                             <span className="font-medium text-indigo-200">Open to Work</span>
                             <span className="text-neutral-400 hidden md:inline">|</span>
-                            <span className="text-white font-semibold">Creative Developer</span>
+                            <span className="text-white font-semibold">Frontend Developer</span>
                         </div>
 
 

@@ -97,7 +97,7 @@ export const Education = () => {
                                     <div className="space-y-2">
                                         <div className="text-sm text-neutral-500 uppercase tracking-widest font-mono">Relevant Coursework</div>
                                         <div className="flex flex-wrap gap-2">
-                                            {["Data Structures", "Algorithms", "Distributed Systems", "AI/ML", "Database Design"].map(course => (
+                                            {["Data Structures", "Algorithms", "AI/ML"].map(course => (
                                                 <span key={course} className="text-sm text-neutral-400 flex items-center gap-1">
                                                     <BookOpen size={12} className="text-indigo-500" /> {course}
                                                 </span>

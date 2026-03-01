@@ -70,7 +70,7 @@ export const Projects = () => {
 
                                     {/* Actions */}
                                     {(project.liveUrl || project.codeUrl) && (
-                                        <div className="flex items-center gap-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-x-4 group-hover:translate-x-0">
+                                        <div className="flex items-center gap-6 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 transform translate-x-0 md:translate-x-4 md:group-hover:translate-x-0">
                                             {project.liveUrl && (
                                                 <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 font-mono text-sm text-white hover:text-indigo-400 transition-colors">
                                                     LIVE DEMO <ArrowUpRight size={16} />

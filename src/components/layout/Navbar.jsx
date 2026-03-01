@@ -46,7 +46,7 @@ export const Navbar = () => {
                         <motion.div
                             initial={{ x: 100, opacity: 0 }}
                             animate={{ x: 0, opacity: 1 }}
-                            className="fixed right-0 top-0 bottom-0 w-20 md:w-24 bg-dark/90 backdrop-blur-xl border-l border-white/10 z-50 flex flex-col items-center py-8 gap-8"
+                            className="hidden md:flex fixed right-0 top-0 bottom-0 w-24 bg-dark/90 backdrop-blur-xl border-l border-white/10 z-50 flex-col items-center py-8 gap-8"
                         >
                             {/* Top: Status */}
                             <div className="flex flex-col items-center gap-2 group cursor-help">
@@ -156,7 +156,7 @@ export const Navbar = () => {
                         >
                             <div className="flex items-center justify-between">
                                 <span className="text-sm font-medium text-neutral-400">Recruiter Mode</span>
-                                <Switch checked={isRecruiterMode} onCheckedChange={toggleRecruiterMode} />
+                                <Switch checked={isRecruiterMode} onCheckedChange={() => { toggleRecruiterMode(); setIsMobileMenuOpen(false); }} />
                             </div>
                         </motion.div>
                     </motion.div>

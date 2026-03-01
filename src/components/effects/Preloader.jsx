@@ -66,24 +66,24 @@ export const Preloader = ({ onComplete, assetsLoaded = false }) => {
                         initial={{ scale: 0.8, opacity: 0 }}
                         animate={{ scale: 1, opacity: 1, rotate: 180 }}
                         transition={{ duration: 1.5, ease: "easeOut" }}
-                        className="absolute w-[25vw] h-[25vw] max-w-[400px] max-h-[400px] rounded-full bg-gradient-to-r from-yellow-500 via-orange-500 to-red-600 blur-2xl opacity-80"
+                        className="absolute w-[55vw] h-[55vw] md:w-[25vw] md:h-[25vw] max-w-[400px] max-h-[400px] rounded-full bg-gradient-to-r from-yellow-500 via-orange-500 to-red-600 blur-2xl opacity-80"
                     />
 
                     {/* Layer 2: Rotating Flares */}
                     <motion.div
                         animate={{ rotate: 360, scale: [1, 1.1, 1] }}
                         transition={{ rotate: { duration: 8, repeat: Infinity, ease: "linear" }, scale: { duration: 2, repeat: Infinity, ease: "easeInOut" } }}
-                        className="absolute w-[22vw] h-[22vw] max-w-[350px] max-h-[350px] rounded-full bg-gradient-to-t from-yellow-400 via-transparent to-transparent blur-xl opacity-60"
+                        className="absolute w-[48vw] h-[48vw] md:w-[22vw] md:h-[22vw] max-w-[350px] max-h-[350px] rounded-full bg-gradient-to-t from-yellow-400 via-transparent to-transparent blur-xl opacity-60"
                     />
 
                     {/* Layer 3: The Eclipse (Black Disc) */}
-                    <div className="absolute w-[20vw] h-[20vw] max-w-[320px] max-h-[320px] rounded-full bg-black border border-white/5 shadow-[inset_0_0_60px_rgba(0,0,0,1)] z-20" />
+                    <div className="absolute w-[44vw] h-[44vw] md:w-[20vw] md:h-[20vw] max-w-[320px] max-h-[320px] rounded-full bg-black border border-white/5 shadow-[inset_0_0_60px_rgba(0,0,0,1)] z-20" />
 
                     {/* Ring: Gold Rim */}
                     <motion.div
                         animate={{ rotate: -360 }}
                         transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                        className="absolute w-[20.2vw] h-[20.2vw] max-w-[324px] max-h-[324px] rounded-full border border-yellow-500/50 z-20 opacity-80"
+                        className="absolute w-[44.5vw] h-[44.5vw] md:w-[20.2vw] md:h-[20.2vw] max-w-[324px] max-h-[324px] rounded-full border border-yellow-500/50 z-20 opacity-80"
                     />
 
                     {/* Content: Main Counter inside Eclipse */}
@@ -92,7 +92,7 @@ export const Preloader = ({ onComplete, assetsLoaded = false }) => {
                             initial={{ scale: 0.5, blur: "10px" }}
                             animate={{ scale: 1, blur: "0px" }}
                             transition={{ duration: 0.5 }}
-                            className="text-6xl md:text-8xl font-bold font-heading text-white tracking-tighter"
+                            className="text-4xl md:text-8xl font-bold font-heading text-white tracking-tighter"
                         >
                             {Math.round(count).toString().padStart(2, '0')}
                         </motion.div>
@@ -104,8 +104,8 @@ export const Preloader = ({ onComplete, assetsLoaded = false }) => {
             </div>
 
             {/* Bottom Bar: Loading Status */}
-            <div className="flex justify-between items-end z-10 mix-blend-difference">
-                <div className="flex flex-col gap-1 w-full max-w-xs">
+            <div className="flex justify-between items-end z-10 mix-blend-difference w-full">
+                <div className="flex flex-col gap-1 w-full">
                     <div className="flex justify-between text-[10px] font-mono text-white/60 uppercase tracking-widest mb-2">
                         <span>Loading Assets</span>
                         <span>{Math.round(count)}%</span>

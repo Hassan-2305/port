@@ -118,9 +118,18 @@ const Scene = () => {
 export const Hero = () => {
     const { isRecruiterMode } = useMode();
     const [textIndex, setTextIndex] = useState(0);
+    const [isMobile, setIsMobile] = useState(false);
     const texts = ["design", "develop", "deploy"];
     const containerRef = useRef(null);
     const isInView = useInView(containerRef, { margin: "0px 0px -200px 0px", once: false });
+
+    // Detect mobile to disable OrbitControls (which blocks touch scroll)
+    useEffect(() => {
+        const check = () => setIsMobile(window.innerWidth < 768);
+        check();
+        window.addEventListener('resize', check);
+        return () => window.removeEventListener('resize', check);
+    }, []);
 
     // Text rotation synced to monolith rhythm (~3s cycle)
     useEffect(() => {
@@ -152,7 +161,7 @@ export const Hero = () => {
                                     // Portfolio_v5.0
                                 </span>
 
-                                <h1 className="text-7xl md:text-9xl font-heading font-bold leading-[0.9] tracking-tighter mb-6 group cursor-default">
+                                <h1 className="text-4xl sm:text-6xl md:text-9xl font-heading font-bold leading-[0.9] tracking-tighter mb-6 group cursor-default">
                                     <span className="block group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-white transition-colors duration-300">
                                         MOHAMMED
                                     </span>
@@ -183,7 +192,7 @@ export const Hero = () => {
                             >
                                 <div className="space-y-4">
                                     <h2 className="text-2xl font-bold font-heading text-white">
-                                        Full Stack Creative Developer
+                                        Frontend Developer
                                     </h2>
                                     <p className="text-neutral-400 leading-relaxed max-w-sm">
                                         Building high-performance, interactive web experiences. Specializing in <strong className="text-white">React, Next.js, and WebGL</strong>, I bridge the gap between design and engineering to deliver polished, user-centric products.
@@ -217,13 +226,13 @@ export const Hero = () => {
                     </div>
 
                     {/* Bottom: Technical Footer / Marquee */}
-                    <div className="mt-20 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 text-xs font-mono text-neutral-600 uppercase tracking-wider pr-24 md:pr-28">
+                    <div className="mt-20 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 text-xs font-mono text-neutral-600 uppercase tracking-wider pr-0 md:pr-28">
                         <div className="flex gap-8">
                             <span>Loc: India, Remote</span>
                             <span>Exp: 2+ Years</span>
                         </div>
                         <div className="flex gap-8">
-                            <span>Stack: React / Node</span>
+                            <span>Stack: React / Next.js</span>
                             <span>System: V5.0.1</span>
                         </div>
                     </div>
@@ -236,11 +245,13 @@ export const Hero = () => {
     return (
         <section ref={containerRef} className="relative h-screen w-full bg-[#050505] overflow-hidden flex flex-col items-center justify-center font-sans">
 
-            <div className="absolute inset-0 z-0">
+            <div className="absolute inset-0 z-0" style={{ touchAction: 'pan-y' }}>
                 <Canvas frameloop={isInView ? "always" : "never"} camera={{ position: [0, 0, 8], fov: 35 }} dpr={[1, 1.5]}>
                     <color attach="background" args={['#060608']} />
                     <Scene />
-                    <OrbitControls enableZoom={false} enablePan={false} minPolarAngle={Math.PI / 3} maxPolarAngle={2 * Math.PI / 3} />
+                    {!isMobile && (
+                        <OrbitControls enableZoom={false} enablePan={false} minPolarAngle={Math.PI / 3} maxPolarAngle={2 * Math.PI / 3} />
+                    )}
                 </Canvas>
             </div>
 
