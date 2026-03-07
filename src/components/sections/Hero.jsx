@@ -1,127 +1,30 @@
-import React, { useRef, useState, useEffect } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
-import { Float, Environment, OrbitControls, ContactShadows } from '@react-three/drei';
-import { EffectComposer, Bloom, Noise, Vignette } from '@react-three/postprocessing';
-import * as THREE from 'three';
+import React, { useRef, useState, useEffect, lazy, Suspense } from 'react';
 import { useMode } from '../../context/ModeContext';
 import { MagneticButton } from '../ui/MagneticButton';
 import { Github, Linkedin, Mail, ChevronDown, Download } from 'lucide-react';
 import { motion, AnimatePresence, useInView } from 'framer-motion';
+import { ClientOnly } from '../ClientOnly';
+
+const HeroCanvas = lazy(() => import('./HeroCanvas'));
 
 
-// HERO: THE OBSIDIAN MONOLITH (V4 / V44)
-
-
-
-const MonolithScene = () => {
-    const sphereRef = useRef(null);
-    const ringRef = useRef(null);
-    const ringMatRef = useRef(null);
-
-    useFrame((state) => {
-        const t = state.clock.elapsedTime;
-
-        // Primary Y-axis rotation: slow, continuous spin (0.1 rad/s)
-        if (sphereRef.current) {
-            sphereRef.current.rotation.y = t * 0.1;
-            // Secondary X-axis oscillation: gentle tilt via sine wave
-            sphereRef.current.rotation.x = Math.sin(t * 0.2) * 0.1;
-        }
-
-        // Ring counter-rotation at half sphere speed for visual contrast
-        if (ringRef.current) {
-            ringRef.current.rotation.x = Math.PI / 2 + Math.sin(t * 0.3) * 0.1;
-            ringRef.current.rotation.y = t * 0.05;
-        }
-
-        // Gold ring pulsing glow: sine wave creates rhythmic emissive (period ~12.6s)
-        if (ringMatRef.current) {
-            ringMatRef.current.emissiveIntensity = 0.5 + Math.sin(t * 0.5) * 0.2;
-        }
-    });
-
-    return (
-        <group position={[0, 0, 0]}>
-
-            {/* 1. THE OBSIDIAN SPHERE */}
-            <Float speed={1.5} rotationIntensity={0.2} floatIntensity={0.5}>
-                <mesh ref={sphereRef} scale={[2, 2, 2]}>
-                    <sphereGeometry args={[1, 64, 64]} />
-                    <meshPhysicalMaterial
-                        color="#101015"
-                        roughness={0.1}
-                        metalness={0.9}
-                        clearcoat={1.0}
-                        clearcoatRoughness={0.1}
-                        reflectivity={1}
-                        envMapIntensity={2.5}
-                    />
-                </mesh>
-            </Float>
-
-            {/* 2. THE GOLD TRIM RING */}
-            <mesh ref={ringRef} rotation={[Math.PI / 2, 0, 0]}>
-                <torusGeometry args={[3.2, 0.02, 64, 256]} />
-                <meshStandardMaterial
-                    ref={ringMatRef}
-                    color="#ffcc00"
-                    roughness={0.2}
-                    metalness={1.0}
-                    emissive="#ffaa00"
-                    emissiveIntensity={0.5}
-                />
-            </mesh>
-
-            {/* 3. FLOATING DUST */}
-            <group>
-                {new Array(50).fill(0).map((_, i) => (
-                    <mesh key={i} position={[
-                        (Math.random() - 0.5) * 10,
-                        (Math.random() - 0.5) * 10,
-                        (Math.random() - 0.5) * 5
-                    ]} scale={Math.random() * 0.03}>
-                        <sphereGeometry args={[1, 8, 8]} />
-                        <meshBasicMaterial color="#ffffff" transparent opacity={0.3} />
-                    </mesh>
-                ))}
-            </group>
-
-            <ContactShadows position={[0, -3.5, 0]} opacity={0.4} scale={20} blur={2.5} far={4} />
-        </group>
-    );
-};
-
-
-const Scene = () => {
-    return (
-        <>
-            <MonolithScene />
-
-            {/* STUDIO LIGHTING */}
-            <Environment preset="studio" />
-            {/* Main key light: brighter, wider angle */}
-            <spotLight position={[10, 10, 10]} angle={0.2} penumbra={1} intensity={1.5} color="#ffffff" />
-            {/* Blue rim: softened */}
-            <spotLight position={[-10, 0, -5]} angle={0.5} penumbra={1.5} intensity={1.5} color="#4f46e5" />
-            {/* Gold rim: softened */}
-            <spotLight position={[5, -5, 5]} angle={0.5} penumbra={1.5} intensity={1.5} color="#fbbf24" />
-
-            <EffectComposer enableNormalPass={false}>
-                <Bloom luminanceThreshold={0.2} mipmapBlur intensity={0.5} radius={0.4} />
-                <Noise opacity={0.06} />
-                <Vignette eskil={false} offset={0.1} darkness={0.6} />
-            </EffectComposer>
-        </>
-    );
-};
+// HERO: THE OBSIDIAN MONOLITH
 
 export const Hero = () => {
     const { isRecruiterMode } = useMode();
     const [textIndex, setTextIndex] = useState(0);
     const [isMobile, setIsMobile] = useState(false);
+    const [isInView, setIsInView] = useState(false);
     const texts = ["design", "develop", "deploy"];
     const containerRef = useRef(null);
-    const isInView = useInView(containerRef, { margin: "0px 0px -200px 0px", once: false });
+    useEffect(() => {
+        const obs = new IntersectionObserver(
+            ([e]) => setIsInView(e.isIntersecting),
+            { rootMargin: '0px 0px -200px 0px' }
+        );
+        if (containerRef.current) obs.observe(containerRef.current);
+        return () => obs.disconnect();
+    }, []);
 
     // Detect mobile to disable OrbitControls (which blocks touch scroll)
     useEffect(() => {
@@ -246,13 +149,11 @@ export const Hero = () => {
         <section ref={containerRef} className="relative h-screen w-full bg-[#050505] overflow-hidden flex flex-col items-center justify-center font-sans">
 
             <div className="absolute inset-0 z-0" style={{ touchAction: 'pan-y' }}>
-                <Canvas frameloop={isInView ? "always" : "never"} camera={{ position: [0, 0, 8], fov: 35 }} dpr={[1, 1.5]}>
-                    <color attach="background" args={['#060608']} />
-                    <Scene />
-                    {!isMobile && (
-                        <OrbitControls enableZoom={false} enablePan={false} minPolarAngle={Math.PI / 3} maxPolarAngle={2 * Math.PI / 3} />
-                    )}
-                </Canvas>
+                <ClientOnly fallback={<div className="absolute inset-0 bg-[#060608]" />}>
+                    <Suspense fallback={<div className="absolute inset-0 bg-[#060608]" />}>
+                        <HeroCanvas containerRef={containerRef} isMobile={isMobile} />
+                    </Suspense>
+                </ClientOnly>
             </div>
 
             {/* UI LAYER */}

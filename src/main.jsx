@@ -1,5 +1,5 @@
 import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
+import { createRoot, hydrateRoot } from 'react-dom/client'
 import { Analytics } from '@vercel/analytics/react'
 import './index.css'
 import App from './App.jsx'
@@ -16,9 +16,18 @@ document.addEventListener('wheel', (e) => {
   }
 }, { passive: false });
 
-createRoot(document.getElementById('root')).render(
+const rootEl = document.getElementById('root');
+const app = (
   <StrictMode>
     <App />
     <Analytics />
-  </StrictMode>,
-)
+  </StrictMode>
+);
+
+// If pre-rendered HTML exists (production SSG), hydrate it.
+// Otherwise (dev), do a normal createRoot render.
+if (rootEl.innerHTML.trim()) {
+  hydrateRoot(rootEl, app);
+} else {
+  createRoot(rootEl).render(app);
+}
