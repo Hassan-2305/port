@@ -6,7 +6,7 @@ import { ArrowUpRight } from 'lucide-react';
 const projects = [
 
     {
-        title: "Open Source Connect",
+        title: "Open Source Connect India (osconnect.org)",
         category: "UI/UX & Web Design",
         image: "/open-source-connect.png",
         year: "2024",
