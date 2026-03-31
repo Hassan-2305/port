@@ -4,7 +4,15 @@ import { useMode } from '../../context/ModeContext';
 import { ArrowUpRight } from 'lucide-react';
 
 const projects = [
-
+    {
+        title: "Vertex",
+        category: "AI Trading Platform",
+        image: "/vertex.png",
+        year: "2026",
+        objectPosition: "center",
+        liveUrl: "https://vertex-8i4c.vercel.app/",
+        codeUrl: null
+    },
     {
         title: "Open Source Connect India (osconnect.org)",
         category: "UI/UX & Web Design",
