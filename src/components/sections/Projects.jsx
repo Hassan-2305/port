@@ -15,6 +15,24 @@ const projects = [
         codeUrl: null
     },
     {
+        title: "ACES CUSAT",
+        category: "Web Development",
+        image: "/aces-project.png",
+        year: "2024",
+        objectPosition: "center",
+        liveUrl: "https://acescusat.tech",
+        codeUrl: null
+    },
+    {
+        title: "Team Horizon",
+        category: "Web Development",
+        image: "/horizon-project.png",
+        year: "2024",
+        objectPosition: "top",
+        liveUrl: "https://horizoncusat.tech",
+        codeUrl: null
+    },
+    {
         title: "3D & UI Designs",
         category: "Figma & Blender",
         image: "https://images.unsplash.com/photo-1545235617-9465d2a55698?auto=format&fit=crop&q=80&w=1000",
@@ -146,7 +164,7 @@ export const Projects = () => {
                     {projects.map((project) => (
                         <motion.div
                             key={project.title}
-                            className="relative flex-shrink-0 w-[60vh] h-[70vh] group cursor-none"
+                            className={`relative flex-shrink-0 w-[60vh] h-[70vh] group cursor-none ${project.liveUrl || project.codeUrl ? 'cursor-pointer' : ''}`}
                             onMouseEnter={() => {
                                 setCursorText("View");
                                 setCursorVariant("project");
@@ -154,6 +172,12 @@ export const Projects = () => {
                             onMouseLeave={() => {
                                 setCursorText("");
                                 setCursorVariant("default");
+                            }}
+                            onClick={() => {
+                                const url = project.liveUrl || project.codeUrl;
+                                if (url) {
+                                    window.open(url, "_blank", "noopener,noreferrer");
+                                }
                             }}
                         >
                             <div className="w-full h-[calc(100%-4rem)] overflow-hidden rounded-md grayscale group-hover:grayscale-0 transition-all duration-700 ease-[0.16,1,0.3,1] relative">
