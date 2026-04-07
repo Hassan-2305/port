@@ -117,11 +117,11 @@ export const Projects = () => {
                                 </div>
 
                                 {/* Hover Image Preview (Reveal) */}
-                                <div className="absolute inset-0 z-0 opacity-0 group-hover:opacity-10 pointer-events-none transition-opacity duration-500">
+                                <div className="absolute inset-0 z-0 opacity-10 md:opacity-0 md:group-hover:opacity-10 pointer-events-none transition-opacity duration-500">
                                     <img
                                         src={project.image}
                                         alt={project.title}
-                                        className="w-full h-full object-cover grayscale"
+                                        className="w-full h-full object-cover grayscale-0 md:grayscale"
                                         style={project.objectPosition ? { objectPosition: project.objectPosition } : undefined}
                                     />
                                 </div>
@@ -145,10 +145,10 @@ export const Projects = () => {
     return (
         <section id="projects" ref={targetRef} className="relative h-[300vh] bg-neutral-900">
             <div className="sticky top-0 h-screen flex items-center overflow-hidden">
-                <motion.div style={{ x }} className="flex gap-16 px-24 will-change-transform">
+                <motion.div style={{ x }} className="flex gap-8 md:gap-16 px-8 md:px-24 will-change-transform">
                     {/* Section Title Card */}
-                    <div className="flex-shrink-0 w-max flex flex-col justify-center pr-12">
-                        <h2 className="text-[8vw] leading-none font-bold font-heading text-neutral-800 uppercase">
+                    <div className="flex-shrink-0 w-max flex flex-col justify-center pr-8 md:pr-12">
+                        <h2 className="text-[15vw] md:text-[8vw] leading-none font-bold font-heading text-neutral-800 uppercase">
                             Selected <br /> <span className="text-white">Works</span>
                         </h2>
                         <p className="mt-8 text-neutral-400 max-w-sm text-lg">
@@ -172,7 +172,7 @@ export const Projects = () => {
                     {projects.map((project) => (
                         <motion.div
                             key={project.title}
-                            className={`relative flex-shrink-0 w-[60vh] h-[70vh] group cursor-none ${project.liveUrl || project.codeUrl ? 'cursor-pointer' : ''}`}
+                            className={`relative flex-shrink-0 w-[85vw] md:w-[60vh] h-[60vh] md:h-[70vh] group cursor-none ${project.liveUrl || project.codeUrl ? 'cursor-pointer' : ''}`}
                             onMouseEnter={() => {
                                 setCursorText("View");
                                 setCursorVariant("project");
@@ -188,7 +188,7 @@ export const Projects = () => {
                                 }
                             }}
                         >
-                            <div className="w-full h-[calc(100%-4rem)] overflow-hidden rounded-md grayscale group-hover:grayscale-0 transition-all duration-700 ease-[0.16,1,0.3,1] relative">
+                            <div className="w-full h-[calc(100%-4rem)] overflow-hidden rounded-md grayscale-0 md:grayscale md:group-hover:grayscale-0 transition-all duration-700 ease-[0.16,1,0.3,1] relative">
                                 <motion.img
                                     src={project.image}
                                     alt={project.title}
@@ -198,15 +198,15 @@ export const Projects = () => {
                                     style={project.objectPosition ? { objectPosition: project.objectPosition } : undefined}
                                     whileHover={{ scale: 1.1 }}
                                 />
-                                <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors" />
+                                <div className="absolute inset-0 bg-transparent md:bg-black/20 md:group-hover:bg-transparent transition-colors" />
                             </div>
 
-                            <div className="mt-3 w-full flex justify-between items-end opacity-50 group-hover:opacity-100 transition-opacity">
+                            <div className="mt-3 w-full flex justify-between items-end opacity-100 md:opacity-50 md:group-hover:opacity-100 transition-opacity">
                                 <div>
-                                    <h3 className="text-3xl font-heading font-bold text-white">{project.title}</h3>
-                                    <span className="text-indigo-400 font-mono text-sm uppercase tracking-wider">{project.category}</span>
+                                    <h3 className="text-2xl md:text-3xl font-heading font-bold text-white">{project.title}</h3>
+                                    <span className="text-indigo-400 font-mono text-xs md:text-sm uppercase tracking-wider">{project.category}</span>
                                 </div>
-                                <span className="text-6xl font-heading font-bold text-neutral-800 pointer-events-none select-none">{project.year}</span>
+                                <span className="text-5xl md:text-6xl font-heading font-bold text-neutral-800 pointer-events-none select-none">{project.year}</span>
                             </div>
                         </motion.div>
                     ))}
