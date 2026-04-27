@@ -45,7 +45,7 @@ const projects = [
         category: "Figma & Blender",
         image: "https://images.unsplash.com/photo-1545235617-9465d2a55698?auto=format&fit=crop&q=80&w=1000",
         year: "2026",
-        liveUrl: null,
+        liveUrl: "https://www.figma.com/design/Z8SQoGHxOpRi3od7mVnqJz/Untitled?node-id=22-2&t=i9RmVZ4XU9ryiIe8-1",
         codeUrl: null
     }
 ];
