@@ -3,99 +3,8 @@ import { motion, useMotionValue, useScroll, useTransform } from 'framer-motion';
 import { useMode } from '../../context/ModeContext';
 import { ArrowUpRight } from 'lucide-react';
 import { profile } from '../../data/profile';
+import { projects } from '../../data/content';
 
-// Each project renders in both modes. `image: null` gets a designed text tile.
-// `status` shows as a small badge (e.g. "In development", "Client work").
-const projects = [
-    {
-        title: "Aekobaba",
-        category: "B2B Packaging Marketplace",
-        image: "/aekobaba.webp",
-        year: "2026",
-        liveUrl: "https://aekobaba.vercel.app",
-        description: "Built solo: a marketplace where brands send one quote request to many packaging suppliers. ~530 source-verified products from 18 suppliers, faceted search, comparison, and a Quote Basket that syncs from guest to account. 28-model Prisma schema, fail-closed role guards, a transactional email outbox, and 55 Vitest test files in CI.",
-        tech: ["Next.js 15", "TypeScript", "Prisma", "Supabase", "Vitest"],
-    },
-    {
-        title: "CodeCrypt 3.0",
-        category: "Hackathon Website · ACES CUSAT",
-        image: "/codecrypt.webp",
-        year: "2026",
-        liveUrl: "https://codecrypt.dhishna.org",
-        description: "Official site for ACES CUSAT's 24-hour hackathon at Dhishna 2027. A cinematic Canvas 2D intro, a spinning minted-coin hero, a live auction simulation explaining the bidding format, countdown and registration, all in plain HTML, CSS and JavaScript with no framework or build step.",
-        tech: ["JavaScript", "Canvas 2D", "HTML", "CSS"],
-    },
-    {
-        title: "Vertex",
-        category: "AI Trading Platform",
-        image: "/vertex.webp",
-        year: "2025–26",
-        liveUrl: "https://vertex-8i4c.vercel.app/",
-        description: "Full-stack trading platform for Indian markets (NSE/BSE) with portfolio tracking, strategy backtesting and paper F&O simulation on a 7-table PostgreSQL schema. Groq (Llama 3.3 70B) market analysis at sub-2s responses, and 5+ dashboard chart types for P&L, drawdown and strategy performance.",
-        tech: ["React", "Vite", "Supabase", "Tailwind", "Groq API"],
-    },
-    {
-        title: "JurisAI",
-        category: "Malayalam Legal Speech Recognition",
-        image: null,
-        year: "2026",
-        status: "Client work · Essbee.ae",
-        liveUrl: null,
-        description: "End-to-end Malayalam legal ASR: 3,700+ PII-redacted sentences from 30+ Kerala High Court judgments, GPU-accelerated neural TTS for training audio, and a Wav2Vec2 CTC model fine-tuned within 6 GB of VRAM to 1.7% CER / 13.8% WER on a held-out synthetic dev set.",
-        tech: ["Python", "PyTorch", "Hugging Face", "Wav2Vec2", "CUDA"],
-    },
-    {
-        title: "DayZero",
-        category: "Voice-first Productivity App",
-        // Concept cover (no UI built yet) — replace with a real screenshot once the app exists
-        image: "/dayzero.webp",
-        year: "2026",
-        status: "In development",
-        liveUrl: null,
-        description: "A voice-first, local-first accountability app for Windows and Android. You speak naturally; a local LLM proposes structured actions, deterministic code resolves dates and recurrence, and nothing is saved until you confirm. Works offline on SQLite with Firebase sync, at zero recurring cost. Architecture and data model done; build in progress.",
-        tech: ["Tauri 2", "React", "TypeScript", "SQLite", "Ollama", "Firebase"],
-    },
-    {
-        title: "ACES CUSAT",
-        category: "Official Club Website",
-        image: "/aces-project.webp",
-        year: "2025–26",
-        liveUrl: "https://acescusat.tech",
-        description: "Official website for the Association of Computer Engineering Students, serving 1,000+ members. Responsive React build backed by a design system of color tokens, typography and component specs, used across 5+ pages and maintained by a 4-person team.",
-        tech: ["React", "Vite", "Figma"],
-    },
-    {
-        title: "Team Horizon",
-        category: "Mars Rover Club Website",
-        image: "/horizon-project.webp",
-        year: "2025–26",
-        objectPosition: "top",
-        liveUrl: "https://horizoncusat.tech",
-        description: "Five-page multi-route site for CUSAT's Mars rover club with custom page transitions, plus a canvas starfield and scroll-driven animation that holds 60fps on mid-range devices.",
-        tech: ["React 18", "Vite", "React Router", "Canvas"],
-    },
-    {
-        title: "Open Source Connect India",
-        category: "UI/UX Design",
-        image: "/open-source-connect.webp",
-        year: "2025",
-        objectPosition: "top",
-        liveUrl: "https://osconnect.org",
-        description: "Designed the full 6-screen interface for an open-source event platform, from landing page to registration: wireframes, prototypes and final mockups in a 3-week sprint, applying WCAG contrast and keyboard-navigation guidelines.",
-        tech: ["Figma", "Prototyping", "WCAG"],
-    },
-    {
-        title: "3D & UI Designs",
-        category: "Figma & Blender",
-        // TODO: replace with your own render/screenshot (currently a stock photo)
-        image: "https://images.unsplash.com/photo-1545235617-9465d2a55698?auto=format&fit=crop&q=80&w=1000",
-        year: "2026",
-        linkLabel: "View in Figma",
-        liveUrl: "https://www.figma.com/design/Z8SQoGHxOpRi3od7mVnqJz/Untitled?node-id=22-2&t=i9RmVZ4XU9ryiIe8-1",
-        description: "",
-        tech: ["Figma", "Blender"],
-    }
-];
 
 // Visible link text: the site's address (e.g. "aekobaba.vercel.app"), or a custom label
 const siteLabel = (project) =>
@@ -257,13 +166,13 @@ export const Projects = () => {
                             Selected <br /> <span className="text-white">Works</span>
                         </h2>
                         <p className="mt-8 text-neutral-300 max-w-sm text-lg">
-                            Products, ML systems, websites and designs I've built and shipped.
+                            Some for clients, some for clubs at CUSAT, and one that's still on paper.
                         </p>
 
                         <div className="mt-12 hidden md:block pointer-events-none" aria-hidden="true">
                             <div className="relative">
                                 <span className="absolute -top-6 left-0 w-max text-white/90 font-handwriting text-xl -rotate-2">
-                                    Scroll to explore
+                                    keep scrolling
                                 </span>
                                 <svg width="100" height="30" viewBox="0 0 100 30" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M0 15 H 80" stroke="white" strokeWidth="2" strokeLinecap="round" strokeDasharray="4 4" />

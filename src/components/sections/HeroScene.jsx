@@ -1,6 +1,6 @@
 // Lazy-loaded 3D hero scene. Kept in its own module so three.js and
 // postprocessing are split into a separate chunk and don't block first paint.
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Float, Environment, OrbitControls, ContactShadows } from '@react-three/drei';
 import { EffectComposer, Bloom, Noise, Vignette } from '@react-three/postprocessing';
@@ -88,8 +88,20 @@ const MonolithScene = () => {
     );
 };
 
-const HeroScene = ({ isInView, isMobile }) => (
+const HeroScene = ({ isInView, isMobile }) => {
+    // If the browser drops the WebGL context, throw so <SceneBoundary> remounts
+    // the canvas with a fresh context instead of r3f crashing the whole app.
+    const [contextLost, setContextLost] = useState(false);
+    if (contextLost) throw new Error('WebGL context lost');
+
+    return (
     <Canvas
+        onCreated={({ gl }) => {
+            gl.domElement.addEventListener('webglcontextlost', (e) => {
+                e.preventDefault();
+                setContextLost(true);
+            }, { once: true });
+        }}
         frameloop={isInView ? "always" : "never"}
         camera={{ position: [0, 0, 8], fov: 35 }}
         // Fixed DPR range keeps GPU load stable when the user zooms the page
@@ -100,7 +112,9 @@ const HeroScene = ({ isInView, isMobile }) => (
         <MonolithScene />
 
         {/* STUDIO LIGHTING */}
-        <Environment preset="studio" />
+        {/* Self-hosted studio HDR. The "studio" preset fetched this from raw.githack.com
+            at runtime, which kept the scene black for seconds (or forever if blocked). */}
+        <Environment files="/hdri/studio_small_03_1k.hdr" />
         <spotLight position={[10, 10, 10]} angle={0.2} penumbra={1} intensity={1.5} color="#ffffff" />
         <spotLight position={[-10, 0, -5]} angle={0.5} penumbra={1.5} intensity={1.5} color="#4f46e5" />
         <spotLight position={[5, -5, 5]} angle={0.5} penumbra={1.5} intensity={1.5} color="#fbbf24" />
@@ -115,6 +129,7 @@ const HeroScene = ({ isInView, isMobile }) => (
             <OrbitControls enableZoom={false} enablePan={false} minPolarAngle={Math.PI / 3} maxPolarAngle={2 * Math.PI / 3} />
         )}
     </Canvas>
-);
+    );
+};
 
 export default HeroScene;

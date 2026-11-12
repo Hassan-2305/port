@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Navbar } from './Navbar';
 import { RecruiterStrip } from './RecruiterStrip';
 import { FloatingDock } from './FloatingDock';
@@ -19,6 +19,8 @@ export const Layout = ({ children }) => {
     const [isLoading, setIsLoading] = useState(() => !isRecruiterMode && !prefersReducedMotion());
     const [assetsLoaded, setAssetsLoaded] = useState(false);
     const lenis = useLenis();
+    // Stable callback: a new function each render would restart the preloader's finish timer
+    const finishLoading = useCallback(() => setIsLoading(false), []);
 
     // Wait for web fonts (the main thing that causes a visible layout jump)
     useEffect(() => {
@@ -48,7 +50,7 @@ export const Layout = ({ children }) => {
             <CustomCursor />
 
             <AnimatePresence mode="wait">
-                {isLoading && <Preloader onComplete={() => setIsLoading(false)} assetsLoaded={assetsLoaded} />}
+                {isLoading && <Preloader onComplete={finishLoading} assetsLoaded={assetsLoaded} />}
             </AnimatePresence>
 
             <Navbar />

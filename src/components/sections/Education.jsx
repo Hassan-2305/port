@@ -47,7 +47,7 @@ export const Education = () => {
                             transition={{ duration: 0.8 }}
                             className="text-5xl md:text-6xl font-heading font-bold mb-12"
                         >
-                            Academic <br /> <span className="text-neutral-500">Foundation.</span>
+                            Still in <br /> <span className="text-neutral-500">college.</span>
                         </motion.h2>
 
                         {/* University Card */}
@@ -86,7 +86,7 @@ export const Education = () => {
                         <div className="hidden lg:block mt-16 pl-8 pointer-events-none" aria-hidden="true">
                             <div className="relative">
                                 <span className="text-white/90 font-handwriting text-4xl -rotate-3 block mb-4">
-                                    Always learning! 📚
+                                    the receipts
                                 </span>
                                 <svg width="250" height="180" viewBox="0 0 250 180" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M20 10 C 60 10, 80 60, 50 90 C 20 120, 60 160, 120 140 C 180 120, 200 80, 230 60" stroke="white" strokeWidth="2" strokeLinecap="round" strokeDasharray="4 4" />
@@ -104,7 +104,7 @@ export const Education = () => {
                             transition={{ duration: 0.8 }}
                             className="text-5xl md:text-6xl font-heading font-bold mb-12 text-right"
                         >
-                            Constant <br /> <span className="text-neutral-500">Growth.</span>
+                            Commit <br /> <span className="text-neutral-500">history.</span>
                         </motion.h2>
 
                         <motion.div
@@ -148,9 +148,9 @@ export const Education = () => {
                         </motion.div>
 
                         <div className="mt-8 relative p-6 border border-white/10 rounded-xl bg-gradient-to-b from-white/5 to-transparent">
-                            <h4 className="text-lg font-bold text-white mb-2">CS Philosophy</h4>
-                            <p className="text-neutral-300 italic">
-                                "Algorithms are the poetry of computing. I strive to write code that is not just functional, but elegant and efficient."
+                            <h4 className="text-sm font-mono uppercase tracking-widest text-neutral-400 mb-3">Right now</h4>
+                            <p className="text-neutral-300 leading-relaxed">
+                                Second year of B.Tech, Tech Co-Lead at ACES, and training JurisAI between classes.
                             </p>
                         </div>
                     </div>

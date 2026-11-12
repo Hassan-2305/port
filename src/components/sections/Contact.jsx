@@ -82,9 +82,9 @@ export const Contact = () => {
             return (
                 <section id="contact" className="py-20 bg-dark border-t border-white/5">
                     <div className="container mx-auto px-6 max-w-2xl text-center">
-                        <h2 className="text-2xl font-bold text-white mb-4">Message Sent 🚀</h2>
+                        <h2 className="text-2xl font-bold text-white mb-4">Got it, thanks.</h2>
                         <p className="text-neutral-400">
-                            Thanks for reaching out! I’ll get back to you soon.
+                            I'll reply to the email you left.
                         </p>
                     </div>
                 </section>
@@ -170,10 +170,10 @@ export const Contact = () => {
                     </div>
 
                     <h2 className="text-6xl md:text-7xl font-heading font-bold mb-6">
-                        Let's <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-400">Build</span> Together
+                        Let's <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-400">talk</span>.
                     </h2>
                     <p className="text-xl text-neutral-400 max-w-2xl mx-auto">
-                        Always excited to collaborate on interesting projects. Drop me a message and let's create something amazing.
+                        Internships, freelance builds, a hackathon team that's one person short, or a question about something on this page. Pick whichever's easiest.
                     </p>
                 </motion.div>
 
@@ -238,15 +238,6 @@ export const Contact = () => {
                     })}
                 </div>
 
-                <motion.div
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    transition={{ delay: 0.6, duration: 0.8 }}
-                    className="text-center mt-20 text-neutral-500 text-sm"
-                >
-                    <p>Designed & Built by Mohammed Hassan</p>
-                    <p className="mt-2">© 2026. All rights reserved.</p>
-                </motion.div>
             </div>
         </section>
     );

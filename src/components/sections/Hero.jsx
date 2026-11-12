@@ -4,12 +4,13 @@ import { MagneticButton } from '../ui/MagneticButton';
 import { Github, Linkedin, Mail, ChevronDown, Download } from 'lucide-react';
 import { motion, AnimatePresence, useInView } from 'framer-motion';
 import { profile } from '../../data/profile';
+import { SceneBoundary } from './SceneBoundary';
 
 // HERO: THE OBSIDIAN MONOLITH
 // three.js lives in a separate chunk — the text UI renders immediately.
 const HeroScene = lazy(() => import('./HeroScene'));
 
-const texts = ["design", "develop", "deploy"];
+const texts = ["design", "build", "ship"];
 
 export const Hero = () => {
     const { isRecruiterMode } = useMode();
@@ -53,7 +54,7 @@ export const Hero = () => {
                                 transition={{ duration: 0.8 }}
                             >
                                 <span className="block font-mono text-indigo-400 text-sm mb-4 tracking-widest uppercase">
-                                    // Portfolio
+                                    // mohammedhassan.tech
                                 </span>
 
                                 <h1 className="text-4xl sm:text-6xl md:text-9xl font-heading font-bold leading-[0.9] tracking-tighter mb-6 cursor-default">
@@ -87,7 +88,7 @@ export const Hero = () => {
                                         <span className="block text-base font-mono font-normal text-indigo-400 mt-1">{profile.focus}</span>
                                     </h2>
                                     <p className="text-neutral-300 leading-relaxed max-w-sm">
-                                        CSE undergrad at CUSAT building <strong className="text-white">machine learning systems</strong> and <strong className="text-white">production web apps</strong>. Fine-tuned a Malayalam legal speech-recognition model to 1.7% CER, built LLM-driven data pipelines, and shipped full-stack Next.js and React products, including sites used by 1,000+ people.
+                                        I'm a second-year CSE student at CUSAT. Right now I'm teaching a model to transcribe <strong className="text-white">Malayalam legal speech</strong> (1.7% CER so far, on synthetic audio). Before that: a packaging marketplace, a trading platform, and <strong className="text-white">websites for the clubs I'm part of</strong>.
                                     </p>
                                 </div>
 
@@ -138,9 +139,11 @@ export const Hero = () => {
         <section id="home" ref={containerRef} className="relative h-screen w-full bg-[#050505] overflow-hidden flex flex-col items-center justify-center font-sans">
 
             <div className="absolute inset-0 z-0" style={{ touchAction: 'pan-y' }}>
-                <Suspense fallback={null}>
-                    <HeroScene isInView={isInView} isMobile={isMobile} />
-                </Suspense>
+                <SceneBoundary>
+                    <Suspense fallback={null}>
+                        <HeroScene isInView={isInView} isMobile={isMobile} />
+                    </Suspense>
+                </SceneBoundary>
             </div>
 
             {/* UI LAYER */}
@@ -189,7 +192,7 @@ export const Hero = () => {
                             <span>I</span>
                             <div className="relative h-6 md:h-7 overflow-hidden flex items-center">
                                 {/* Ghost element to maintain width based on longest word */}
-                                <span className="opacity-0 font-bold">develop</span>
+                                <span className="opacity-0 font-bold">design</span>
                                 <AnimatePresence mode="wait">
                                     <motion.span
                                         key={textIndex}
@@ -203,7 +206,7 @@ export const Hero = () => {
                                     </motion.span>
                                 </AnimatePresence>
                             </div>
-                            <span>software &amp; ML systems.</span>
+                            <span>web apps &amp; speech models.</span>
                         </div>
                     </div>
 
@@ -213,7 +216,7 @@ export const Hero = () => {
                             <div className="hidden md:block absolute -top-14 -left-8 pointer-events-none" aria-hidden="true">
                                 <div className="relative">
                                     <span className="absolute -top-6 -left-4 w-max text-white/90 font-handwriting text-xl rotate-3">
-                                        Check this out! ✨
+                                        the good stuff ↓
                                     </span>
                                     <svg width="60" height="40" viewBox="0 0 60 40" fill="none" xmlns="http://www.w3.org/2000/svg" className="translate-x-8">
                                         <path d="M10 5 C 20 15, 30 25, 40 35" stroke="white" strokeWidth="2" strokeLinecap="round" strokeDasharray="4 4" />

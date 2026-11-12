@@ -4,9 +4,9 @@ import { useMode } from '../../context/ModeContext';
 import { skillGroups } from '../../data/profile';
 
 const philosophy = [
-    { title: "Precision", text: "Every pixel serves a purpose. I build interfaces where form follows function, without compromising on craft." },
-    { title: "Honest Evaluation", text: "A metric means little without its caveats. I care about data quality as much as model architecture, and I report results with the context they need." },
-    { title: "Performance", text: "Fast pages, smooth frame rates, and training runs that fit the hardware actually available — performance is part of the design." }
+    { title: "Work with what you've got.", text: "JurisAI trains on a 6 GB GPU. Mixed precision, gradient checkpointing, a batch size of two and a frozen encoder got it there, no cloud bill needed." },
+    { title: "Say what the number means.", text: "1.7% CER sounds great until you add that it's measured on synthetic audio from one voice. So I always add that part." },
+    { title: "Don't make things up.", text: "Aekobaba shows \"Ask the supplier\" instead of guessing a price. DayZero won't save anything the AI heard until you confirm it. I'd rather a product admit what it doesn't know." }
 ];
 
 export const Skills = () => {
@@ -52,7 +52,7 @@ export const Skills = () => {
         <section id="skills" className="py-32 bg-dark text-white relative overflow-hidden">
             {/* Background Typography */}
             <div className="absolute -top-32 left-0 w-full flex justify-center opacity-5 select-none pointer-events-none overflow-hidden" aria-hidden="true">
-                <span className="text-[20vw] font-bold font-heading leading-none text-white tracking-tighter whitespace-nowrap">DEVELOPER</span>
+                <span className="text-[20vw] font-bold font-heading leading-none text-white tracking-tighter whitespace-nowrap">ENGINEER</span>
             </div>
 
             <div className="container mx-auto px-6 relative z-10">
@@ -66,12 +66,12 @@ export const Skills = () => {
                             transition={{ duration: 0.8 }}
                             className="text-6xl md:text-8xl font-heading font-bold mb-8"
                         >
-                            The <br /> <span className="text-neutral-400">Studio.</span>
+                            How I <br /> <span className="text-neutral-400">work.</span>
                         </motion.h2>
                         <div className="h-px w-full bg-white/20 mb-8" />
                         <p className="text-xl text-neutral-300 leading-relaxed font-light">
-                            I work where <span className="text-white">machine learning</span>, full-stack engineering
-                            and <span className="text-white">design</span> meet, from training data to the interface people use.
+                            Three things I keep coming back to, whether it's a <span className="text-white">model</span>,
+                            a <span className="text-white">database schema</span> or a landing page.
                         </p>
                     </div>
 
@@ -85,7 +85,7 @@ export const Skills = () => {
                                 transition={{ delay: index * 0.2, duration: 0.8 }}
                                 className="group border-l border-white/10 pl-8 hover:border-indigo-500 transition-colors"
                             >
-                                <h3 className="text-3xl font-bold mb-4 flex items-center gap-4">
+                                <h3 className="text-2xl md:text-3xl font-bold mb-4 flex items-center gap-4">
                                     <span className="text-xs font-mono text-neutral-400">0{index + 1}</span>
                                     {item.title}
                                 </h3>
@@ -97,13 +97,13 @@ export const Skills = () => {
 
                         {/* Technical Ecosystem */}
                         <div className="mt-12 pt-12 border-t border-white/10 relative">
-                            <h4 className="text-sm font-mono text-neutral-400 uppercase tracking-widest mb-8">Technical Ecosystem</h4>
+                            <h4 className="text-sm font-mono text-neutral-400 uppercase tracking-widest mb-8">What I use</h4>
 
                             {/* Human Touch Annotation */}
                             <div className="hidden md:block absolute -top-8 right-24 pointer-events-none" aria-hidden="true">
                                 <div className="relative">
                                     <span className="absolute -top-6 -right-2 w-max text-white/90 font-handwriting text-xl -rotate-6">
-                                        My Arsenal ⚡
+                                        the toolbox
                                     </span>
                                     <svg width="60" height="40" viewBox="0 0 60 40" fill="none" xmlns="http://www.w3.org/2000/svg" className="-translate-y-2">
                                         <path d="M50 0 C 50 15, 30 20, 10 30" stroke="white" strokeWidth="2" strokeLinecap="round" strokeDasharray="4 4" />

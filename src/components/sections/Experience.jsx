@@ -2,80 +2,8 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { useMode } from '../../context/ModeContext';
 import { Calendar, MapPin } from 'lucide-react';
+import { experiences } from '../../data/content';
 
-// `highlights`: concrete things you did / shipped, ideally with a result.
-// e.g. "Built the live parking-availability map in React + Google Maps API"
-// They render as bullet points in both modes when present.
-const experiences = [
-    {
-        company: "Essbee.ae",
-        role: "Machine Learning / AI Intern",
-        duration: "Jul 2026 – Present",
-        location: "Remote",
-        description: "Building JurisAI, a domain-specific Malayalam legal speech-to-text system, and owning the pipeline end to end: raw judgment text, dataset generation, model fine-tuning and inference.",
-        highlights: [
-            "Fine-tuned a Wav2Vec2 CTC model from a Malayalam XLSR-53 base on ~2,700 synthetic clips, reaching 1.7% CER and 13.8% WER on a held-out synthetic dev set while training within 6 GB of VRAM.",
-            "Processed 3,700+ legal sentences from 30+ Kerala High Court judgments into a cleaned, PII-redacted corpus, then synthesized training audio with GPU-accelerated neural TTS (fp16, batched, multi-GPU sharded).",
-            "Diagnosed a blocking NeMo/RNNT dependency failure (numba CUDA JIT under WSL) and migrated to a transformers-native Wav2Vec2 path, unblocking training without new hardware.",
-        ],
-        tech: ["Python", "PyTorch", "Hugging Face", "Wav2Vec2", "Neural TTS", "CUDA"],
-        gradient: "from-emerald-500 to-teal-500"
-    },
-    {
-        company: "Aekovera",
-        role: "AI / Data Engineering Intern",
-        duration: "Apr 2026 – Present",
-        location: "Remote",
-        description: "Developed an automated supplier discovery and enrichment pipeline for manufacturing companies, replacing manual research with a repeatable workflow.",
-        highlights: [
-            "Built Python web-scraping and HTML-parsing workflows, then used LLMs to extract structured company attributes from unstructured website content.",
-            "Automated verification of company websites, LinkedIn profiles, supplier categories and contact details across hundreds of records via parallelized runs.",
-        ],
-        tech: ["Python", "Web Scraping", "LLMs", "Data Pipelines"],
-        gradient: "from-amber-500 to-orange-500"
-    },
-    {
-        company: "ACES CUSAT",
-        role: "Tech Co-Lead",
-        duration: "Jul 2026 – Present",
-        detail: "Design & Development member, Dec 2025 – Jul 2026",
-        location: "Kochi",
-        description: "Promoted to Tech Co-Lead after seven months on the design and development team of CUSAT's computer engineering student association.",
-        highlights: [
-            "Built the official ACES CUSAT website in React and Vite with fully responsive layouts, serving 1,000+ student members.",
-            "Authored a design system of color tokens, typography and component specs, used across 5+ pages and maintained by a 4-person team.",
-            "Lead GitHub workflows for a 4-member dev team: reviewing pull requests and resolving merge conflicts.",
-        ],
-        tech: ["React", "Vite", "Design Systems", "Git"],
-        gradient: "from-indigo-500 to-violet-500"
-    },
-    {
-        company: "Kera.ai Urban Technologies",
-        role: "Frontend Developer & UI/UX Intern",
-        duration: "Jan 2026 – Feb 2026",
-        location: "Remote",
-        description: "Built mobile-first React UI for a parking and urban-mobility app, covering onboarding, booking and map-interaction screens.",
-        highlights: [
-            "Created a shared component library that cut per-screen development time by ~30% and removed duplicate styling across three feature areas.",
-            "Restructured the onboarding hierarchy, reducing signup from 5 steps to 3.",
-        ],
-        tech: ["React", "Component Library", "UI/UX", "Maps"],
-        gradient: "from-purple-500 to-indigo-500"
-    },
-    {
-        company: "PHICSIT",
-        role: "UI/UX Design Intern",
-        duration: "May 2025",
-        location: "Remote",
-        description: "Designed the full 6-screen interface for Open Source Connect India, from landing page to registration.",
-        highlights: [
-            "Delivered wireframes, interactive prototypes and final mockups in a 3-week sprint, through two rounds of design review.",
-            "Applied WCAG guidance to improve color contrast and keyboard navigation on every screen.",
-        ],
-        tech: ["Figma", "Prototyping", "WCAG"],
-        gradient: "from-blue-500 to-cyan-500"
-    },
-];
 
 export const Experience = () => {
     const { isRecruiterMode } = useMode();
@@ -167,14 +95,14 @@ export const Experience = () => {
                         <span className="text-neutral-500">Where I've</span> Shipped Code
                     </h2>
                     <p className="text-xl text-neutral-300 max-w-2xl">
-                        Building products, solving problems, and learning every single day.
+                        Two internships running right now, a club I help lead, and the ones that got me started.
                     </p>
 
                     {/* Human Touch Annotation */}
                     <div className="hidden md:block absolute top-0 right-20 pointer-events-none" aria-hidden="true">
                         <div className="relative">
                             <span className="absolute -top-8 -right-12 w-max text-white/90 font-handwriting text-2xl -rotate-6">
-                                The journey so far...
+                                newest first
                             </span>
                             <svg width="100" height="50" viewBox="0 0 100 50" fill="none" xmlns="http://www.w3.org/2000/svg" className="translate-y-2">
                                 <path d="M80 10 C 60 10, 40 20, 10 40" stroke="white" strokeWidth="2" strokeLinecap="round" strokeDasharray="4 4" />

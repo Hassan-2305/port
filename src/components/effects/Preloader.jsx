@@ -44,10 +44,10 @@ export const Preloader = ({ onComplete, assetsLoaded = false }) => {
             {/* Top Bar */}
             <div className="flex justify-between items-start z-10 mix-blend-difference">
                 <span className="text-xs font-bold font-heading text-white uppercase tracking-tighter">
-                    System Ignition
+                    Mohammed Hassan
                 </span>
                 <span className="text-xs font-mono text-white/60 uppercase tracking-widest">
-                    V2.4.OBSIDIAN
+                    Kochi · '26
                 </span>
             </div>
 
@@ -91,7 +91,7 @@ export const Preloader = ({ onComplete, assetsLoaded = false }) => {
                             {Math.round(count).toString().padStart(2, '0')}
                         </motion.div>
                         <span className="text-[10px] font-mono text-yellow-500 uppercase tracking-[0.3em] mt-2">
-                            Initializing
+                            one sec
                         </span>
                     </div>
                 </div>
@@ -101,7 +101,7 @@ export const Preloader = ({ onComplete, assetsLoaded = false }) => {
             <div className="flex justify-between items-end z-10 mix-blend-difference w-full">
                 <div className="flex flex-col gap-1 w-full">
                     <div className="flex justify-between text-[10px] font-mono text-white/60 uppercase tracking-widest mb-2">
-                        <span>Loading Assets</span>
+                        <span>Loading</span>
                         <span>{Math.round(count)}%</span>
                     </div>
                     {/* Progress Bar */}

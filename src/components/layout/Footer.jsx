@@ -50,8 +50,8 @@ export const Footer = () => {
                     {/* Time & Location */}
                     <div className="space-y-4">
                         <div className="flex flex-col">
-                            <span className="text-neutral-500 text-xs uppercase tracking-widest mb-1">Version</span>
-                            <span className="text-white font-medium">2026 Edition</span>
+                            <span className="text-neutral-500 text-xs uppercase tracking-widest mb-1">Last updated</span>
+                            <span className="text-white font-medium">November 2026</span>
                         </div>
                         <div className="flex flex-col">
                             <span className="text-neutral-500 text-xs uppercase tracking-widest mb-1">Local Time</span>
@@ -110,7 +110,7 @@ export const Footer = () => {
                 {/* Bottom Bar */}
                 <div className="flex flex-col md:flex-row justify-between items-center mt-12 pt-8 border-t border-white/5 text-xs text-neutral-500 uppercase tracking-wider">
                     <p>&copy; 2026 Mohammed Hassan</p>
-                    <p>Designed & Engineered with Craft</p>
+                    <p>Designed and built by me, in Kochi</p>
                     <button
                         type="button"
                         onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
