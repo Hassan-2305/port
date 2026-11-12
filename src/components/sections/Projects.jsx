@@ -47,7 +47,8 @@ const projects = [
     {
         title: "DayZero",
         category: "Voice-first Productivity App",
-        image: null,
+        // Concept cover (no UI built yet) — replace with a real screenshot once the app exists
+        image: "/dayzero.webp",
         year: "2026",
         status: "In development",
         liveUrl: null,
