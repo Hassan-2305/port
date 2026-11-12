@@ -1,63 +1,157 @@
-import React, { useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import React, { useEffect, useRef, useState } from 'react';
+import { motion, useMotionValue, useScroll, useTransform } from 'framer-motion';
 import { useMode } from '../../context/ModeContext';
 import { ArrowUpRight } from 'lucide-react';
+import { profile } from '../../data/profile';
 
+// Each project renders in both modes. `image: null` gets a designed text tile.
+// `status` shows as a small badge (e.g. "In development", "Client work").
 const projects = [
+    {
+        title: "Aekobaba",
+        category: "B2B Packaging Marketplace",
+        image: "/aekobaba.webp",
+        year: "2026",
+        liveUrl: "https://aekobaba.vercel.app",
+        description: "Built solo: a marketplace where brands send one quote request to many packaging suppliers. ~530 source-verified products from 18 suppliers, faceted search, comparison, and a Quote Basket that syncs from guest to account. 28-model Prisma schema, fail-closed role guards, a transactional email outbox, and 55 Vitest test files in CI.",
+        tech: ["Next.js 15", "TypeScript", "Prisma", "Supabase", "Vitest"],
+    },
+    {
+        title: "CodeCrypt 3.0",
+        category: "Hackathon Website · ACES CUSAT",
+        image: "/codecrypt.webp",
+        year: "2026",
+        liveUrl: "https://codecrypt.dhishna.org",
+        description: "Official site for ACES CUSAT's 24-hour hackathon at Dhishna 2027. A cinematic Canvas 2D intro, a spinning minted-coin hero, a live auction simulation explaining the bidding format, countdown and registration, all in plain HTML, CSS and JavaScript with no framework or build step.",
+        tech: ["JavaScript", "Canvas 2D", "HTML", "CSS"],
+    },
     {
         title: "Vertex",
         category: "AI Trading Platform",
-        image: "/vertex.png",
-        year: "2026",
-        objectPosition: "center",
+        image: "/vertex.webp",
+        year: "2025–26",
         liveUrl: "https://vertex-8i4c.vercel.app/",
-        codeUrl: null
+        description: "Full-stack trading platform for Indian markets (NSE/BSE) with portfolio tracking, strategy backtesting and paper F&O simulation on a 7-table PostgreSQL schema. Groq (Llama 3.3 70B) market analysis at sub-2s responses, and 5+ dashboard chart types for P&L, drawdown and strategy performance.",
+        tech: ["React", "Vite", "Supabase", "Tailwind", "Groq API"],
     },
     {
-        title: "Open Source Connect India (osconnect.org)",
-        category: "UI/UX & Web Design",
-        image: "/open-source-connect.png",
-        year: "2024",
-        objectPosition: "top",
-        liveUrl: "https://osconnect.org",
-        codeUrl: null
+        title: "JurisAI",
+        category: "Malayalam Legal Speech Recognition",
+        image: null,
+        year: "2026",
+        status: "Client work · Essbee.ae",
+        liveUrl: null,
+        description: "End-to-end Malayalam legal ASR: 3,700+ PII-redacted sentences from 30+ Kerala High Court judgments, GPU-accelerated neural TTS for training audio, and a Wav2Vec2 CTC model fine-tuned within 6 GB of VRAM to 1.7% CER / 13.8% WER on a held-out synthetic dev set.",
+        tech: ["Python", "PyTorch", "Hugging Face", "Wav2Vec2", "CUDA"],
+    },
+    {
+        title: "DayZero",
+        category: "Voice-first Productivity App",
+        image: null,
+        year: "2026",
+        status: "In development",
+        liveUrl: null,
+        description: "A voice-first, local-first accountability app for Windows and Android. You speak naturally; a local LLM proposes structured actions, deterministic code resolves dates and recurrence, and nothing is saved until you confirm. Works offline on SQLite with Firebase sync, at zero recurring cost. Architecture and data model done; build in progress.",
+        tech: ["Tauri 2", "React", "TypeScript", "SQLite", "Ollama", "Firebase"],
     },
     {
         title: "ACES CUSAT",
-        category: "Web Development",
-        image: "/aces-project.png",
-        year: "2024",
-        objectPosition: "center",
+        category: "Official Club Website",
+        image: "/aces-project.webp",
+        year: "2025–26",
         liveUrl: "https://acescusat.tech",
-        codeUrl: null
+        description: "Official website for the Association of Computer Engineering Students, serving 1,000+ members. Responsive React build backed by a design system of color tokens, typography and component specs, used across 5+ pages and maintained by a 4-person team.",
+        tech: ["React", "Vite", "Figma"],
     },
     {
         title: "Team Horizon",
-        category: "Web Development",
-        image: "/horizon-project.png",
-        year: "2024",
+        category: "Mars Rover Club Website",
+        image: "/horizon-project.webp",
+        year: "2025–26",
         objectPosition: "top",
         liveUrl: "https://horizoncusat.tech",
-        codeUrl: null
+        description: "Five-page multi-route site for CUSAT's Mars rover club with custom page transitions, plus a canvas starfield and scroll-driven animation that holds 60fps on mid-range devices.",
+        tech: ["React 18", "Vite", "React Router", "Canvas"],
+    },
+    {
+        title: "Open Source Connect India",
+        category: "UI/UX Design",
+        image: "/open-source-connect.webp",
+        year: "2025",
+        objectPosition: "top",
+        liveUrl: "https://osconnect.org",
+        description: "Designed the full 6-screen interface for an open-source event platform, from landing page to registration: wireframes, prototypes and final mockups in a 3-week sprint, applying WCAG contrast and keyboard-navigation guidelines.",
+        tech: ["Figma", "Prototyping", "WCAG"],
     },
     {
         title: "3D & UI Designs",
         category: "Figma & Blender",
+        // TODO: replace with your own render/screenshot (currently a stock photo)
         image: "https://images.unsplash.com/photo-1545235617-9465d2a55698?auto=format&fit=crop&q=80&w=1000",
         year: "2026",
+        linkLabel: "View in Figma",
         liveUrl: "https://www.figma.com/design/Z8SQoGHxOpRi3od7mVnqJz/Untitled?node-id=22-2&t=i9RmVZ4XU9ryiIe8-1",
-        codeUrl: null
+        description: "",
+        tech: ["Figma", "Blender"],
     }
 ];
+
+// Visible link text: the site's address (e.g. "aekobaba.vercel.app"), or a custom label
+const siteLabel = (project) =>
+    project.linkLabel || new URL(project.liveUrl).hostname.replace(/^www\./, '');
+
+const StatusBadge = ({ status }) =>
+    status ? (
+        <span className="font-mono text-[11px] uppercase tracking-wider text-amber-300 border border-amber-300/30 bg-amber-300/10 px-2 py-0.5 rounded">
+            {status}
+        </span>
+    ) : null;
+
+// Shown in place of a screenshot for projects that have no public UI
+const TextTile = ({ project }) => (
+    <div className="w-full h-full flex flex-col justify-between p-8 bg-[radial-gradient(ellipse_at_top_left,_rgba(99,102,241,0.35),_transparent_60%),radial-gradient(ellipse_at_bottom_right,_rgba(16,185,129,0.25),_transparent_55%)] bg-neutral-950 border border-white/10 rounded-md">
+        <div className="flex justify-between items-start gap-4">
+            <span className="font-mono text-xs uppercase tracking-widest text-neutral-400">{project.category}</span>
+            <StatusBadge status={project.status} />
+        </div>
+        <div>
+            <div className="text-5xl md:text-6xl font-heading font-bold text-white tracking-tighter mb-6">{project.title}</div>
+            <div className="flex flex-wrap gap-2">
+                {project.tech.map((t) => (
+                    <span key={t} className="px-2.5 py-1 rounded bg-white/5 border border-white/10 text-xs font-mono text-neutral-300">{t}</span>
+                ))}
+            </div>
+        </div>
+    </div>
+);
 
 export const Projects = () => {
     const { isRecruiterMode, setCursorText, setCursorVariant } = useMode();
     const targetRef = useRef(null);
-    const { scrollYProgress } = useScroll({
-        target: targetRef,
-    });
+    const trackRef = useRef(null);
+    const { scrollYProgress } = useScroll({ target: targetRef });
 
-    const x = useTransform(scrollYProgress, [0, 1], ["1%", "-75%"]);
+    // Measure how far the track must slide so the last card fully reaches the screen
+    const [distance, setDistance] = useState(0);
+    const distanceMV = useMotionValue(0);
+    const x = useTransform([scrollYProgress, distanceMV], ([p, d]) => -p * d);
+
+    useEffect(() => {
+        const track = trackRef.current;
+        if (!track) return;
+        const measure = () => {
+            const d = Math.max(0, track.scrollWidth - window.innerWidth);
+            distanceMV.set(d);
+            setDistance(d);
+        };
+        const ro = new ResizeObserver(measure); // fires once on observe, then on change
+        ro.observe(track);
+        window.addEventListener('resize', measure);
+        return () => {
+            ro.disconnect();
+            window.removeEventListener('resize', measure);
+        };
+    }, [distanceMV, isRecruiterMode]);
 
     // --- RECRUITER MODE (Case Study Rows) ---
     if (isRecruiterMode) {
@@ -65,75 +159,80 @@ export const Projects = () => {
             <section id="projects" className="py-20 bg-[#050505] text-white border-t border-white/5 font-sans relative">
                 <div className="container mx-auto px-6 max-w-5xl relative z-10">
                     <h2 className="text-4xl font-bold font-heading mb-12 flex items-center gap-4">
-                        <span className="text-indigo-500 font-mono text-xl">03.</span>
+                        <span className="text-indigo-400 font-mono text-xl">02.</span>
                         Selected Works
                     </h2>
 
                     <div className="flex flex-col">
-                        {projects.map((project, index) => (
-                            <div
-                                key={project.title}
-                                className="group relative border-t border-white/10 py-12 transition-colors hover:bg-white/5"
-                            >
-                                <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 relative z-10 px-4">
+                        {projects.map((project) => {
+                            const url = project.liveUrl;
+                            return (
+                                <div
+                                    key={project.title}
+                                    className="group relative border-t border-white/10 py-12 transition-colors hover:bg-white/5 focus-within:bg-white/5"
+                                >
+                                    <div className="flex flex-col md:flex-row md:items-start justify-between gap-6 relative z-10 px-4">
 
-                                    {/* Project Info */}
-                                    <div className="flex-1">
-                                        <div className="flex items-baseline gap-4 mb-2">
-                                            <h3 className="text-3xl md:text-4xl font-bold font-heading text-white group-hover:text-indigo-400 transition-colors">
-                                                {project.title}
-                                            </h3>
-                                            <span className="font-mono text-xs text-neutral-500 border border-white/10 px-2 py-0.5 rounded uppercase">
-                                                {project.year}
-                                            </span>
+                                        {/* Project Info */}
+                                        <div className="flex-1">
+                                            <div className="flex flex-wrap items-baseline gap-x-4 gap-y-2 mb-2">
+                                                <h3 className="text-3xl md:text-4xl font-bold font-heading text-white group-hover:text-indigo-400 transition-colors">
+                                                    {project.title}
+                                                </h3>
+                                                <span className="font-mono text-xs text-neutral-400 border border-white/10 px-2 py-0.5 rounded uppercase">
+                                                    {project.year}
+                                                </span>
+                                                <StatusBadge status={project.status} />
+                                            </div>
+                                            <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-neutral-400 font-mono text-sm">
+                                                <span className="text-indigo-400">{project.category}</span>
+                                                {project.tech.length > 0 && (
+                                                    <>
+                                                        <span className="w-1 h-1 bg-neutral-600 rounded-full" aria-hidden="true"></span>
+                                                        <span>{project.tech.join(" / ")}</span>
+                                                    </>
+                                                )}
+                                            </div>
+                                            {project.description && (
+                                                <p className="mt-4 text-neutral-300 leading-relaxed max-w-2xl">
+                                                    {project.description}
+                                                </p>
+                                            )}
                                         </div>
-                                        <div className="flex items-center gap-4 text-neutral-400 font-mono text-sm">
-                                            <span className="text-indigo-500">{project.category}</span>
-                                            <span className="w-1 h-1 bg-neutral-700 rounded-full"></span>
-                                            <span>React / WebGL</span>
-                                        </div>
+
+                                        {/* Actions — always visible so keyboard and touch users can find them */}
+                                        {url && (
+                                            <div className="md:pt-3 shrink-0">
+                                                <a href={url} target="_blank" rel="noopener noreferrer" aria-label={`${project.title} — visit ${siteLabel(project)} (opens in new tab)`} className="inline-flex items-center gap-2 font-mono text-sm text-white hover:text-indigo-400 border-b border-white/20 hover:border-indigo-400 pb-0.5 transition-colors">
+                                                    {siteLabel(project)} <ArrowUpRight size={16} aria-hidden="true" />
+                                                </a>
+                                            </div>
+                                        )}
                                     </div>
 
-                                    {/* Actions */}
-                                    {(project.liveUrl || project.codeUrl) && (
-                                        <div className="flex items-center gap-6 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 transform translate-x-0 md:translate-x-4 md:group-hover:translate-x-0">
-                                            {project.liveUrl && (
-                                                <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 font-mono text-sm text-white hover:text-indigo-400 transition-colors">
-                                                    LIVE DEMO <ArrowUpRight size={16} />
-                                                </a>
-                                            )}
-                                            {project.codeUrl && (
-                                                <a href={project.codeUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 font-mono text-sm text-neutral-500 hover:text-white transition-colors">
-                                                    CODE
-                                                </a>
-                                            )}
+                                    {/* Hover Image Preview (Reveal) */}
+                                    {project.image && (
+                                        <div className="absolute inset-0 z-0 opacity-10 md:opacity-0 md:group-hover:opacity-10 pointer-events-none transition-opacity duration-500" aria-hidden="true">
+                                            <img
+                                                src={project.image}
+                                                alt=""
+                                                loading="lazy"
+                                                decoding="async"
+                                                className="w-full h-full object-cover grayscale-0 md:grayscale"
+                                                style={project.objectPosition ? { objectPosition: project.objectPosition } : undefined}
+                                            />
                                         </div>
                                     )}
-
-                                    {/* Mobile Only Arrow (Always visible) */}
-                                    <div className="md:hidden absolute top-4 right-0 text-white/20">
-                                        <ArrowUpRight size={20} />
-                                    </div>
                                 </div>
-
-                                {/* Hover Image Preview (Reveal) */}
-                                <div className="absolute inset-0 z-0 opacity-10 md:opacity-0 md:group-hover:opacity-10 pointer-events-none transition-opacity duration-500">
-                                    <img
-                                        src={project.image}
-                                        alt={project.title}
-                                        className="w-full h-full object-cover grayscale-0 md:grayscale"
-                                        style={project.objectPosition ? { objectPosition: project.objectPosition } : undefined}
-                                    />
-                                </div>
-                            </div>
-                        ))}
+                            );
+                        })}
                         {/* Closing Border */}
                         <div className="border-t border-white/10" />
                     </div>
 
                     <div className="mt-16 text-center">
-                        <a href="https://github.com/Hassan-2305" target="_blank" className="font-mono text-sm text-neutral-500 hover:text-white border-b border-dashed border-neutral-600 hover:border-white pb-1 transition-all">
-                            // VIEW_ALL_ARCHIVE
+                        <a href={profile.github} target="_blank" rel="noopener noreferrer" className="font-mono text-sm text-neutral-400 hover:text-white border-b border-dashed border-neutral-600 hover:border-white pb-1 transition-all">
+                            More on GitHub →
                         </a>
                     </div>
                 </div>
@@ -143,19 +242,24 @@ export const Projects = () => {
 
     // --- NORMAL MODE (Horizontal Scroll) ---
     return (
-        <section id="projects" ref={targetRef} className="relative h-[300vh] bg-neutral-900">
+        <section
+            id="projects"
+            ref={targetRef}
+            className="relative bg-neutral-900"
+            style={{ height: `calc(100vh + ${distance}px)` }}
+        >
             <div className="sticky top-0 h-screen flex items-center overflow-hidden">
-                <motion.div style={{ x }} className="flex gap-8 md:gap-16 px-8 md:px-24 will-change-transform">
+                <motion.div ref={trackRef} style={{ x }} className="flex w-max gap-8 md:gap-16 px-8 md:px-24 will-change-transform">
                     {/* Section Title Card */}
                     <div className="flex-shrink-0 w-max flex flex-col justify-center pr-8 md:pr-12">
-                        <h2 className="text-[15vw] md:text-[8vw] leading-none font-bold font-heading text-neutral-800 uppercase">
+                        <h2 className="text-[15vw] md:text-[8vw] leading-none font-bold font-heading text-neutral-700 uppercase">
                             Selected <br /> <span className="text-white">Works</span>
                         </h2>
-                        <p className="mt-8 text-neutral-400 max-w-sm text-lg">
-                            A collection of projects defined by high-performance code and immersive design.
+                        <p className="mt-8 text-neutral-300 max-w-sm text-lg">
+                            Products, ML systems, websites and designs I've built and shipped.
                         </p>
 
-                        <div className="mt-12 hidden md:block pointer-events-none">
+                        <div className="mt-12 hidden md:block pointer-events-none" aria-hidden="true">
                             <div className="relative">
                                 <span className="absolute -top-6 left-0 w-max text-white/90 font-handwriting text-xl -rotate-2">
                                     Scroll to explore
@@ -168,48 +272,62 @@ export const Projects = () => {
                         </div>
                     </div>
 
-                    {/* Project Cards */}
-                    {projects.map((project) => (
-                        <motion.div
-                            key={project.title}
-                            className={`relative flex-shrink-0 w-[85vw] md:w-[60vh] h-[60vh] md:h-[70vh] group cursor-none ${project.liveUrl || project.codeUrl ? 'cursor-pointer' : ''}`}
-                            onMouseEnter={() => {
-                                setCursorText("View");
-                                setCursorVariant("project");
-                            }}
-                            onMouseLeave={() => {
-                                setCursorText("");
-                                setCursorVariant("default");
-                            }}
-                            onClick={() => {
-                                const url = project.liveUrl || project.codeUrl;
-                                if (url) {
-                                    window.open(url, "_blank", "noopener,noreferrer");
-                                }
-                            }}
-                        >
-                            <div className="w-full h-[calc(100%-4rem)] overflow-hidden rounded-md grayscale-0 md:grayscale md:group-hover:grayscale-0 transition-all duration-700 ease-[0.16,1,0.3,1] relative">
-                                <motion.img
-                                    src={project.image}
-                                    alt={project.title}
-                                    loading="lazy"
-                                    decoding="async"
-                                    className="w-full h-full object-cover transform transition-transform duration-1000"
-                                    style={project.objectPosition ? { objectPosition: project.objectPosition } : undefined}
-                                    whileHover={{ scale: 1.1 }}
-                                />
-                                <div className="absolute inset-0 bg-transparent md:bg-black/20 md:group-hover:bg-transparent transition-colors" />
-                            </div>
-
-                            <div className="mt-3 w-full flex justify-between items-end opacity-100 md:opacity-50 md:group-hover:opacity-100 transition-opacity">
-                                <div>
-                                    <h3 className="text-2xl md:text-3xl font-heading font-bold text-white">{project.title}</h3>
-                                    <span className="text-indigo-400 font-mono text-xs md:text-sm uppercase tracking-wider">{project.category}</span>
+                    {/* Project Cards — real links, so they work with keyboard, screen readers, middle-click */}
+                    {projects.map((project) => {
+                        const url = project.liveUrl;
+                        const Card = url ? motion.a : motion.div;
+                        return (
+                            <Card
+                                key={project.title}
+                                {...(url ? { href: url, target: "_blank", rel: "noopener noreferrer", "aria-label": `${project.title} — ${project.category} (opens in new tab)` } : {})}
+                                className={`relative flex-shrink-0 w-[85vw] md:w-[60vh] h-[60vh] md:h-[70vh] group rounded-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-indigo-500 focus-visible:outline-offset-4 ${url ? 'md:cursor-none' : ''}`}
+                                onMouseEnter={() => {
+                                    if (!url) return;
+                                    setCursorText("View");
+                                    setCursorVariant("project");
+                                }}
+                                onMouseLeave={() => {
+                                    setCursorText("");
+                                    setCursorVariant("default");
+                                }}
+                            >
+                                <div className="w-full h-[calc(100%-4rem)] overflow-hidden rounded-md relative">
+                                    {project.image ? (
+                                        <div className="w-full h-full grayscale-0 md:grayscale md:group-hover:grayscale-0 md:group-focus-visible:grayscale-0 transition-all duration-700 ease-[0.16,1,0.3,1] relative">
+                                            <motion.img
+                                                src={project.image}
+                                                alt={`Screenshot of ${project.title}`}
+                                                loading="lazy"
+                                                decoding="async"
+                                                className="w-full h-full object-cover transform transition-transform duration-1000"
+                                                style={project.objectPosition ? { objectPosition: project.objectPosition } : undefined}
+                                                whileHover={{ scale: 1.1 }}
+                                            />
+                                            <div className="absolute inset-0 bg-transparent md:bg-black/20 md:group-hover:bg-transparent transition-colors" />
+                                            {project.status && (
+                                                <div className="absolute top-4 right-4"><StatusBadge status={project.status} /></div>
+                                            )}
+                                        </div>
+                                    ) : (
+                                        <TextTile project={project} />
+                                    )}
                                 </div>
-                                <span className="text-5xl md:text-6xl font-heading font-bold text-neutral-800 pointer-events-none select-none">{project.year}</span>
-                            </div>
-                        </motion.div>
-                    ))}
+
+                                <div className="mt-3 w-full flex justify-between items-end gap-4 opacity-100 md:opacity-70 md:group-hover:opacity-100 md:group-focus-visible:opacity-100 transition-opacity">
+                                    <div className="min-w-0">
+                                        <h3 className="text-2xl md:text-3xl font-heading font-bold text-white truncate">{project.title}</h3>
+                                        <span className="block text-indigo-400 font-mono text-xs md:text-sm uppercase tracking-wider">{project.category}</span>
+                                        {url && (
+                                            <span className="inline-flex items-center gap-1 mt-1 font-mono text-xs text-neutral-400 group-hover:text-white transition-colors">
+                                                {siteLabel(project)} <ArrowUpRight size={12} aria-hidden="true" />
+                                            </span>
+                                        )}
+                                    </div>
+                                    <span className="text-4xl md:text-5xl font-heading font-bold text-neutral-700 pointer-events-none select-none shrink-0" aria-hidden="true">{project.year}</span>
+                                </div>
+                            </Card>
+                        );
+                    })}
                 </motion.div>
             </div>
         </section>

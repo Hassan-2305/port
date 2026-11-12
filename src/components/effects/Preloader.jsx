@@ -4,32 +4,26 @@ import { motion } from 'framer-motion';
 export const Preloader = ({ onComplete, assetsLoaded = false }) => {
     const [count, setCount] = useState(0);
 
+    // Count up quickly, but hold at 90% until assets are actually loaded
     useEffect(() => {
-        const duration = 2000;
         const interval = 20;
-        const steps = duration / interval;
-        const increment = 100 / steps;
-
         const timer = setInterval(() => {
             setCount((prev) => {
-                const next = prev + increment;
-                if (next >= 100) {
-                    clearInterval(timer);
-                    return 100;
-                }
+                const cap = assetsLoaded ? 100 : 90;
+                const step = assetsLoaded ? 5 : 2.5; // ~0.7s to 90%, then fast finish
+                const next = Math.min(prev + step, cap);
+                if (next >= 100) clearInterval(timer);
                 return next;
             });
         }, interval);
 
         return () => clearInterval(timer);
-    }, []);
+    }, [assetsLoaded]);
 
-    // Trigger onComplete when count hits 100
+    // Trigger onComplete shortly after count hits 100
     useEffect(() => {
         if (count === 100) {
-            const completeTimer = setTimeout(() => {
-                onComplete();
-            }, 800);
+            const completeTimer = setTimeout(onComplete, 250);
             return () => clearTimeout(completeTimer);
         }
     }, [count, onComplete]);

@@ -1,38 +1,80 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useMode } from '../../context/ModeContext';
-import { Calendar, MapPin, TrendingUp, Users, Code, Car } from 'lucide-react';
+import { Calendar, MapPin } from 'lucide-react';
 
+// `highlights`: concrete things you did / shipped, ideally with a result.
+// e.g. "Built the live parking-availability map in React + Google Maps API"
+// They render as bullet points in both modes when present.
 const experiences = [
     {
-        company: "Kera AI Urban Technologies",
-        role: "UI/UX & Frontend Intern",
-        duration: "Jan 2026 - Feb 2026",
+        company: "Essbee.ae",
+        role: "Machine Learning / AI Intern",
+        duration: "Jul 2026 – Present",
         location: "Remote",
-        description: "Developed UI/UX for a parking-based Vehicle-to-Infrastructure (V2I) application. Focused on intuitive mapping interfaces and real-time data visualization.",
-        achievements: [
-            { icon: Car, label: "V2I App", value: "Smart City" },
-            { icon: MapPin, label: "Mapping", value: "Interface" },
-            { icon: Code, label: "Frontend", value: "React" }
+        description: "Building JurisAI, a domain-specific Malayalam legal speech-to-text system, and owning the pipeline end to end: raw judgment text, dataset generation, model fine-tuning and inference.",
+        highlights: [
+            "Fine-tuned a Wav2Vec2 CTC model from a Malayalam XLSR-53 base on ~2,700 synthetic clips, reaching 1.7% CER and 13.8% WER on a held-out synthetic dev set while training within 6 GB of VRAM.",
+            "Processed 3,700+ legal sentences from 30+ Kerala High Court judgments into a cleaned, PII-redacted corpus, then synthesized training audio with GPU-accelerated neural TTS (fp16, batched, multi-GPU sharded).",
+            "Diagnosed a blocking NeMo/RNNT dependency failure (numba CUDA JIT under WSL) and migrated to a transformers-native Wav2Vec2 path, unblocking training without new hardware.",
         ],
-        tech: ["React", "UI/UX", "Maps API", "V2I"],
+        tech: ["Python", "PyTorch", "Hugging Face", "Wav2Vec2", "Neural TTS", "CUDA"],
+        gradient: "from-emerald-500 to-teal-500"
+    },
+    {
+        company: "Aekovera",
+        role: "AI / Data Engineering Intern",
+        duration: "Apr 2026 – Present",
+        location: "Remote",
+        description: "Developed an automated supplier discovery and enrichment pipeline for manufacturing companies, replacing manual research with a repeatable workflow.",
+        highlights: [
+            "Built Python web-scraping and HTML-parsing workflows, then used LLMs to extract structured company attributes from unstructured website content.",
+            "Automated verification of company websites, LinkedIn profiles, supplier categories and contact details across hundreds of records via parallelized runs.",
+        ],
+        tech: ["Python", "Web Scraping", "LLMs", "Data Pipelines"],
+        gradient: "from-amber-500 to-orange-500"
+    },
+    {
+        company: "ACES CUSAT",
+        role: "Tech Co-Lead",
+        duration: "Jul 2026 – Present",
+        detail: "Design & Development member, Dec 2025 – Jul 2026",
+        location: "Kochi",
+        description: "Promoted to Tech Co-Lead after seven months on the design and development team of CUSAT's computer engineering student association.",
+        highlights: [
+            "Built the official ACES CUSAT website in React and Vite with fully responsive layouts, serving 1,000+ student members.",
+            "Authored a design system of color tokens, typography and component specs, used across 5+ pages and maintained by a 4-person team.",
+            "Lead GitHub workflows for a 4-member dev team: reviewing pull requests and resolving merge conflicts.",
+        ],
+        tech: ["React", "Vite", "Design Systems", "Git"],
+        gradient: "from-indigo-500 to-violet-500"
+    },
+    {
+        company: "Kera.ai Urban Technologies",
+        role: "Frontend Developer & UI/UX Intern",
+        duration: "Jan 2026 – Feb 2026",
+        location: "Remote",
+        description: "Built mobile-first React UI for a parking and urban-mobility app, covering onboarding, booking and map-interaction screens.",
+        highlights: [
+            "Created a shared component library that cut per-screen development time by ~30% and removed duplicate styling across three feature areas.",
+            "Restructured the onboarding hierarchy, reducing signup from 5 steps to 3.",
+        ],
+        tech: ["React", "Component Library", "UI/UX", "Maps"],
         gradient: "from-purple-500 to-indigo-500"
     },
     {
-        company: "Phicsit",
+        company: "PHICSIT",
         role: "UI/UX Design Intern",
-        duration: "2025 - 2026",
+        duration: "May 2025",
         location: "Remote",
-        description: "Designed the official website for Open Source Connect India (osconnect.org). Balanced clean visuals with usability and worked with real content to shape the overall user experience.",
-        achievements: [
-            { icon: Users, label: "OS Connect", value: "Community" },
-            { icon: TrendingUp, label: "Live Site", value: "Shipped" },
-            { icon: Code, label: "Web Design", value: "UI/UX" }
+        description: "Designed the full 6-screen interface for Open Source Connect India, from landing page to registration.",
+        highlights: [
+            "Delivered wireframes, interactive prototypes and final mockups in a 3-week sprint, through two rounds of design review.",
+            "Applied WCAG guidance to improve color contrast and keyboard navigation on every screen.",
         ],
-        tech: ["Figma", "Web Design", "UI/UX", "Prototyping"],
+        tech: ["Figma", "Prototyping", "WCAG"],
         gradient: "from-blue-500 to-cyan-500"
     },
-
 ];
 
 export const Experience = () => {
@@ -44,20 +86,20 @@ export const Experience = () => {
             <section id="experience" className="py-20 bg-[#050505] text-white border-t border-white/5 font-sans">
                 <div className="container mx-auto px-6 max-w-5xl">
                     <h2 className="text-4xl font-bold font-heading mb-16 flex items-center gap-4">
-                        <span className="text-indigo-500 font-mono text-xl">02.</span>
+                        <span className="text-indigo-400 font-mono text-xl">03.</span>
                         Experience
                     </h2>
 
                     <div className="space-y-16">
-                        {experiences.map((exp, index) => (
+                        {experiences.map((exp) => (
                             <div key={exp.company} className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 group">
 
                                 {/* Left: Meta / Date (Marginalia) */}
-                                <div className="md:col-span-3 text-right md:text-right flex flex-row md:flex-col justify-between md:justify-start items-center md:items-end gap-2">
+                                <div className="md:col-span-3 flex flex-row md:flex-col justify-between md:justify-start items-center md:items-end gap-2">
                                     <span className="font-mono text-sm text-indigo-400 uppercase tracking-wider">
                                         {exp.duration}
                                     </span>
-                                    <span className="font-mono text-xs text-neutral-600 hidden md:block">
+                                    <span className="font-mono text-xs text-neutral-400 hidden md:block">
                                         {exp.location}
                                     </span>
                                 </div>
@@ -72,27 +114,28 @@ export const Experience = () => {
                                             {exp.role}
                                         </h3>
                                         <div className="text-lg text-neutral-400 font-medium">{exp.company}</div>
+                                        {exp.detail && <div className="text-sm font-mono text-neutral-500 mt-1">{exp.detail}</div>}
                                     </div>
 
-                                    <p className="text-neutral-400 leading-relaxed mb-6 max-w-2xl">
+                                    <p className="text-neutral-300 leading-relaxed mb-6 max-w-2xl">
                                         {exp.description}
                                     </p>
 
-                                    {/* Key Achievements (Compact) */}
-                                    <div className="space-y-2 mb-6">
-                                        {exp.achievements.map((ach, i) => (
-                                            <div key={i} className="flex items-center gap-3 text-sm font-mono text-neutral-500 hover:text-white transition-colors">
-                                                <span className="w-1.5 h-1.5 bg-indigo-500/50 rounded-full"></span>
-                                                <span className="text-white">{ach.label}:</span>
-                                                <span>{ach.value}</span>
-                                            </div>
-                                        ))}
-                                    </div>
+                                    {exp.highlights.length > 0 && (
+                                        <ul className="space-y-2 mb-6 max-w-2xl">
+                                            {exp.highlights.map((h) => (
+                                                <li key={h} className="flex gap-3 text-sm text-neutral-300">
+                                                    <span className="mt-2 w-1.5 h-1.5 shrink-0 bg-indigo-500/70 rounded-full" aria-hidden="true"></span>
+                                                    <span>{h}</span>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    )}
 
                                     {/* Minimal Tech Tags */}
                                     <div className="flex flex-wrap gap-x-4 gap-y-2">
                                         {exp.tech.map(tech => (
-                                            <span key={tech} className="font-mono text-xs text-indigo-500/70 uppercase tracking-wider">
+                                            <span key={tech} className="font-mono text-xs text-indigo-400 uppercase tracking-wider">
                                                 [{tech}]
                                             </span>
                                         ))}
@@ -106,9 +149,9 @@ export const Experience = () => {
         );
     }
 
-    // --- NORMAL MODE (3D Timeline) ---
+    // --- NORMAL MODE (Timeline Cards) ---
     return (
-        <section className="py-32 bg-gradient-to-b from-dark via-neutral-900 to-dark relative overflow-hidden">
+        <section id="experience" className="py-32 bg-gradient-to-b from-dark via-neutral-900 to-dark relative overflow-hidden">
             {/* Background Elements */}
             <div className="absolute top-0 left-1/4 w-96 h-96 bg-indigo-500/10 rounded-full blur-[120px]" />
             <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-[120px]" />
@@ -121,14 +164,14 @@ export const Experience = () => {
                     className="mb-16"
                 >
                     <h2 className="text-6xl md:text-7xl font-heading font-bold mb-4">
-                        <span className="text-neutral-700">Where I've</span> Shipped Code
+                        <span className="text-neutral-500">Where I've</span> Shipped Code
                     </h2>
-                    <p className="text-xl text-neutral-400 max-w-2xl">
+                    <p className="text-xl text-neutral-300 max-w-2xl">
                         Building products, solving problems, and learning every single day.
                     </p>
 
                     {/* Human Touch Annotation */}
-                    <div className="hidden md:block absolute top-0 right-20 pointer-events-none">
+                    <div className="hidden md:block absolute top-0 right-20 pointer-events-none" aria-hidden="true">
                         <div className="relative">
                             <span className="absolute -top-8 -right-12 w-max text-white/90 font-handwriting text-2xl -rotate-6">
                                 The journey so far...
@@ -156,22 +199,21 @@ export const Experience = () => {
 
                             <div className="relative bg-neutral-900/90 backdrop-blur-xl rounded-2xl border border-white/10 p-8 md:p-10">
                                 {/* Header */}
-                                <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-6">
-                                    <div>
-                                        <h3 className="text-3xl font-heading font-bold text-white mb-2 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-indigo-400 group-hover:to-cyan-400 transition-all">
-                                            {exp.role}
-                                        </h3>
-                                        <p className="text-xl text-neutral-400 font-medium">{exp.company}</p>
-                                        <div className="flex flex-wrap items-center gap-4 mt-3 text-sm text-neutral-500">
-                                            <span className="flex items-center gap-1">
-                                                <Calendar className="w-4 h-4" />
-                                                {exp.duration}
-                                            </span>
-                                            <span className="flex items-center gap-1">
-                                                <MapPin className="w-4 h-4" />
-                                                {exp.location}
-                                            </span>
-                                        </div>
+                                <div className="mb-6">
+                                    <h3 className="text-3xl font-heading font-bold text-white mb-2 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-indigo-400 group-hover:to-cyan-400 transition-all">
+                                        {exp.role}
+                                    </h3>
+                                    <p className="text-xl text-neutral-400 font-medium">{exp.company}</p>
+                                    {exp.detail && <p className="text-sm text-neutral-500 mt-1">{exp.detail}</p>}
+                                    <div className="flex flex-wrap items-center gap-4 mt-3 text-sm text-neutral-400">
+                                        <span className="flex items-center gap-1">
+                                            <Calendar className="w-4 h-4" aria-hidden="true" />
+                                            {exp.duration}
+                                        </span>
+                                        <span className="flex items-center gap-1">
+                                            <MapPin className="w-4 h-4" aria-hidden="true" />
+                                            {exp.location}
+                                        </span>
                                     </div>
                                 </div>
 
@@ -180,18 +222,16 @@ export const Experience = () => {
                                     {exp.description}
                                 </p>
 
-                                {/* Achievement Pills */}
-                                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-                                    {exp.achievements.map((achievement, i) => (
-                                        <div key={i} className="flex items-center gap-3 p-3 rounded-lg bg-white/5 border border-white/5 group-hover:border-white/10 transition-colors">
-                                            <achievement.icon className={`w-5 h-5 bg-gradient-to-r ${exp.gradient} bg-clip-text text-transparent`} />
-                                            <div>
-                                                <div className="text-white font-bold text-sm">{achievement.label}</div>
-                                                <div className="text-xs text-neutral-500">{achievement.value}</div>
-                                            </div>
-                                        </div>
-                                    ))}
-                                </div>
+                                {exp.highlights.length > 0 && (
+                                    <ul className="space-y-2 mb-6">
+                                        {exp.highlights.map((h) => (
+                                            <li key={h} className="flex gap-3 text-neutral-300">
+                                                <span className={`mt-2 w-1.5 h-1.5 shrink-0 rounded-full bg-gradient-to-r ${exp.gradient}`} aria-hidden="true"></span>
+                                                <span>{h}</span>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                )}
 
                                 {/* Tech Stack */}
                                 <div className="flex flex-wrap gap-2">

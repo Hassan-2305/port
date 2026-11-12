@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Original full-size images and old resume (kept locally, already in git history)
+assets-src

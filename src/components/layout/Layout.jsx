@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Navbar } from './Navbar';
 import { RecruiterStrip } from './RecruiterStrip';
 import { FloatingDock } from './FloatingDock';
@@ -7,39 +7,32 @@ import { CustomCursor } from '../effects/CustomCursor';
 import { Preloader } from '../effects/Preloader';
 import { AnimatePresence } from 'framer-motion';
 import { Footer } from './Footer';
-
+import { useMode } from '../../context/ModeContext';
 import { useLenis } from '../../hooks/useLenis';
 
+const prefersReducedMotion = () =>
+    typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
 export const Layout = ({ children }) => {
-    const [isLoading, setIsLoading] = useState(true);
+    const { isRecruiterMode } = useMode();
+    // Recruiters and reduced-motion users skip the intro entirely
+    const [isLoading, setIsLoading] = useState(() => !isRecruiterMode && !prefersReducedMotion());
     const [assetsLoaded, setAssetsLoaded] = useState(false);
     const lenis = useLenis();
 
-    const imageUrls = [
-        "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=1000",
-        "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=1000",
-        "https://images.unsplash.com/photo-1614680376593-902f74cf0d41?auto=format&fit=crop&q=80&w=1000",
-        "https://images.unsplash.com/photo-1545235617-9465d2a55698?auto=format&fit=crop&q=80&w=1000"
-    ];
-
-    React.useEffect(() => {
-        const preloadImages = async () => {
-            const promises = imageUrls.map((src) => {
-                return new Promise((resolve, reject) => {
-                    const img = new Image();
-                    img.src = src;
-                    img.onload = resolve;
-                    img.onerror = resolve; // Proceed even if error
-                });
-            });
-            await Promise.all(promises);
-            setAssetsLoaded(true);
-        };
-
-        preloadImages();
+    // Wait for web fonts (the main thing that causes a visible layout jump)
+    useEffect(() => {
+        let cancelled = false;
+        const fontsReady = document.fonts?.ready ?? Promise.resolve();
+        // Never hold the page hostage for more than 3s
+        const timeout = new Promise((resolve) => setTimeout(resolve, 3000));
+        Promise.race([fontsReady, timeout]).then(() => {
+            if (!cancelled) setAssetsLoaded(true);
+        });
+        return () => { cancelled = true; };
     }, []);
 
-    React.useEffect(() => {
+    useEffect(() => {
         if (isLoading) {
             document.body.style.overflow = 'hidden';
             if (lenis) lenis.stop();
@@ -50,7 +43,7 @@ export const Layout = ({ children }) => {
     }, [isLoading, lenis]);
 
     return (
-        <div className={`min-h-screen bg-dark text-white selection:bg-indigo-500/30 selection:text-indigo-200`}>
+        <div className="min-h-screen bg-dark text-white selection:bg-indigo-500/30 selection:text-indigo-200">
             <Noise />
             <CustomCursor />
 

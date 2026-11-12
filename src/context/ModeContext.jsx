@@ -1,22 +1,27 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 
-
-
 const ModeContext = createContext(undefined);
 
+const STORAGE_KEY = 'isRecruiterMode';
+
+// Read the saved mode synchronously so the page doesn't flash creative mode first.
+const readSavedMode = () => {
+    try {
+        return JSON.parse(localStorage.getItem(STORAGE_KEY)) === true;
+    } catch {
+        return false;
+    }
+};
+
 export const ModeProvider = ({ children }) => {
-    const [isRecruiterMode, setIsRecruiterMode] = useState(false);
+    const [isRecruiterMode, setIsRecruiterMode] = useState(readSavedMode);
 
-    // Persistence
     useEffect(() => {
-        const savedMode = localStorage.getItem('isRecruiterMode');
-        if (savedMode) {
-            setIsRecruiterMode(JSON.parse(savedMode));
+        try {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(isRecruiterMode));
+        } catch {
+            // storage unavailable (private mode etc.) — ignore
         }
-    }, []);
-
-    useEffect(() => {
-        localStorage.setItem('isRecruiterMode', JSON.stringify(isRecruiterMode));
     }, [isRecruiterMode]);
 
     const toggleRecruiterMode = () => setIsRecruiterMode(prev => !prev);
@@ -26,19 +31,11 @@ export const ModeProvider = ({ children }) => {
     const [cursorText, setCursorText] = useState("");
     const [cursorVariant, setCursorVariant] = useState("default");
 
-    // Animation constants based on mode
-    const animationDuration = {
-        slow: isRecruiterMode ? 0.3 : 0.8,
-        medium: isRecruiterMode ? 0.2 : 0.5,
-        fast: isRecruiterMode ? 0.1 : 0.3,
-    };
-
     return (
         <ModeContext.Provider value={{
             isRecruiterMode,
             toggleRecruiterMode,
             setRecruiterMode,
-            animationDuration,
             cursorText,
             setCursorText,
             cursorVariant,
@@ -49,6 +46,7 @@ export const ModeProvider = ({ children }) => {
     );
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useMode = () => {
     const context = useContext(ModeContext);
     if (!context) {

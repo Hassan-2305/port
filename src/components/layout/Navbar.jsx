@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useMode } from '../../context/ModeContext';
 import { Switch } from '../ui/Switch';
-import { Menu, X, ArrowRight, Code, Zap, Layers, Download } from 'lucide-react';
+import { Menu, X, ArrowRight, Download } from 'lucide-react';
 import { motion, AnimatePresence, useScroll, useSpring } from 'framer-motion';
 
 export const Navbar = () => {
@@ -68,7 +68,9 @@ export const Navbar = () => {
                                 <a
                                     href="/resume.pdf"
                                     target="_blank"
+                                    rel="noopener noreferrer"
                                     title="Download Resume"
+                                    aria-label="Download resume"
                                     className="p-3 bg-indigo-600 rounded-full text-white hover:bg-indigo-500 hover:scale-110 transition-all shadow-lg shadow-indigo-500/20"
                                 >
                                     <Download size={20} />
@@ -89,6 +91,9 @@ export const Navbar = () => {
 
                     {/* Mobile Toggle (Always Visible on Mobile) */}
                     <button
+                        type="button"
+                        aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+                        aria-expanded={isMobileMenuOpen}
                         className="md:hidden text-white z-50 relative group"
                         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                     >
@@ -128,8 +133,8 @@ export const Navbar = () => {
                         exit={{ opacity: 0 }}
                         className="fixed inset-0 z-40 bg-dark flex flex-col justify-center px-8 md:hidden"
                     >
-                        <nav className="flex flex-col gap-8">
-                            {['Projects', 'Experience', 'Contact'].map((item, i) => (
+                        <nav className="flex flex-col gap-6">
+                            {['Skills', 'Projects', 'Experience', 'Education', 'Contact'].map((item, i) => (
                                 <motion.a
                                     key={item}
                                     href={`#${item.toLowerCase()}`}
@@ -137,7 +142,7 @@ export const Navbar = () => {
                                     initial={{ x: -50, opacity: 0 }}
                                     animate={{ x: 0, opacity: 1 }}
                                     transition={{ delay: 0.1 + i * 0.1, duration: 0.5, ease: [0.33, 1, 0.68, 1] }}
-                                    className="text-5xl font-heading font-bold text-white flex items-center gap-4 group"
+                                    className="text-4xl font-heading font-bold text-white flex items-center gap-4 group"
                                 >
                                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-neutral-500 to-neutral-700 group-hover:from-white group-hover:to-white transition-all duration-300">
                                         0{i + 1}

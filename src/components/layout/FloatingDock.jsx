@@ -10,9 +10,14 @@ export const FloatingDock = () => {
     if (isRecruiterMode) return null; // Hide in Recruiter Mode (use standard nav or strip)
 
     return (
-        <div className="hidden md:flex fixed bottom-8 left-1/2 -translate-x-1/2 z-50 h-16 items-end gap-4 rounded-2xl border border-white/10 bg-neutral-900/50 backdrop-blur-xl px-4 pb-3">
+        <nav
+            aria-label="Section navigation"
+            onMouseMove={(e) => mouseX.set(e.clientX)}
+            onMouseLeave={() => mouseX.set(Infinity)}
+            className="hidden md:flex fixed bottom-8 left-1/2 -translate-x-1/2 z-50 h-16 items-end gap-4 rounded-2xl border border-white/10 bg-neutral-900/50 backdrop-blur-xl px-4 pb-3"
+        >
             <DockIcon mouseX={mouseX} icon={<Home size={20} />} label="Home" onClick={() => window.scrollTo(0, 0)} />
-            <DockIcon mouseX={mouseX} icon={<User size={20} />} label="About" href="#academic" />
+            <DockIcon mouseX={mouseX} icon={<User size={20} />} label="About" href="#education" />
             <DockIcon mouseX={mouseX} icon={<Briefcase size={20} />} label="Work" href="#projects" />
             <DockIcon mouseX={mouseX} icon={<Mail size={20} />} label="Contact" href="#contact" />
 
@@ -39,7 +44,7 @@ export const FloatingDock = () => {
                     </div>
                 )}
             </div>
-        </div>
+        </nav>
     );
 };
 
@@ -60,20 +65,19 @@ const DockIcon = ({ mouseX, icon, label, href, onClick }) => {
             ref={ref}
             style={{ width }}
             className="aspect-square rounded-full bg-white/10 flex items-center justify-center relative group cursor-pointer hover:bg-white/20 transition-colors"
-            onClick={onClick}
         >
             {href ? (
-                <a href={href} className="flex items-center justify-center w-full h-full text-white">
+                <a href={href} aria-label={label} className="flex items-center justify-center w-full h-full text-white rounded-full focus-visible:outline focus-visible:outline-2 focus-visible:outline-indigo-500">
                     {icon}
                 </a>
             ) : (
-                <button className="flex items-center justify-center w-full h-full text-white">
+                <button type="button" onClick={onClick} aria-label={label} className="flex items-center justify-center w-full h-full text-white rounded-full focus-visible:outline focus-visible:outline-2 focus-visible:outline-indigo-500">
                     {icon}
                 </button>
             )}
 
             {/* Tooltip */}
-            <span className="absolute -top-10 left-1/2 -translate-x-1/2 px-2 py-1 bg-neutral-800 rounded text-xs text-white opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap border border-white/10">
+            <span aria-hidden="true" className="absolute -top-10 left-1/2 -translate-x-1/2 px-2 py-1 bg-neutral-800 rounded text-xs text-white opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity whitespace-nowrap border border-white/10">
                 {label}
             </span>
         </motion.div>

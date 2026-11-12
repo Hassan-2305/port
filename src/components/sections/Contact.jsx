@@ -12,13 +12,14 @@ import {
     ExternalLink
 } from 'lucide-react';
 import { MagneticButton } from '../ui/MagneticButton';
+import { profile } from '../../data/profile';
 
 const contactMethods = [
     {
         name: "GitHub",
         icon: Github,
-        handle: "@Hassan-2305",
-        link: "https://github.com/Hassan-2305",
+        handle: `@${profile.githubUser}`,
+        link: profile.github,
         action: "View Profile",
         gradient: "from-purple-500 to-pink-500",
         hoverGlow: "group-hover:shadow-[0_0_30px_rgba(168,85,247,0.4)]"
@@ -26,8 +27,8 @@ const contactMethods = [
     {
         name: "LinkedIn",
         icon: Linkedin,
-        handle: "Mohammed Hassan",
-        link: "https://www.linkedin.com/in/mohamhassan/",
+        handle: profile.name,
+        link: profile.linkedin,
         action: "Connect",
         gradient: "from-blue-500 to-cyan-500",
         hoverGlow: "group-hover:shadow-[0_0_30px_rgba(59,130,246,0.4)]"
@@ -35,7 +36,7 @@ const contactMethods = [
     {
         name: "Email",
         icon: Mail,
-        handle: "mohammedhassan2305@gmail.com",
+        handle: profile.email,
         action: "Copy",
         gradient: "from-orange-500 to-red-500",
         hoverGlow: "group-hover:shadow-[0_0_30px_rgba(249,115,22,0.4)]"
@@ -44,7 +45,7 @@ const contactMethods = [
         name: "Resume",
         icon: FileDown,
         handle: "Download PDF",
-        link: "/resume.pdf",
+        link: profile.resume,
         action: "Download",
         gradient: "from-green-500 to-emerald-500",
         hoverGlow: "group-hover:shadow-[0_0_30px_rgba(34,197,94,0.4)]"
@@ -57,14 +58,20 @@ export const Contact = () => {
     // Must be at top level — React Rules of Hooks
     const [state, handleSubmit] = useForm("xzdaqvrn");
 
-    const handleEmailCopy = () => {
-        const isMobile = window.matchMedia('(hover: none)').matches;
-        if (isMobile) {
-            window.location.href = 'mailto:mohammedhassan2305@gmail.com';
-        } else {
-            navigator.clipboard.writeText("mohammedhassan2305@gmail.com");
+    const isTouch = typeof window !== 'undefined' && window.matchMedia('(hover: none)').matches;
+
+    const handleEmailCopy = async () => {
+        if (isTouch) {
+            window.location.href = `mailto:${profile.email}`;
+            return;
+        }
+        try {
+            await navigator.clipboard.writeText(profile.email);
             setCopiedEmail(true);
             setTimeout(() => setCopiedEmail(false), 2000);
+        } catch {
+            // Clipboard blocked (insecure context / permissions) — fall back to mail client
+            window.location.href = `mailto:${profile.email}`;
         }
     };
 
@@ -97,6 +104,8 @@ export const Contact = () => {
                             type="text"
                             name="name"
                             placeholder="Your Name"
+                            aria-label="Your name"
+                            autoComplete="name"
                             required
                             className="w-full p-4 rounded-lg bg-white/5 border border-white/10 focus:border-indigo-500/50 text-white outline-none"
                         />
@@ -105,6 +114,8 @@ export const Contact = () => {
                             type="email"
                             name="email"
                             placeholder="Your Email"
+                            aria-label="Your email"
+                            autoComplete="email"
                             required
                             className="w-full p-4 rounded-lg bg-white/5 border border-white/10 focus:border-indigo-500/50 text-white outline-none"
                         />
@@ -118,6 +129,7 @@ export const Contact = () => {
                         <textarea
                             name="message"
                             placeholder="Your Message"
+                            aria-label="Your message"
                             required
                             rows="5"
                             className="w-full p-4 rounded-lg bg-white/5 border border-white/10 focus:border-indigo-500/50 text-white outline-none"
@@ -166,21 +178,28 @@ export const Contact = () => {
                 </motion.div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
-                    {contactMethods.map((method, index) => (
-                        <MagneticButton key={method.name} strength={0.3}>
-                            <motion.div
+                    {contactMethods.map((method, index) => {
+                        const isEmail = method.name === "Email";
+                        // Real <a>/<button> so cards work with keyboard and screen readers
+                        const Card = isEmail ? motion.button : motion.a;
+                        const cardProps = isEmail
+                            ? { type: "button", onClick: handleEmailCopy, "aria-label": `${isTouch ? 'Email' : 'Copy email address'} ${profile.email}` }
+                            : {
+                                href: method.link,
+                                target: "_blank",
+                                rel: "noopener noreferrer",
+                                ...(method.name === "Resume" ? { download: true } : {}),
+                                "aria-label": `${method.name}: ${method.action}`,
+                            };
+                        return (
+                        <MagneticButton key={method.name} strength={0.3} className="w-full">
+                            <Card
+                                {...cardProps}
                                 initial={{ opacity: 0, y: 50 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 transition={{ delay: index * 0.1, duration: 0.6 }}
                                 whileHover={{ y: -8 }}
-                                className={`group relative cursor-pointer ${method.hoverGlow} transition-shadow duration-500`}
-                                onClick={() => {
-                                    if (method.name === "Email") {
-                                        handleEmailCopy();
-                                    } else if (method.link) {
-                                        window.open(method.link, '_blank');
-                                    }
-                                }}
+                                className={`group relative block w-full text-left cursor-pointer rounded-2xl ${method.hoverGlow} transition-shadow duration-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-indigo-500 focus-visible:outline-offset-4`}
                             >
                                 <div className={`absolute -inset-0.5 bg-gradient-to-r ${method.gradient} rounded-2xl blur opacity-30 group-hover:opacity-60 transition duration-500`}></div>
                                 <div className="relative bg-neutral-900/90 backdrop-blur-xl rounded-2xl border border-white/10 p-8 h-full flex flex-col">
@@ -200,22 +219,23 @@ export const Contact = () => {
                                             </>
                                         ) : method.name === "Email" ? (
                                             <>
-                                                {window.matchMedia('(hover: none)').matches
-                                                    ? <Mail className="w-4 h-4" />
-                                                    : <Copy className="w-4 h-4" />}
-                                                {window.matchMedia('(hover: none)').matches ? 'Send Email' : 'Copy'}
+                                                {isTouch
+                                                    ? <Mail className="w-4 h-4" aria-hidden="true" />
+                                                    : <Copy className="w-4 h-4" aria-hidden="true" />}
+                                                {isTouch ? 'Send Email' : 'Copy'}
                                             </>
                                         ) : (
                                             <>
-                                                <ExternalLink className="w-4 h-4" />
+                                                <ExternalLink className="w-4 h-4" aria-hidden="true" />
                                                 {method.action}
                                             </>
                                         )}
                                     </div>
                                 </div>
-                            </motion.div>
+                            </Card>
                         </MagneticButton>
-                    ))}
+                        );
+                    })}
                 </div>
 
                 <motion.div

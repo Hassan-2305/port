@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { useMode } from '../../context/ModeContext';
 import { MagneticButton } from '../ui/MagneticButton';
 import { ArrowUpRight, Check } from 'lucide-react';
+import { profile } from '../../data/profile';
 
 export const Footer = () => {
     const { isRecruiterMode } = useMode();
@@ -14,15 +15,19 @@ export const Footer = () => {
         return () => clearInterval(timer);
     }, []);
 
-    const handleCopyEmail = () => {
-        navigator.clipboard.writeText("mohammedhassan2305@gmail.com");
-        setCopied(true);
-        setTimeout(() => setCopied(false), 2000);
+    const handleCopyEmail = async () => {
+        try {
+            await navigator.clipboard.writeText(profile.email);
+            setCopied(true);
+            setTimeout(() => setCopied(false), 2000);
+        } catch {
+            window.location.href = `mailto:${profile.email}`;
+        }
     };
 
     const socials = [
-        { name: "GitHub", link: "https://github.com/Hassan-2305" },
-        { name: "LinkedIn", link: "https://www.linkedin.com/in/mohamhassan/" },
+        { name: "GitHub", link: profile.github },
+        { name: "LinkedIn", link: profile.linkedin },
         { name: "Instagram", link: "https://www.instagram.com/dark_knight_20_/" },
         { name: "WhatsApp", link: "https://wa.me/8547771628" }
     ];
@@ -51,7 +56,8 @@ export const Footer = () => {
                         <div className="flex flex-col">
                             <span className="text-neutral-500 text-xs uppercase tracking-widest mb-1">Local Time</span>
                             <span className="text-white font-medium">
-                                {time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} GMT+5
+                                {/* Show Hassan's time (IST), not the visitor's */}
+                                {time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', timeZone: 'Asia/Kolkata' })} IST
                             </span>
                         </div>
                     </div>
@@ -76,18 +82,20 @@ export const Footer = () => {
                 {/* Massive Typography */}
                 <div className="relative border-t border-white/10 pt-10">
                     <MagneticButton strength={0.2}>
-                        <div
-                            className="group relative cursor-pointer overflow-hidden rounded-3xl"
+                        <button
+                            type="button"
+                            aria-label={copied ? "Email copied" : `Copy email address ${profile.email}`}
+                            className="group relative block w-full cursor-pointer overflow-hidden rounded-3xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-indigo-500"
                             onClick={handleCopyEmail}
                         >
-                            <motion.h1
+                            <motion.span
                                 initial={{ y: "100%" }}
                                 whileInView={{ y: 0 }}
                                 transition={{ duration: 1, ease: [0.33, 1, 0.68, 1] }}
-                                className="text-[12vw] md:text-[14vw] font-bold font-heading leading-[0.8] tracking-tighter text-center text-white mix-blend-difference group-hover:text-neutral-400 transition-colors duration-500"
+                                className="block text-[12vw] md:text-[14vw] font-bold font-heading leading-[0.8] tracking-tighter text-center text-white mix-blend-difference group-hover:text-neutral-400 transition-colors duration-500"
                             >
                                 LET'S TALK
-                            </motion.h1>
+                            </motion.span>
 
                             {/* Hover Reveal Button */}
                             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
@@ -95,7 +103,7 @@ export const Footer = () => {
                                     {copied ? <Check /> : "Copy Email"}
                                 </div>
                             </div>
-                        </div>
+                        </button>
                     </MagneticButton>
                 </div>
 
@@ -103,9 +111,13 @@ export const Footer = () => {
                 <div className="flex flex-col md:flex-row justify-between items-center mt-12 pt-8 border-t border-white/5 text-xs text-neutral-500 uppercase tracking-wider">
                     <p>&copy; 2026 Mohammed Hassan</p>
                     <p>Designed & Engineered with Craft</p>
-                    <div className="flex items-center gap-1">
-                        SCROLL TO TOP <ArrowUpRight size={14} />
-                    </div>
+                    <button
+                        type="button"
+                        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                        className="flex items-center gap-1 uppercase tracking-wider hover:text-white transition-colors"
+                    >
+                        SCROLL TO TOP <ArrowUpRight size={14} aria-hidden="true" />
+                    </button>
                 </div>
 
             </div>
